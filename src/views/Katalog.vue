@@ -1,5 +1,8 @@
 <template>
+  <div>
+  <Cards/>
   <div class="katalog">
+    <Cards/>
     <h1>This is an KATALOG page</h1>
 
      <ul v-if="posts && posts.length">
@@ -24,11 +27,16 @@
     </mdb-card-body>
   </mdb-card>
   </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Cards from '../components/Cards'
 export default {
+  components:{
+    Cards
+  },
   data() {
     return {
       posts: [],
