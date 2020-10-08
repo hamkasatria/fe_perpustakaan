@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-15">
+  <div class="mt-15" >
       <formRegister/>
   </div>
 </template>

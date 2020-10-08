@@ -24,7 +24,7 @@
             <em>User</em>
           </template>
           <b-dropdown-item href="#"><router-link to="/login">Login</router-link></b-dropdown-item>
-          <b-dropdown-item href="#">Sign up</b-dropdown-item>
+          <b-dropdown-item href="#"><router-link to="/register">Sign Up</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
