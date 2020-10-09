@@ -5,7 +5,7 @@
     <div class="wrapper">
       <router-view />
     </div>
-    <router-view name="footer" />
+    <!-- <router-view name="footer" /> -->
       <Footer />
     
   </div>

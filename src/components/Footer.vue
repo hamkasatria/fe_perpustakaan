@@ -6,14 +6,15 @@
     <mdb-container class="text-left">
       <mdb-row>
         <mdb-col md="6">
-          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Footer Content</h5>
-          <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
-            amet, consectetur adipisicing elit.</p>
+          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Praxis Academy</h5>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, adipisci perspiciatis error, consequuntur rem exercitationem qui quae nulla quisquam, corrupti ex laudantium dolor est beatae veritatis? Maiores tempore iste nihil? 
+          </p>
         </mdb-col>
         <hr class="clearfix w-100 d-md-none" />
         <mdb-col md="2">
-          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-          <ul class="list-unstyled">
+          <h5 class=" mb-4 mt-3 font-weight-bold">Links1</h5>
+          <ul class="" >
             <li><a href="#!">Link 1</a></li>
             <li><a href="#!">Link 2</a></li>
             <li><a href="#!">Link 3</a></li>
@@ -21,23 +22,14 @@
           </ul>
         </mdb-col>
         <hr class="clearfix w-100 d-md-none" />
-        <mdb-col md="2">
-          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
-          </ul>
-        </mdb-col>
+
         <hr class="clearfix w-100 d-md-none" />
         <mdb-col md="2">
-          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
+          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Hubungi Kami</h5>
           <ul class="list-unstyled">
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
+            <li>Email</li>
+            <li>Link</li>
+            <li>Pesan</li>
           </ul>
         </mdb-col>
       </mdb-row>
@@ -54,7 +46,7 @@
     </div>
     <div class="footer-copyright text-center py-3">
       <mdb-container fluid>
-        &copy; 2020 Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+        &copy; 2020 Copyright:  praxis_aja
       </mdb-container>
     </div>
   </mdb-footer>
@@ -81,7 +73,7 @@
   /* background-color: #6699ff; */
 }
 .background_color{
-    background-color: #0099CC;
+    background-color: #F96332;
 }
 .margin {
   margin: 10px 10px 10px 10px;

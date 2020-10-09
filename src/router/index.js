@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 //import Home from '../views/Home.vue'
 import MainNavbar from '../layout/MainNavbar.vue';
 import MainFooter from '../layout/MainFooter.vue';
-import Index from '../pages/Index.vue';
+//import Index from '../pages/Index.vue';
 import Katalog from '../views/Katalog.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/register.vue';
+import Tentang from '../views/Tentang.vue';
 // import Katalog from '../views/Katalog.vue'
 
 Vue.use(VueRouter)
@@ -16,7 +17,7 @@ const routes = [
     path: '/',
     name: 'Home',
     // component: Home
-    components: { default: Index, header: MainNavbar, footer: MainFooter },
+    components: { default: Tentang, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
