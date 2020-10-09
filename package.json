@@ -13,11 +13,16 @@
     "axios": "^0.20.0",
     "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
     "mdbootstrap": "^4.19.1",
     "mdbvue": "6.7.1",
+    "nouislider": "^14.6.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.5.1"
+    "vue2-transitions": "^0.3.0",
+    "vuex": "^3.5.1",
+    "vue-lazy-load": "^0.0.7",
+    "vue-lazyload": "^1.3.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -28,7 +33,9 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "vue-cli-plugin-mdb": "~2.1.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2"
   },
   "eslintConfig": {
     "root": true,
