@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-//import Home from '../views/Home.vue'
 import MainNavbar from '../layout/MainNavbar.vue';
 import MainFooter from '../layout/MainFooter.vue';
 //import Index from '../pages/Index.vue';
@@ -8,7 +7,12 @@ import Katalog from '../views/Katalog.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/register.vue';
 import Tentang from '../views/Tentang.vue';
-// import Katalog from '../views/Katalog.vue'
+import Admin from '../views/Admin.vue';
+import dataKatalog from '../views/admin/dataKatalog.vue';
+import dataPengguna from '../views/admin/dataPengguna.vue';
+import dataPeminjaman from '../views/admin/dataPeminjaman.vue';
+
+
 
 Vue.use(VueRouter)
 
@@ -45,6 +49,46 @@ const routes = [
     path: '/register',
     name: 'register',
     components: { default: Register, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    // component: Home
+    components: { default: Admin},
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+  },
+  {
+    path: '/dataKatalog',
+    name: 'dataKatalog',
+    // component: Home
+    components: { default: dataKatalog},
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+  },
+  {
+    path: '/dataPengguna',
+    name: 'dataPengguna',
+    // component: Home
+    components: { default: dataPengguna},
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+  },
+  {
+    path: '/dataPeminjaman',
+    name: 'dataPeminjaman',
+    // component: Home
+    components: { default: dataPeminjaman},
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

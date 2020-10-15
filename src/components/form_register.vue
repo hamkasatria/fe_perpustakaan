@@ -114,7 +114,7 @@ export default {
     if (!localStorage.getItem("Bearer")) {
       scrollTo(0, 0);
     } else {
-      this.$router.push({ name: "Dashboard" });
+      // this.$router.push({ name: "Dashboard" });
     }
   },
 };

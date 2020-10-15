@@ -1,4 +1,3 @@
->
 <template>
   <div>
     <div class="katalog">
@@ -13,8 +12,8 @@
               <mdb-card-title>{{ post.judul }}</mdb-card-title>
               <p>{{ post.author }} - {{ post.tahun }}</p>
               <!-- <mdb-card-text>{{ post.sinopsis }}</mdb-card-text> -->
-              <mdb-btn class="btn btn-info">Info</mdb-btn>
-              <mdb-btn color="primary">Button</mdb-btn>
+              <mdb-btn @click="modal" class="btn btn-info" @click.native="modals.classic = true" >Info</mdb-btn>
+              <mdb-btn color="primary">Pinjam</mdb-btn>
             </mdb-card-body>
           </mdb-card>
         </li>
@@ -26,18 +25,43 @@
         </li>
       </ul>
     </div>
-    <!-- merupakan yang baru -->
+    <!-- mengeluarkan modal -->
+
+    <modal :show.sync="modals.classic" headerClasses="justify-content-center">
+      <h4 slot="header" class="title title-up">Modal title</h4>
+      <p>
+        Far far away, behind the word mountains, far from the countries Vokalia
+        and Consonantia, there live the blind texts. Separated they live in
+        Bookmarksgrove right at the coast of the Semantics, a large language
+        ocean. A small river named Duden flows by their place and supplies it
+        with the necessary regelialia. It is a paradisematic country, in which
+        roasted parts of sentences fly into your mouth.
+      </p>
+      <template slot="footer">
+        <n-button>Nice Button</n-button>
+        <n-button type="danger" @click.native="modals.classic = false"
+          >Close</n-button
+        >
+      </template>
+    </modal>
+
+    <n-button type="primary" @click.native="modals.classic = true">
+      Launch Modal trial
+    </n-button>
   </div>
 </template>
 <script>
 import axios from "axios";
+
+import { Button, Modal, FormGroupInput } from '@/components';
+import { Popover, Tooltip, DatePicker } from 'element-ui';
 import {
   mdbCard,
   mdbCardImage,
   mdbCardBody,
   mdbCardTitle,
-  // mdbCardText,
   mdbBtn,
+  
 } from "mdbvue";
 export default {
   name: "CardPage",
@@ -46,13 +70,26 @@ export default {
     mdbCardImage,
     mdbCardBody,
     mdbCardTitle,
-    // mdbCardText,
     mdbBtn,
+
+    Modal,
+    [Button.name]: Button,
+    [Popover.name]: Popover,
+    [Tooltip.name]: Tooltip,
+    [DatePicker.name]: DatePicker,
+    [FormGroupInput.name]: FormGroupInput
   },
   data() {
     return {
       posts: [],
       errors: [],
+      modals: {
+        classic: false,
+        mini: false
+      },
+      pickers: {
+        datePicker: ''
+      }
     };
   },
   // Fetches posts when the component is created.
@@ -62,10 +99,14 @@ export default {
       .then((response) => {
         // JSON responses are automatically parsed.
         this.posts = response.data;
+        
       })
       .catch((e) => {
         this.errors.push(e);
       });
+  },
+  modal() {
+    //mengeluarkan card
   },
 };
 </script>
@@ -88,8 +129,8 @@ ul {
   grid-template-columns: repeat(4, auto);
   grid-template-rows: repeat(2, auto);
 }
-.katalog{
-	margin: 20px;
-	justify-content: center;
+.katalog {
+  margin: 20px;
+  justify-content: center;
 }
 </style>

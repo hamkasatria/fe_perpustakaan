@@ -88,7 +88,7 @@ console.log("ini adalah console");
           localStorage.setItem(res.data.tokenType, res.data.accessToken);
           this.$store.state.token = res.data.accessToken;
           this.$swal("anda berhasil masuk");
-          this.$router.push({ name: "Dashboard" });
+          // this.$router.push({ name: "Dashboard" });
         })
         .catch((err) => {
           this.$swal({
@@ -103,7 +103,7 @@ console.log("ini adalah console");
     if (!localStorage.getItem("Bearer")) {
       scrollTo(0, 0);
     } else {
-      this.$router.push({ name: "Dashboard" });
+      // this.$router.push({ name: "Dashboard" });
     }
   },
 };

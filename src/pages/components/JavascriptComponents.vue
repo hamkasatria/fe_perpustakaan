@@ -5,6 +5,7 @@
       <div class="row" id="modals">
         <div class="col-md-6 modal-buttons">
           <h4>Modal</h4>
+          <!-- button modal -->
           <n-button type="primary" @click.native="modals.classic = true">
             Launch Modal
           </n-button>
