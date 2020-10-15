@@ -11,6 +11,7 @@ import Admin from '../views/Admin.vue';
 import dataKatalog from '../views/admin/dataKatalog.vue';
 import dataPengguna from '../views/admin/dataPengguna.vue';
 import dataPeminjaman from '../views/admin/dataPeminjaman.vue';
+import dataCoba from '../views/admin/dataCoba.vue';
 
 
 
@@ -89,6 +90,16 @@ const routes = [
     name: 'dataPeminjaman',
     // component: Home
     components: { default: dataPeminjaman},
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+  },
+  {
+    path: '/dataCoba',
+    name: 'dataCoba',
+    // component: Home
+    components: { default: dataCoba},
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
