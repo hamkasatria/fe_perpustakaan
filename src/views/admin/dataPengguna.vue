@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <b-container fluid>
       <h1>DATA PENGGUNA</h1>
       <b-row>
@@ -89,9 +89,9 @@
             class="mb-0"
           >
             <b-form-checkbox-group v-model="filterOn" class="mt-1">
-              <b-form-checkbox value="name">Name</b-form-checkbox>
-              <b-form-checkbox value="age">Age</b-form-checkbox>
-              <b-form-checkbox value="isActive">Active</b-form-checkbox>
+              <b-form-checkbox value="username">Username</b-form-checkbox>
+              <b-form-checkbox value="email">Email</b-form-checkbox>
+              <b-form-checkbox value="noHp">No HP</b-form-checkbox>
             </b-form-checkbox-group>
           </b-form-group>
         </b-col>

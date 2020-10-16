@@ -7,9 +7,14 @@
     <div class="content">
       <div class="container">
         <div class="col-md-5 ml-auto mr-auto">
+          <div class="container">
+            <div class="content-center brand">
+              <h1 class="h1-seo">MASUK AKUN</h1>
+            </div>
+          </div>
           <card type="login" plain>
             <div slot="header" class="logo-container">
-              <img v-lazy="'img/now-logo.png'" alt="" />
+              <!-- <img v-lazy="'img/logo_praxis.png'" alt="" /> -->
             </div>
 
             <form>
@@ -58,7 +63,6 @@
 <script>
 import { Card, Button } from "@/components";
 import axios from "axios";
-// import { mapGetters } from "vuex";
 
 export default {
   name: "login-page",
@@ -79,29 +83,22 @@ export default {
 
   methods: {
     submit: function() {
-console.log("ini adalah console");
       axios
         .post("http://localhost:8081/guess/signin", this.data)
         .then((res) => {
-          console.log("ini adalah respon = "+res.data.accessToken);
-          alert(localStorage.getItem("Anda berhasil masuk"));
           localStorage.setItem(res.data.tokenType, res.data.accessToken);
           this.$store.state.token = res.data.accessToken;
-          this.$swal("anda berhasil masuk");
-          // this.$router.push({ name: "Dashboard" });
-        })
-        .catch((err) => {
-          this.$swal({
-            icon: "error",
-            title: err,
-          });
+          // console.log(this.$store.state.token)
+          alert("anda berhasil masuk");
+          this.$router.go({ path: "/" });
         });
+      this.$router.push({ path: "/" });
     },
   },
 
-  beforeMount() {
+  beforeCreate() {
     if (!localStorage.getItem("Bearer")) {
-      scrollTo(0, 0);
+      // scrollTo(0, 0);
     } else {
       // this.$router.push({ name: "Dashboard" });
     }

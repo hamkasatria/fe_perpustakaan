@@ -16,10 +16,10 @@ export default {
     return {
       columns: [
         { field: "id", label: "ID", sort: true },
-        // { field: "username", label: "Username", sort: true },
-        // { field: "email", label: "Email", sort: true },
-        // { field: "noHp", label: "noHp", sort: true },
-        // { field: "updatedAt", label: "Tanggal Update", sort: true },
+        { field: "judul", label: "Judul", sort: true },
+        { field: "author", label: "Author", sort: true },
+        { field: "tahun", label: "tahun", sort: true },
+        { field: "sinopsis", label: "Sinopsis", sort: true },
         // { label: "Action", sort:false}
       ],
       rows: [],

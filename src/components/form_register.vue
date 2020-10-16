@@ -7,9 +7,14 @@
     <div class="content">
       <div class="container">
         <div class="col-md-5 ml-auto mr-auto">
+          <div class="container">
+            <div class="content-center brand">
+              <h1 class="h1-seo">MEMBUAT AKUN</h1>
+            </div>
+          </div>
           <card type="login" plain>
             <div slot="header" class="logo-container">
-              <img v-lazy="'img/now-logo.png'" alt="" />
+              <!-- <img v-lazy="'img/logo_praxis.png'" alt="" /> -->
             </div>
 
             <form>
@@ -54,7 +59,7 @@
                 @click="submit"
                 class="btn btn-primary btn-round btn-lg btn-block"
               >
-                Buat Akun
+                Buat
               </button>
               <div class="pull-center">
                 <h6>
@@ -68,8 +73,6 @@
     </div>
   </div>
 </template>
-
-
 
 <script>
 import { Card, Button } from "@/components";
@@ -97,8 +100,6 @@ export default {
   methods: {
     submit: async function() {
       console.log(this.data);
-
-      // const axios = await import("axios");
       console.log(this.data);
       axios
         .post("http://localhost:8081/guess/signup", this.data)

@@ -18,7 +18,7 @@ export default {
       columns: [
         { field: "id", label: "ID", sort: true },
         { field: "status", label: "Status", sort: true },
-      //   { field: "email", label: "Email", sort: true },
+        { field: "idUser", label: "ID User", sort: true },
       //   { field: "noHp", label: "noHp", sort: true },
       //   { field: "updatedAt", label: "Tanggal Update", sort: true },
       //   { label: "Action", sort:false}

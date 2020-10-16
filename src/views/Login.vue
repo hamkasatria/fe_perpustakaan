@@ -1,6 +1,5 @@
 <template>
   <div>
-    ini form login vue
     <formLogin /> 
   </div>
 </template>

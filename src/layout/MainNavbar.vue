@@ -41,53 +41,26 @@
         icon="now-ui-icons users_circle-08"
         class="nav-item"
       >
-        <nav-link to="/login">
-          <i class="now-ui-icons users_circle-08"></i> Login
-        </nav-link>
-        <nav-link to="/register">
-          <i class="now-ui-icons users_single-02"></i> SignUp
-        </nav-link>
-      </drop-down>
+        <div v-if="userstatus">
+          <nav-link to="/login">
+            <i class="now-ui-icons users_circle-08"></i> Login
+          </nav-link>
+          <nav-link to="/register">
+            <i class="now-ui-icons users_single-02"></i> SignUp
+          </nav-link>
+        </div>
+        <div v-else>
+          <nav-link to="/profile">
+            <i class="now-ui-icons users_circle-08"></i> Profile
+          </nav-link>
 
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          rel="tooltip"
-          title="Ikuti kami di Github"
-          data-placement="bottom"
-          href="https://github.com/praxis-academy"
-          target="_blank"
-        >
-          <i class="fab fa-github"></i>
-          <p class="d-lg-none d-xl-none">Github</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          rel="tooltip"
-          title="Ikuti kami di Facebook"
-          data-placement="bottom"
-          href="https://www.facebook.com/praxisacademy.id/"
-          target="_blank"
-        >
-          <i class="fab fa-facebook-square"></i>
-          <p class="d-lg-none d-xl-none">Facebook</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          rel="tooltip"
-          title="Ikuti kami di Instagram"
-          data-placement="bottom"
-          href="https://www.instagram.com/praxisacademy/"
-          target="_blank"
-        >
-          <i class="fab fa-instagram"></i>
-          <p class="d-lg-none d-xl-none">Instagram</p>
-        </a>
-      </li>
+          <nav-link>
+            <div @click="logout">
+              <i class="now-ui-icons users_single-02"></i> Logout
+            </div>
+          </nav-link>
+        </div>
+      </drop-down>
     </template>
   </navbar>
 </template>
@@ -97,15 +70,36 @@ import { DropDown, Navbar, NavLink } from "@/components";
 import { Popover } from "element-ui";
 export default {
   name: "main-navbar",
+
   props: {
     transparent: Boolean,
     colorOnScroll: Number,
+    // userstatus: Boolean,
   },
   components: {
     DropDown,
     Navbar,
     NavLink,
     [Popover.name]: Popover,
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("Bearer");
+      alert("anda berhasil logout");
+
+      this.$router.go();
+      // this.$router.push({ name: "Login" });
+    },
+  },
+
+  computed: {
+    userstatus: function() {
+      if (localStorage.getItem("Bearer") === null) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
 };
 </script>

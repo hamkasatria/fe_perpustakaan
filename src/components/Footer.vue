@@ -1,82 +1,136 @@
 <template>
-<div>
+  <div>
+    <!-- Footer -->
+    <mdb-footer
+      color="stylish-color-dark"
+      class="page-footer font-small pt-4 mt-4 background_color"
+    >
+      <mdb-container class="text-left">
+        <mdb-row>
+          <mdb-col md="6">
+            <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">
+              Praxis Academy
+            </h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, accusantium nihil vero 
+              reiciendis, praesentium eius nemo deserunt, atque provident asperiores non! Ipsum ut 
+              neque amet fugiat. Sint hic impedit numquam.
+            </p>
+          </mdb-col>
+          <hr class="clearfix w-100 d-md-none" />
+          <mdb-col md="2">
 
-  <!-- Footer -->
-  <mdb-footer color="stylish-color-dark" class="page-footer font-small pt-4 mt-4 background_color">
-    <mdb-container class="text-left">
-      <mdb-row>
-        <mdb-col md="6">
-          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Praxis Academy</h5>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, adipisci perspiciatis error, consequuntur rem exercitationem qui quae nulla quisquam, corrupti ex laudantium dolor est beatae veritatis? Maiores tempore iste nihil? 
-          </p>
-        </mdb-col>
-        <hr class="clearfix w-100 d-md-none" />
-        <mdb-col md="2">
-          <h5 class=" mb-4 mt-3 font-weight-bold">Links1</h5>
-          <ul class="" >
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
-          </ul>
-        </mdb-col>
-        <hr class="clearfix w-100 d-md-none" />
+          </mdb-col>
+          <hr class="clearfix w-100 d-md-none" />
 
-        <hr class="clearfix w-100 d-md-none" />
-        <mdb-col md="2">
-          <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Hubungi Kami</h5>
-          <ul class="list-unstyled">
-            <li>Email</li>
-            <li>Link</li>
-            <li>Pesan</li>
-          </ul>
-        </mdb-col>
-      </mdb-row>
-    </mdb-container>
-    <hr />
-    <div class="text-center">
-      <ul class="list-unstyled list-inline">
-        <li class="list-inline-item"><a class="btn-floating btn-sm btn-fb mx-1"><i class="fab fa-facebook"> </i></a></li>
-        <li class="list-inline-item"><a class="btn-floating btn-sm btn-tw mx-1"><i class="fab fa-twitter"> </i></a></li>
-        <li class="list-inline-item"><a class="btn-floating btn-sm btn-gplus mx-1"><i class="fab fa-google-plus"> </i></a></li>
-        <li class="list-inline-item"><a class="btn-floating btn-sm btn-li mx-1"><i class="fab fa-linkedin-in"> </i></a></li>
-        <li class="list-inline-item"><a class="btn-floating btn-sm btn-dribbble mx-1"><i class="fab fa-dribbble"> </i></a></li>
-      </ul>
-    </div>
-    <div class="footer-copyright text-center py-3">
-      <mdb-container fluid>
-        &copy; 2020 Copyright:  praxis_aja
+          <hr class="clearfix w-100 d-md-none" />
+          <mdb-col md="2">
+            <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">
+              Hubungi Kami
+            </h5>
+            <ul class="list-unstyled text-center">
+              <li>Telephone</li>
+              <li>Fax</li>
+              <li>Email</li>
+            </ul>
+          </mdb-col>
+        </mdb-row>
       </mdb-container>
-    </div>
-  </mdb-footer>
-  <!-- Footer -->
-</div>
+      <hr />
+      <div class="text-center" style="white">
+        <div class="">
+          <div class="oo">
+            <div class="d-flex">
+              <a
+                class="nav-link"
+                style="color:black;"
+                rel="tooltip"
+                title="Ikuti kami di Github"
+                data-placement="bottom"
+                href="https://github.com/praxis-academy"
+                target="_blank"
+              >
+                <i class="fab fa-github"></i>
+                <p class="d-lg-none d-xl-none">Github</p>
+              </a>
+              <a
+                class="nav-link"
+                style="color: black"
+                rel="tooltip"
+                title="Ikuti kami di Facebook"
+                data-placement="bottom"
+                href="https://www.facebook.com/praxisacademy.id/"
+                target="_blank"
+              >
+                <i class="fab fa-facebook-square"></i>
+                <p class="d-lg-none d-xl-none">Facebook</p>
+              </a>
+              <a
+                class="nav-link"
+                style="color: black"
+                rel="tooltip"
+                title="Ikuti kami di Instagram"
+                data-placement="bottom"
+                href="https://www.instagram.com/praxisacademy/"
+                target="_blank"
+              >
+                <i class="fab fa-instagram"></i>
+                <p class="d-lg-none d-xl-none">Instagram</p>
+              </a>
+              <a
+                class="nav-link"
+                style="color: black"
+                rel="tooltip"
+                title="Ikuti kami di Twitter"
+                data-placement="bottom"
+                href="https://twitter.com/PraxisAcademyId"
+                target="_blank"
+              >
+                <i class="fab fa-twitter"></i>
+                <p class="d-lg-none d-xl-none">Twitter</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright text-center py-3">
+          <mdb-container fluid>
+            &copy; 2020 Copyright: Perpus Praxis.
+          </mdb-container>
+        </div>
+      </div>
+    </mdb-footer>
+    <!-- Footer -->
+  </div>
 </template>
 
 <script>
-  import { mdbFooter, mdbContainer, mdbRow, mdbCol } from 'mdbvue';
-  export default {
-      name: 'FooterPage',
-    components: {
-      mdbFooter,
-      mdbContainer,
-      mdbRow,
-      mdbCol
-    }
-  }
+import { mdbFooter, mdbContainer, mdbRow, mdbCol } from "mdbvue";
+export default {
+  name: "FooterPage",
+  components: {
+    mdbFooter,
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+  },
+};
 </script>
 
 <style scoped>
 .covv {
-    border: 1px solid #000;
+  border: 1px solid #000;
   /* background-color: #6699ff; */
 }
-.background_color{
-    background-color: #F96332;
+.background_color {
+  background-color: #f96332;
 }
 .margin {
   margin: 10px 10px 10px 10px;
   border: 1px solid #000;
+}
+.oo {
+  margin: auto 0;
+  display: flex;
+  justify-content: center;
 }
 </style>
