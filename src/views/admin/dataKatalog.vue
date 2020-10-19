@@ -1,7 +1,10 @@
 <template>
-  <mdb-container>
-    <mdb-datatable-2 v-model="data" striped bordered arrows :display="3" />
-  </mdb-container>
+  <div>
+    <mdb-container>
+      <mdb-datatable-2 v-model="data" striped bordered arrows :display="3" />
+    </mdb-container>
+    <div>{{getNama}}</div>
+  </div>
 </template>
 
 <script>
@@ -31,6 +34,9 @@ export default {
         columns: this.columns,
         rows: this.rows,
       };
+    },
+    getNama() {
+      return this.$store.getters.nama;
     },
   },
   methods: {
