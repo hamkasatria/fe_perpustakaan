@@ -2,8 +2,7 @@
   <div>
     <div class="katalog">
       <ul v-if="posts && posts.length">
-        <li v-for="(post) of posts" v-bind:key="post.id">
-       
+        <li v-for="post of posts" v-bind:key="post.id">
           <mdb-card class="card">
             <mdb-card-image
               src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%286%29.jpg"
@@ -13,16 +12,14 @@
               <mdb-card-title>{{ post.judul }}</mdb-card-title>
               <p>{{ post.author }} - {{ post.tahun }}</p>
               <!-- <mdb-card-text>{{ post.sinopsis }}</mdb-card-text> -->
-              <!-- <mdb-btn
+              <!-- @click.native="modals.classic = true" -->
+
+              <b-button
+                v-b-modal.modal-1
                 class="btn btn-info"
-                @click.native="modals.classic = true"
-                >Info</mdb-btn
-              > -->
-              <mdb-btn
-                class="btn btn-info"
-                @click="modal()"
+                @click="modal(post.id)"
+                >info</b-button
               >
-              </mdb-btn>
               <mdb-btn @click="pinjam(post.id)" color="primary">Pinjam</mdb-btn>
             </mdb-card-body>
           </mdb-card>
@@ -37,10 +34,10 @@
     </div>
     <!-- mengeluarkan modal -->
 
-    <modal :show.sync="modal"  headerClasses="justify-content-center">
+    <!-- <modal :show.sync="modals.classic" isActiveheaderClasses="justify-content-center">
       <h4 slot="header" class="title title-up">Modal title</h4>
       <div>
-        <!-- {{id}} -->
+        
       </div>
       <p></p>
       <template slot="footer">
@@ -49,13 +46,23 @@
           >Close</n-button
         >
       </template>
-    </modal>
+    </modal> -->
+
+    <!-- modal bootstrrap -->
+    <div class="modal-container">
+      <div>
+        <b-modal id="modal-1" title="v-text">
+          <p class="my-4">ini adalah modal {{modals.id}}</p>
+        </b-modal>
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 
-import { Button, Modal, FormGroupInput } from "@/components";
+import { Button, FormGroupInput } from "@/components";
 import { Popover, Tooltip, DatePicker } from "element-ui";
 import {
   mdbCard,
@@ -73,7 +80,6 @@ export default {
     mdbCardTitle,
     mdbBtn,
 
-    Modal,
     [Button.name]: Button,
     [Popover.name]: Popover,
     [Tooltip.name]: Tooltip,
@@ -88,8 +94,7 @@ export default {
       posts: [],
       errors: [],
       modals: {
-        classic: false,
-        mini: false,
+        id:[],
       },
       pickers: {
         datePicker: "",
@@ -101,11 +106,7 @@ export default {
       if (localStorage.getItem("Bearer") == null) {
         alert("silahkan login dahulu");
       } else {
-        alert(id + "----------" + localStorage.getItem("Bearer"));
-        // localStorage.getItem('Bearer').then(res => console.log(res))
         const params = { idKatalog: `${id}` };
-
-      
         const config = {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("Bearer"),
@@ -119,8 +120,19 @@ export default {
           .catch((err) => console.log("===", err));
       }
     },
-    modal: function() {
-      return true
+    modal: function(id) {
+      console.log("ini adalah modal" + id);
+      this.modals.id= id
+      //get data berdasarkan id
+      //dilanjutkan dengan
+      // const detailKatalog = `
+      // <div>
+      //   <b-modal id="modal-1" title="BootstrapVue">
+      //     <p class="my-4">ini adalah modal</p>
+      //   </b-modal>
+      // </div>
+      // `;
+      //$(.modal-container).html(detailKatalog)
     },
   },
   // Fetches posts when the component is created.
