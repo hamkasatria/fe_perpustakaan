@@ -7,24 +7,33 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        listAgenda: [
-            { hari: 'senin', kegiatan: 'Belajar Vuejs' },
-            { hari: 'selasa', kegiatan: 'Belajar Laravel' },
-            { hari: 'rabu', kegiatan: 'Belajar Mysql' }
-        ]
+        katalog: [],
+        user: [],
+        peminjaman: []
     },
     modules: {
         auth
     },
     mutations: {
-
+        setkatalog: function (data) {
+            this.state.katalog = data
+        }
     },
     actions: {
 
     },
     getters: {
-        nama: function (state){
-            return state.listAgenda
-        }
+        getKatalog: function (state) {
+            return state.katalog
+        },
+        getPeminjaman: function (state) {
+            return state.peminjaman
+        },
+        getUser: function (state) {
+            return state.user
+        },
+        // getKatalogByid:function (id){
+        //     return 
+        // }
     }
 });

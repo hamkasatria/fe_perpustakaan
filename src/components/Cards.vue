@@ -2,7 +2,8 @@
   <div>
     <div class="katalog">
       <ul v-if="posts && posts.length">
-        <li v-for="post of posts" v-bind:key="post.id">
+        <li v-for="(post) of posts" v-bind:key="post.id">
+       
           <mdb-card class="card">
             <mdb-card-image
               src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%286%29.jpg"
@@ -12,13 +13,17 @@
               <mdb-card-title>{{ post.judul }}</mdb-card-title>
               <p>{{ post.author }} - {{ post.tahun }}</p>
               <!-- <mdb-card-text>{{ post.sinopsis }}</mdb-card-text> -->
-              <mdb-btn
-                @click="modal"
+              <!-- <mdb-btn
                 class="btn btn-info"
                 @click.native="modals.classic = true"
                 >Info</mdb-btn
+              > -->
+              <mdb-btn
+                class="btn btn-info"
+                @click="modal()"
               >
-              <mdb-btn @click="pinjam" color="primary">Pinjam</mdb-btn>
+              </mdb-btn>
+              <mdb-btn @click="pinjam(post.id)" color="primary">Pinjam</mdb-btn>
             </mdb-card-body>
           </mdb-card>
         </li>
@@ -32,16 +37,12 @@
     </div>
     <!-- mengeluarkan modal -->
 
-    <modal :show.sync="modals.classic" headerClasses="justify-content-center">
+    <modal :show.sync="modal"  headerClasses="justify-content-center">
       <h4 slot="header" class="title title-up">Modal title</h4>
-      <p>
-        Far far away, behind the word mountains, far from the countries Vokalia
-        and Consonantia, there live the blind texts. Separated they live in
-        Bookmarksgrove right at the coast of the Semantics, a large language
-        ocean. A small river named Duden flows by their place and supplies it
-        with the necessary regelialia. It is a paradisematic country, in which
-        roasted parts of sentences fly into your mouth.
-      </p>
+      <div>
+        <!-- {{id}} -->
+      </div>
+      <p></p>
       <template slot="footer">
         <n-button>Nice Button</n-button>
         <n-button type="danger" @click.native="modals.classic = false"
@@ -49,8 +50,6 @@
         >
       </template>
     </modal>
-
-
   </div>
 </template>
 <script>
@@ -83,8 +82,8 @@ export default {
   },
   data() {
     return {
-      buku:{
-        idKatalog:""
+      buku: {
+        idKatalog: "",
       },
       posts: [],
       errors: [],
@@ -98,14 +97,30 @@ export default {
     };
   },
   methods: {
-    pinjam: async function() {
-      const headers = {
-        Authorization: localStorage.getItem('Bearer')
-      };console.log(localStorage.getItem("Bearer"))
-      axios
-        .post("http://localhost:8081/user/", this.buku,{ headers })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+    pinjam: function(id) {
+      if (localStorage.getItem("Bearer") == null) {
+        alert("silahkan login dahulu");
+      } else {
+        alert(id + "----------" + localStorage.getItem("Bearer"));
+        // localStorage.getItem('Bearer').then(res => console.log(res))
+        const params = { idKatalog: `${id}` };
+
+      
+        const config = {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Bearer"),
+          },
+        };
+        console.log(config);
+
+        axios
+          .post(`http://localhost:8081/user/`, params, config)
+          .then((res) => console.log(res))
+          .catch((err) => console.log("===", err));
+      }
+    },
+    modal: function() {
+      return true
     },
   },
   // Fetches posts when the component is created.
@@ -115,13 +130,11 @@ export default {
       .then((response) => {
         // JSON responses are automatically parsed.
         this.posts = response.data;
+        this.$store.commit("setkatalog", this.posts);
       })
       .catch((e) => {
         this.errors.push(e);
       });
-  },
-  modal() {
-    //mengeluarkan card
   },
 };
 </script>
