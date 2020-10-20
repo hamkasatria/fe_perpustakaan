@@ -17,7 +17,7 @@
               <b-button
                 v-b-modal.modal-1
                 class="btn btn-info"
-                @click="modal(post.id)"
+                @click="modal(post)"
                 >info</b-button
               >
               <mdb-btn @click="pinjam(post.id)" color="primary">Pinjam</mdb-btn>
@@ -32,27 +32,14 @@
         </li>
       </ul>
     </div>
-    <!-- mengeluarkan modal -->
-
-    <!-- <modal :show.sync="modals.classic" isActiveheaderClasses="justify-content-center">
-      <h4 slot="header" class="title title-up">Modal title</h4>
-      <div>
-        
-      </div>
-      <p></p>
-      <template slot="footer">
-        <n-button>Nice Button</n-button>
-        <n-button type="danger" @click.native="modals.classic = false"
-          >Close</n-button
-        >
-      </template>
-    </modal> -->
-
     <!-- modal bootstrrap -->
     <div class="modal-container">
       <div>
-        <b-modal id="modal-1" title="v-text">
-          <p class="my-4">ini adalah modal {{modals.id}}</p>
+        <b-modal id="modal-1" > {{modals.judul}}
+          <p class="my-4">author : {{ modals.author }}</p>
+          <p class="my-4">tahun : {{ modals.tahun }}</p>
+          <p class="my-4">sinopsis : {{ modals.sinopsis }}</p>
+          <p class="my-4">jumlah : {{ modals.jumlah }}</p>
         </b-modal>
       </div>
     </div>
@@ -94,7 +81,7 @@ export default {
       posts: [],
       errors: [],
       modals: {
-        id:[],
+        id: [],
       },
       pickers: {
         datePicker: "",
@@ -120,19 +107,9 @@ export default {
           .catch((err) => console.log("===", err));
       }
     },
-    modal: function(id) {
-      console.log("ini adalah modal" + id);
-      this.modals.id= id
-      //get data berdasarkan id
-      //dilanjutkan dengan
-      // const detailKatalog = `
-      // <div>
-      //   <b-modal id="modal-1" title="BootstrapVue">
-      //     <p class="my-4">ini adalah modal</p>
-      //   </b-modal>
-      // </div>
-      // `;
-      //$(.modal-container).html(detailKatalog)
+    modal: function(post) {
+      this.modals = post;
+      console.log("ini adalah modal" + post);
     },
   },
   // Fetches posts when the component is created.
