@@ -17,6 +17,9 @@ export default new Vuex.Store({
     mutations: {
         setkatalog: function (data) {
             this.state.katalog = data
+        },
+        setuser: function (data) {
+            this.state.user = data
         }
     },
     actions: {

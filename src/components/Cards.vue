@@ -33,15 +33,23 @@
       </ul>
     </div>
     <!-- modal bootstrrap -->
-    <div class="modal-container">
-      <div>
-        <b-modal id="modal-1" > {{modals.judul}}
-          <p class="my-4">author : {{ modals.author }}</p>
-          <p class="my-4">tahun : {{ modals.tahun }}</p>
-          <p class="my-4">sinopsis : {{ modals.sinopsis }}</p>
-          <p class="my-4">jumlah : {{ modals.jumlah }}</p>
-        </b-modal>
-      </div>
+    >
+    <div>
+      <b-modal id="modal-1" hide-footer>
+        <template>
+          {{ modals.judul }}
+        </template>
+        <p class="my-4">author : {{ modals.author }}</p>
+        <p class="my-4">tahun : {{ modals.tahun }}</p>
+        <p class="my-4">sinopsis : {{ modals.sinopsis }}</p>
+        <p class="my-4">jumlah : {{ modals.jumlah }}</p>
+        <b-button variant="outline-danger" @click="hideModal"
+          >Tutup</b-button
+        >
+        <b-button variant="outline-warning" @click="toggleModal"
+          >Pinjam</b-button
+        >
+      </b-modal>
     </div>
   </div>
 </template>

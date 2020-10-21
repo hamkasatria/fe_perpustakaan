@@ -30,10 +30,18 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" target="_blank">
-          <i class="now-ui-icons files_single-copy-04"></i>
+          <i class="now-ui-icons education_agenda-bookmark"></i>
           <p><router-link to="/katalog">Katalog</router-link></p>
         </a>
       </li>
+      <div v-if="!userstatus">
+        <li class="nav-item">
+          <a class="nav-link" target="_blank">
+            <i class="now-ui-icons files_single-copy-04"></i>
+            <p><router-link to="/riwayat">Riwayat</router-link></p>
+          </a>
+        </li>
+      </div>
 
       <drop-down
         tag="li"
@@ -53,7 +61,6 @@
           <nav-link to="/profile">
             <i class="now-ui-icons users_circle-08"></i> Profile
           </nav-link>
-
           <nav-link>
             <div @click="logout">
               <i class="now-ui-icons users_single-02"></i> Logout

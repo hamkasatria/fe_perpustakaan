@@ -104,6 +104,7 @@ export default {
       axios
         .post("http://localhost:8081/guess/signup", this.data)
         .then((res) => console.log(res))
+        .then(alert("akun bisa dibuat"))
         .catch((err) => console.log(err));
     },
   },

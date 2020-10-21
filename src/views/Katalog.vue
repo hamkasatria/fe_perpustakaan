@@ -11,7 +11,9 @@
         <div class="content-center brand">
           <img class="n-logo mm" src="../assets/logo.png" alt="" />
           <h1 class="h1-seo">KATALOG PRAXIS</h1>
-          <h3>5 langkah lebih maju dari pada 4 langkah</h3>
+          <br>
+          <h3>I read a book one day and my whole life was changed</h3>
+          <h5>(Orhan Pamuk)</h5>
         </div>
       </div>
     </div>

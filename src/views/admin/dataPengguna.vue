@@ -3,58 +3,26 @@
     <b-container fluid>
       <h1>DATA PENGGUNA</h1>
       <b-row>
-        <b-col lg="6" class="my-1">
+         <b-col sm="5" md="6" class="my-1">
           <b-form-group
-            label="Sort"
-            label-cols-sm="3"
+            label="Per page"
+            label-cols-sm="6"
+            label-cols-md="4"
+            label-cols-lg="3"
             label-align-sm="right"
             label-size="sm"
-            label-for="sortBySelect"
-            class="mb-0"
-          >
-            <b-input-group size="sm">
-              <b-form-select
-                v-model="sortBy"
-                id="sortBySelect"
-                :options="sortOptions"
-                class="w-75"
-              >
-                <template v-slot:first>
-                  <option value="">-- none --</option>
-                </template>
-              </b-form-select>
-              <b-form-select
-                v-model="sortDesc"
-                size="sm"
-                :disabled="!sortBy"
-                class="w-25"
-              >
-                <option :value="false">Asc</option>
-                <option :value="true">Desc</option>
-              </b-form-select>
-            </b-input-group>
-          </b-form-group>
-        </b-col>
-
-        <b-col lg="6" class="my-1">
-          <b-form-group
-            label="Initial sort"
-            label-cols-sm="3"
-            label-align-sm="right"
-            label-size="sm"
-            label-for="initialSortSelect"
+            label-for="perPageSelect"
             class="mb-0"
           >
             <b-form-select
-              v-model="sortDirection"
-              id="initialSortSelect"
+              v-model="perPage"
+              id="perPageSelect"
               size="sm"
-              :options="['asc', 'desc', 'last']"
+              :options="pageOptions"
             ></b-form-select>
           </b-form-group>
         </b-col>
-
-        <b-col lg="6" class="my-1">
+        <b-col sm="5" md="6" class="my-1">
           <b-form-group
             label="Filter"
             label-cols-sm="3"
@@ -78,123 +46,139 @@
             </b-input-group>
           </b-form-group>
         </b-col>
+       
 
-        <b-col lg="6" class="my-1">
-          <b-form-group
-            label="Filter On"
-            label-cols-sm="3"
-            label-align-sm="right"
-            label-size="sm"
-            description="Leave all unchecked to filter on all data"
-            class="mb-0"
-          >
-            <b-form-checkbox-group v-model="filterOn" class="mt-1">
-              <b-form-checkbox value="username">Username</b-form-checkbox>
-              <b-form-checkbox value="email">Email</b-form-checkbox>
-              <b-form-checkbox value="noHp">No HP</b-form-checkbox>
-            </b-form-checkbox-group>
-          </b-form-group>
-        </b-col>
-
-        <b-col sm="5" md="6" class="my-1">
-          <b-form-group
-            label="Per page"
-            label-cols-sm="6"
-            label-cols-md="4"
-            label-cols-lg="3"
-            label-align-sm="right"
-            label-size="sm"
-            label-for="perPageSelect"
-            class="mb-0"
-          >
-            <b-form-select
-              v-model="perPage"
-              id="perPageSelect"
-              size="sm"
-              :options="pageOptions"
-            ></b-form-select>
-          </b-form-group>
-        </b-col>
-
-        <b-col sm="7" md="6" class="my-1">
-          <b-pagination
-            v-model="currentPage"
-            :total-rows="totalRows"
-            :per-page="perPage"
-            align="fill"
-            size="sm"
-            class="my-0"
-          ></b-pagination>
-        </b-col>
       </b-row>
       <!-- Main table element -->
-      <b-table
-        show-empty
-        small
-        stacked="md"
-        :items="items"
-        :fields="fields"
-        :current-page="currentPage"
-        :per-page="perPage"
-        :filter="filter"
-        :filter-included-fields="filterOn"
-        :sort-by.sync="sortBy"
-        :sort-desc.sync="sortDesc"
-        :sort-direction="sortDirection"
-        @filtered="onFiltered"
-      >
-        <template v-slot:cell(name)="row">
-          {{ row.value.first }} {{ row.value.last }}
-        </template>
+      <div>
+        <b-table
+          show-empty
+          small
+          stacked="md"
+          :items="items"
+          :fields="fields"
+          :current-page="currentPage"
+          :per-page="perPage"
+          :filter="filter"
+          :filter-included-fields="filterOn"
+          :sort-by.sync="sortBy"
+          :sort-desc.sync="sortDesc"
+          :sort-direction="sortDirection"
+          @filtered="onFiltered"
+          @row-clicked="makan()"
+        >
+          <!-- ini adalah button -->
+          <template v-slot:cell(actions)="row">
+            <b-button
+              size="sm"
+              @click="info(row.item, row.index, $event.target)"
+              class="mr-1"
+            >
+              update
+            </b-button>
+            <b-button size="sm" @click="row.toggleDetails">
+              {{ row.detailsShowing ? "Hide" : "Show" }} Details
+            </b-button>
+          <b-button size="sm" class="mr-1">hapus</b-button>
+          </template>
 
-        <template v-slot:cell(actions)="row">
-          <b-button
-            size="sm"
-            @click="info(row.item, row.index, $event.target)"
-            class="mr-1"
-          >
-            Info modal
-          </b-button>
-          <b-button size="sm" @click="row.toggleDetails">
-            {{ row.detailsShowing ? "Hide" : "Show" }} Details
-          </b-button>
-        </template>
+          <template v-slot:row-details="row">
+            <b-card>
+              <ul>
+                <li v-for="(value, key) in row.item" :key="key">
+                  {{ key }}: {{ value }}
+                </li>
+              </ul>
+            </b-card>
+          </template>
+        </b-table>
+      </div>
 
-        <template v-slot:row-details="row">
-          <b-card>
-            <ul>
-              <li v-for="(value, key) in row.item" :key="key">
-                {{ key }}: {{ value }}
-              </li>
-            </ul>
-          </b-card>
-        </template>
-      </b-table>
-
+      <!-- pagnation -->
+      <div lg="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          align="fill"
+          size="sm"
+          class="my-1"
+        ></b-pagination>
+      </div>
       <!-- Info modal -->
       <b-modal
+        centered
+        size="xl"
         :id="infoModal.id"
         :title="infoModal.title"
-        ok-only
+        update-only
         @hide="resetInfoModal"
       >
-        <pre>{{ infoModal.content }}</pre>
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-row>
+            <b-col>
+              <b-form-group
+                :state="nameState"
+                label="Username :"
+                label-for="name-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="name-input"
+                  v-model="name"
+                  :state="nameState"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                :state="nameState"
+                label="Nomor HP :"
+                label-for="name-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="name-input"
+                  v-model="name"
+                  :state="nameState"
+                  required
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group
+                :state="nameState"
+                label="Email :"
+                label-for="name-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="name-input"
+                  v-model="name"
+                  :state="nameState"
+                  required
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </form>
+        <!-- <pre>{{ infoModal.content }}</pre> -->
       </b-modal>
     </b-container>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       fields: [
-        { field: "id", label: "ID", sortable: true },
-        { field: "username", label: "Username", sort: true },
-        { field: "email", label: "Email", sort: true },
-        { field: "noHp", label: "noHp", sort: true },
-        { field: "updatedAt", label: "Tanggal Update", sort: true },
-        { label: "Action", sort: false },
+        { key: "id", label: "ID", sortable: true, sortDirection: "desc" },
+        { key: "username", label: "Username", sort: true },
+        { key: "email", label: "Email", sort: true },
+        { key: "noHp", label: "noHp", sort: true },
+        { key: "updatedAt", label: "Tanggal Update", sort: true },
+        { key: "actions", label: "Actions" },
       ],
       items: [],
       totalRows: 1,
@@ -214,12 +198,6 @@ export default {
     };
   },
   computed: {
-    data() {
-      return {
-        columns: this.columns,
-        items: this.items,
-      };
-    },
     sortOptions() {
       // Create an options list from our fields
       return this.fields
@@ -230,6 +208,9 @@ export default {
     },
   },
   methods: {
+    makan() {
+      alert("mencoba on click raw");
+    },
     filterData(dataArr, keys) {
       let data = dataArr.map((entry) => {
         let filteredEntry = {};
@@ -248,8 +229,8 @@ export default {
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
     resetInfoModal() {
-      this.infoModal.title = ''
-      this.infoModal.content = ''
+      this.infoModal.title = "";
+      this.infoModal.content = "";
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
@@ -257,16 +238,22 @@ export default {
       this.currentPage = 1;
     },
   },
-  async mounted() {
-    await fetch("http://localhost:8081/admin/")
-      .then((res) => res.json())
-      .then((json) => {
-        let keys = ["id", "username", "noHp", "email", "updatedAt"];
-        let entries = this.filterData(json, keys);
-        //rows
+
+  async created() {
+    await axios
+      .get(`http://localhost:8081/admin/`)
+      .then((response) => {
+        // JSON responses are automatically parsed.
+        let keys = ["id", "username", "noHp", "email", "updatedAt", "roles"];
+        let entries = this.filterData(response.data, keys);
         entries.map((entry) => this.items.push(entry));
+        // this.items = response.data;
+        this.$store.commit("setpengguna", this.posts);
       })
-      .catch((err) => console.log(err));
+      .catch((e) => {
+        this.errors.push(e);
+      });
+
     this.totalRows = this.items.length;
   },
 };

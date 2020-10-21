@@ -15,6 +15,7 @@ import dataPeminjaman from '../views/admin/dataPeminjaman.vue';
 
 
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,80 +24,80 @@ const routes = [
     name: 'Home',
     // component: Home
     components: { default: Tentang, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
   {
     path: '/katalog',
     name: 'Katalog',
     components: { default: Katalog, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
   {
     path: '/login',
     name: 'Login',
     components: { default: Login, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
   {
     path: '/register',
     name: 'register',
     components: { default: Register, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
   {
     path: '/admin',
     name: 'admin',
     // component: Home
-    components: { default: Admin},
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    components: { default: Admin },
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
   {
     path: '/dataKatalog',
     name: 'dataKatalog',
     // component: Home
-    components: { default: dataKatalog},
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    components: { default: dataKatalog },
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
   {
     path: '/dataPengguna',
     name: 'dataPengguna',
     // component: Home
-    components: { default: dataPengguna},
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    components: { default: dataPengguna },
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
   {
     path: '/dataPeminjaman',
     name: 'dataPeminjaman',
     // component: Home
-    components: { default: dataPeminjaman},
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+    components: { default: dataPeminjaman },
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
   },
-  
-  
+
+
 ]
 
 const router = new VueRouter({

@@ -11,7 +11,9 @@
         <div class="content-center brand">
           <img class="n-logo mm" src="../assets/logo.png" alt="" />
           <h1 class="h1-seo">TENTANG PRAXIS</h1>
-          <h3>5 langkah lebih maju dari pada 4 langkah</h3>
+          <br>
+          <h3>Membaca semua buku yang bagus layaknya sebuah percakapan dengan pemikiran terbaik di abad-abad sebelumnya</h3>
+          <h5>Rene Descartes</h5>
         </div>
       </div>
     </div>
