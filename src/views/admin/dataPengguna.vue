@@ -1,15 +1,16 @@
 <template>
   <div class="container">
+    <!-- main table daa pengguna -->
     <b-container fluid>
       <h1>DATA PENGGUNA</h1>
       <b-row>
-         <b-col sm="5" md="6" class="my-1">
+        <b-col sm="5" md="6" class="my-1">
           <b-form-group
             label="Per page"
             label-cols-sm="6"
             label-cols-md="4"
-            label-cols-lg="3"
-            label-align-sm="right"
+            label-cols-lg="2"
+            label-align-sm="center"
             label-size="sm"
             label-for="perPageSelect"
             class="mb-0"
@@ -22,32 +23,23 @@
             ></b-form-select>
           </b-form-group>
         </b-col>
-        <b-col sm="5" md="6" class="my-1">
+        <b-col sm="5" md="6">
           <b-form-group
-            label="Filter"
+            label="Search"
             label-cols-sm="3"
             label-align-sm="right"
             label-size="sm"
             label-for="filterInput"
             class="mb-0"
           >
-            <b-input-group size="sm">
-              <b-form-input
-                v-model="filter"
-                type="search"
-                id="filterInput"
-                placeholder="Type to Search"
-              ></b-form-input>
-              <b-input-group-append>
-                <b-button :disabled="!filter" @click="filter = ''"
-                  >Clear</b-button
-                >
-              </b-input-group-append>
-            </b-input-group>
+            <b-form-input
+              v-model="filter"
+              type="search"
+              id="filterInput"
+              placeholder="Type to Search"
+            ></b-form-input>
           </b-form-group>
         </b-col>
-       
-
       </b-row>
       <!-- Main table element -->
       <div>
@@ -69,6 +61,9 @@
         >
           <!-- ini adalah button -->
           <template v-slot:cell(actions)="row">
+            <b-button size="sm" @click="row.toggleDetails">
+              {{ row.detailsShowing ? "Hide" : "Show" }} Details
+            </b-button>
             <b-button
               size="sm"
               @click="info(row.item, row.index, $event.target)"
@@ -76,10 +71,8 @@
             >
               update
             </b-button>
-            <b-button size="sm" @click="row.toggleDetails">
-              {{ row.detailsShowing ? "Hide" : "Show" }} Details
-            </b-button>
-          <b-button size="sm" class="mr-1">hapus</b-button>
+
+            <b-button size="sm" class="mr-1">hapus</b-button>
           </template>
 
           <template v-slot:row-details="row">
@@ -164,6 +157,7 @@
         <!-- <pre>{{ infoModal.content }}</pre> -->
       </b-modal>
     </b-container>
+    
   </div>
 </template>
 
@@ -177,7 +171,6 @@ export default {
         { key: "username", label: "Username", sort: true },
         { key: "email", label: "Email", sort: true },
         { key: "noHp", label: "noHp", sort: true },
-        { key: "updatedAt", label: "Tanggal Update", sort: true },
         { key: "actions", label: "Actions" },
       ],
       items: [],

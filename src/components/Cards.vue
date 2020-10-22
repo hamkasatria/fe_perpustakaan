@@ -3,26 +3,24 @@
     <div class="katalog">
       <ul v-if="posts && posts.length">
         <li v-for="post of posts" v-bind:key="post.id">
-          <mdb-card class="card">
-            <mdb-card-image
-              src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%286%29.jpg"
-              alt="Card image cap"
-            ></mdb-card-image>
-            <mdb-card-body>
-              <mdb-card-title>{{ post.judul }}</mdb-card-title>
+          <b-card
+            img-src="https://picsum.photos/600/300/?image=25"
+            img-alt="Image"
+            img-tops
+            tag="article"
+            style="max-width: 20rem;"
+            class="mb-2 card"
+          >
+            <b-card-text>
+              <p class="font-weight-bold">{{ post.judul }}</p>
+              <p></p>
               <p>{{ post.author }} - {{ post.tahun }}</p>
-              <!-- <mdb-card-text>{{ post.sinopsis }}</mdb-card-text> -->
-              <!-- @click.native="modals.classic = true" -->
-
-              <b-button
-                v-b-modal.modal-1
-                class="btn btn-info"
-                @click="modal(post)"
-                >info</b-button
-              >
-              <mdb-btn @click="pinjam(post.id)" color="primary">Pinjam</mdb-btn>
-            </mdb-card-body>
-          </mdb-card>
+            </b-card-text>
+            <b-button id="show-btn" @click="showModal(post)">Info</b-button>
+            <b-button @click="pinjam(post.id)" variant="primary"
+              >Pinjam</b-button
+            >
+          </b-card>
         </li>
       </ul>
 
@@ -33,20 +31,51 @@
       </ul>
     </div>
     <!-- modal bootstrrap -->
-    >
+
     <div>
-      <b-modal id="modal-1" hide-footer>
+      <b-modal ref="my-modal" size="lg" hide-footer>
+        <b-row>
+          <b-col
+            ><img
+              class="img-responsive"
+              style="margin:0 auto;"
+              src="https://picsum.photos/600/300/?image=25"
+              alt=""
+            />
+          </b-col>
+          <b-col
+            ><div class="d-block text-center">
+              <h3 class="font-weight-bold">{{ modals.judul }}</h3>
+              <p class="my-4">author : {{ modals.author }}</p>
+              <p class="my-4">tahun : {{ modals.tahun }}</p>
+              <p class="my-4">sinopsis : {{ modals.sinopsis }}</p>
+              <p class="my-4">jumlah : {{ modals.jumlah }}</p>
+            </div>
+            <b-button
+              class="mt-3"
+              variant="outline-danger"
+              block
+              @click="hideModal"
+              >Close</b-button
+            >
+            <b-button
+              class="mt-2"
+              variant="outline-warning"
+              block
+              @click="pinjam(modals.id)"
+              >Pinjam</b-button
+            ></b-col
+          >
+        </b-row>
+      </b-modal>
+
+      <b-modal id="modal-1" hide-footer hide-backdrop content-class="shadow">
         <template>
           {{ modals.judul }}
         </template>
-        <p class="my-4">author : {{ modals.author }}</p>
-        <p class="my-4">tahun : {{ modals.tahun }}</p>
-        <p class="my-4">sinopsis : {{ modals.sinopsis }}</p>
-        <p class="my-4">jumlah : {{ modals.jumlah }}</p>
-        <b-button variant="outline-danger" @click="hideModal"
-          >Tutup</b-button
-        >
-        <b-button variant="outline-warning" @click="toggleModal"
+
+        <b-button variant="outline-danger" @click="hideModal">Tutup</b-button>
+        <b-button variant="outline-warning" @click="pinjam(modal.id)"
           >Pinjam</b-button
         >
       </b-modal>
@@ -57,30 +86,9 @@
 <script>
 import axios from "axios";
 
-import { Button, FormGroupInput } from "@/components";
-import { Popover, Tooltip, DatePicker } from "element-ui";
-import {
-  mdbCard,
-  mdbCardImage,
-  mdbCardBody,
-  mdbCardTitle,
-  mdbBtn,
-} from "mdbvue";
 export default {
   name: "CardPage",
-  components: {
-    mdbCard,
-    mdbCardImage,
-    mdbCardBody,
-    mdbCardTitle,
-    mdbBtn,
-
-    [Button.name]: Button,
-    [Popover.name]: Popover,
-    [Tooltip.name]: Tooltip,
-    [DatePicker.name]: DatePicker,
-    [FormGroupInput.name]: FormGroupInput,
-  },
+  components: {},
   data() {
     return {
       buku: {
@@ -111,13 +119,22 @@ export default {
 
         axios
           .post(`http://localhost:8081/user/`, params, config)
-          .then((res) => console.log(res))
+          .then((res) =>
+            alert("anda berhasil meminjam buku ").then(console.log(res))
+          )
           .catch((err) => console.log("===", err));
       }
+
+      this.$refs["my-modal"].hide();
     },
-    modal: function(post) {
+    showModal: function(post) {
       this.modals = post;
       console.log("ini adalah modal" + post);
+      this.$refs["my-modal"].show();
+    },
+
+    hideModal() {
+      this.$refs["my-modal"].hide();
     },
   },
   // Fetches posts when the component is created.
@@ -140,6 +157,7 @@ export default {
 .card {
   max-width: 275px;
   border-radius: 15px;
+  border-top-right-radius: 15px;
 }
 .container {
   display: grid;
