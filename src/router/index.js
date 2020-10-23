@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainNavbar from '../layout/MainNavbar.vue';
+import AdminNavbar from '../layout/AdminNavbar.vue';
 import MainFooter from '../layout/MainFooter.vue';
 //import Index from '../pages/Index.vue';
 import Katalog from '../views/Katalog.vue';
@@ -8,9 +9,9 @@ import Login from '../views/Login.vue';
 import Register from '../views/register.vue';
 import Tentang from '../views/Tentang.vue';
 import Admin from '../views/Admin.vue';
-import dataKatalog from '../views/admin/dataKatalog.vue';
-import dataPengguna from '../views/admin/dataPengguna.vue';
-import dataPeminjaman from '../views/admin/dataPeminjaman.vue';
+import dataKatalog from '../views/admin/Katalog.vue';
+import dataPengguna from '../views/admin/Pengguna.vue';
+import dataPeminjaman from '../views/admin/Peminjaman.vue';
 
 
 
@@ -70,7 +71,7 @@ const routes = [
     path: '/dataKatalog',
     name: 'dataKatalog',
     // component: Home
-    components: { default: dataKatalog },
+    components: { default: dataKatalog, header: AdminNavbar },
     props: {
       header: { colorOnScroll: 400 },
       footer: { backgroundColor: 'black' }
@@ -80,7 +81,7 @@ const routes = [
     path: '/dataPengguna',
     name: 'dataPengguna',
     // component: Home
-    components: { default: dataPengguna },
+    components: { default: dataPengguna, header: AdminNavbar },
     props: {
       header: { colorOnScroll: 400 },
       footer: { backgroundColor: 'black' }
@@ -90,7 +91,7 @@ const routes = [
     path: '/dataPeminjaman',
     name: 'dataPeminjaman',
     // component: Home
-    components: { default: dataPeminjaman },
+    components: { default: dataPeminjaman, header: AdminNavbar },
     props: {
       header: { colorOnScroll: 400 },
       footer: { backgroundColor: 'black' }

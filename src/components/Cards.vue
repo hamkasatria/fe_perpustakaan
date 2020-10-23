@@ -30,6 +30,7 @@
         </li>
       </ul>
     </div>
+
     <!-- modal bootstrrap -->
 
     <div>
@@ -97,7 +98,7 @@ export default {
       posts: [],
       errors: [],
       modals: {
-        id: [],
+      
       },
       pickers: {
         datePicker: "",

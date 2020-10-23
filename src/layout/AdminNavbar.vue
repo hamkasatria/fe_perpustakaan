@@ -1,11 +1,5 @@
 <template>
-  <navbar
-    position="fixed"
-    type="primary"
-    :transparent="transparent"
-    :color-on-scroll="colorOnScroll"
-    menu-classes="ml-auto"
-  >
+  <navbar position="fixed" type="primary" menu-classes="ml-auto">
     <template>
       PERPUSTAKAAN PRAXIS
 
@@ -21,39 +15,41 @@
         </div>
       </el-popover>
     </template>
+
     <template slot="navbar-menu">
+      <!-- jika dia admin -->
+
       <li class="nav-item">
         <a class="nav-link" target="_blank">
           <i class="now-ui-icons files_paper"></i>
-          <p><router-link to="/">Tentang</router-link></p>
+          <p><router-link to="/dataPengguna">Data Pengguna</router-link></p>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" target="_blank">
-          <i class="now-ui-icons files_single-copy-04"></i>
-          <p><router-link to="/katalog">Katalog</router-link></p>
+          <i class="now-ui-icons education_agenda-bookmark"></i>
+          <p><router-link to="/dataKatalog">Data Katalog</router-link></p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_blank">
+          <i class="now-ui-icons education_agenda-bookmark"></i>
+          <p>
+            <router-link to="/dataPeminjaman">Data Peminajaman</router-link>
+          </p>
         </a>
       </li>
 
       <drop-down
         tag="li"
-        title="User"
+        title="Admin"
         icon="now-ui-icons users_circle-08"
         class="nav-item"
       >
-        <div v-if="userstatus">
-          <nav-link to="/login">
-            <i class="now-ui-icons users_circle-08"></i> Login
-          </nav-link>
-          <nav-link to="/register">
-            <i class="now-ui-icons users_single-02"></i> SignUp
-          </nav-link>
-        </div>
-        <div v-else>
+        <div>
           <nav-link to="/profile">
             <i class="now-ui-icons users_circle-08"></i> Profile
           </nav-link>
-
           <nav-link>
             <div @click="logout">
               <i class="now-ui-icons users_single-02"></i> Logout
@@ -87,8 +83,8 @@ export default {
       localStorage.removeItem("Bearer");
       alert("anda berhasil logout");
 
-      this.$router.go();
-      // this.$router.push({ name: "Login" });
+      //this.$router.go();
+      this.$router.push({ name: "Home" });
     },
   },
 

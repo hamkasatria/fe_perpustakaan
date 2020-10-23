@@ -21,7 +21,9 @@
         </div>
       </el-popover>
     </template>
+
     <template slot="navbar-menu">
+      <!-- jika dia bukan admin -->
       <li class="nav-item">
         <a class="nav-link" target="_blank">
           <i class="now-ui-icons files_paper"></i>
