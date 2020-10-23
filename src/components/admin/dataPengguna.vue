@@ -57,7 +57,6 @@
           :sort-desc.sync="sortDesc"
           :sort-direction="sortDirection"
           @filtered="onFiltered"
-          @row-clicked="makan()"
         >
           <!-- ini adalah button -->
           <template v-slot:cell(actions)="row">
@@ -72,7 +71,7 @@
               update
             </b-button>
 
-            <b-button size="sm" class="mr-1">hapus</b-button>
+            <b-button size="sm" class="mr-1" @click="hapus(row.item.id)">hapus</b-button>
           </template>
 
           <template v-slot:row-details="row">
@@ -110,46 +109,20 @@
         <form ref="form" @submit.stop.prevent="handleSubmit">
           <b-row>
             <b-col>
-              <b-form-group
-                :state="nameState"
-                label="Username :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
+              <b-form-group label="Username :">
                 <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
+                  id="username"
+                  value="hamka"
                   required
                 ></b-form-input>
               </b-form-group>
-              <b-form-group
-                :state="nameState"
-                label="Nomor HP :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
-                  required
-                ></b-form-input>
+              <b-form-group label="Nomor HP :">
+                <b-form-input id="noHp" required></b-form-input>
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group
-                :state="nameState"
-                label="Email :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
-                  required
-                ></b-form-input>
+              <b-form-group label="Email :">
+                <b-form-input id="email" required></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
@@ -157,7 +130,6 @@
         <!-- <pre>{{ infoModal.content }}</pre> -->
       </b-modal>
     </b-container>
-    
   </div>
 </template>
 
@@ -201,8 +173,16 @@ export default {
     },
   },
   methods: {
-    makan() {
-      alert("mencoba on click raw");
+    hapus(id) {
+      axios
+        .delete(`http://localhost:8081/admin/${id}`)
+        .then((response) => {
+          alert("data berhasil dihapus"+response);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      
     },
     filterData(dataArr, keys) {
       let data = dataArr.map((entry) => {
@@ -219,6 +199,7 @@ export default {
     info(item, index, button) {
       this.infoModal.title = `Row index: ${index}`;
       this.infoModal.content = JSON.stringify(item, null, 2);
+      console.log(this.infoModal.content);
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
     },
     resetInfoModal() {
@@ -241,7 +222,7 @@ export default {
         let entries = this.filterData(response.data, keys);
         entries.map((entry) => this.items.push(entry));
         // this.items = response.data;
-        this.$store.commit("setpengguna", this.posts);
+        this.$store.commit("setuser", this.posts);
       })
       .catch((e) => {
         this.errors.push(e);

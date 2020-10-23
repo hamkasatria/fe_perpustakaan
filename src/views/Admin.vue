@@ -1,17 +1,15 @@
 <template>
   <div>
-    <!-- memanggil navbar yang ada -->
-    <navbarAdmin/>
+
   </div>
 </template>
 
 <script>
-import navbarAdmin from "@/components/Admin_Navbar"
+
 export default {
   
   components:{
-    // Keterangan
-    navbarAdmin
+
   }
 }
 </script>
