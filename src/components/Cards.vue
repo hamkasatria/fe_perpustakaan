@@ -145,6 +145,7 @@ export default {
       .then((response) => {
         // JSON responses are automatically parsed.
         this.posts = response.data;
+        console.log("ini adalah post cards"+this.posts)
         this.$store.commit("setkatalog", this.posts);
       })
       .catch((e) => {
