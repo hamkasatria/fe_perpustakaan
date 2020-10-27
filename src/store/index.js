@@ -39,10 +39,11 @@ export default new Vuex.Store({
         //     return state.user.filter(user=>user.id==id)
         // },
 
-        getUserById: (state) => (id) => {
+        getUserById (state,id) {
             // console.log("ini state id"+id)
-        return state.user.find((user) => user.id === id)
-            // return ino 
+            console.log("ini dikeluarkan "+id)
+        return state.user.find(user => user.id === id)
+        // return state.user
           }
         // getKatalogByid:function (id){
         //     return 

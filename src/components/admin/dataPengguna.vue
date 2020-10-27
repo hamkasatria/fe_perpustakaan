@@ -63,11 +63,7 @@
             <b-button size="sm" @click="row.toggleDetails">
               {{ row.detailsShowing ? "Hide" : "Show" }} Details
             </b-button>
-            <b-button
-              size="sm"
-              @click="modal_update(row.item.id)"
-              class="mr-1"
-            >
+            <b-button size="sm" @click="modal_update(row.item)" class="mr-1">
               update
             </b-button>
 
@@ -101,7 +97,6 @@
       </div>
       <!-- Info modal -->
       <b-modal
-     
         centered
         ref="modal_update"
         size="xl"
@@ -117,11 +112,11 @@
               <b-form-group label="Username :">
                 <b-form-input
                   id="username"
-                  v-model = obj.username
+                  v-model="obj.username"
                   required
                 ></b-form-input>
               </b-form-group>
-             
+
               <b-form-group label="Nomor HP :">
                 <b-form-input
                   id="noHp"
@@ -141,8 +136,10 @@
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal()">Cancle</b-button>
-        <b-button variant="outline-warning" @click="update(obj.username)"
+        <b-button variant="outline-danger" @click="hideModal()"
+          >Cancle</b-button
+        >
+        <b-button variant="outline-warning" @click="update(obj)"
           >Update</b-button
         >
       </b-modal>
@@ -214,21 +211,32 @@ export default {
       });
       return data;
     },
-    modal_update(id) {
-      this.infoModal.title = `Row index: ${id}`;
-      // this.infoModal.content = JSON.stringify(item, null, 2);
-      this.obj = this.$store.getters.getUserById(id);
-      // console.log("ini dalam field updaate" + item);
+    modal_update(item) {
+      this.infoModal.title = `Row index: ${item.id}`;
+      Object.assign(this.obj, item);
       this.$refs["modal_update"].show();
     },
     hideModal() {
-      this.items = this.$store.getters.getUser;
       this.$refs["modal_update"].hide();
     },
-    update(data){
-      console.log("ini adalah update"+data)
+    update(obj) {
+
       //memasukkan database
-      alert ("data telah di update")
+      const params = JSON.stringify(obj);
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      console.log(config);
+      axios
+        .put(`http://localhost:8081/admin/u/${obj.id}`, params, config)
+        .then((res) =>
+          alert("anda berhasil meminjam buku ").then(console.log(res))
+        )
+        .catch((err) => console.log("===", err));
+      // end database
+      alert("data telah di update");
       this.$refs["modal_update"].hide();
     },
     resetInfoModal() {
