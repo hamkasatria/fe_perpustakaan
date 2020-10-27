@@ -83,7 +83,7 @@ export default {
   props: {
     transparent: Boolean,
     colorOnScroll: Number,
-    // userstatus: Boolean,
+   
   },
   components: {
     DropDown,
@@ -113,4 +113,5 @@ export default {
 };
 </script>
 
+// console.log('oi')
 <style scoped></style>

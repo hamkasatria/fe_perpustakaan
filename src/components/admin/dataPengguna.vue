@@ -57,7 +57,6 @@
           :sort-desc.sync="sortDesc"
           :sort-direction="sortDirection"
           @filtered="onFiltered"
-          @row-clicked="makan()"
         >
           <!-- ini adalah button -->
           <template v-slot:cell(actions)="row">
@@ -66,13 +65,15 @@
             </b-button>
             <b-button
               size="sm"
-              @click="info(row.item, row.index, $event.target)"
+              @click="modal_update(row.item.id)"
               class="mr-1"
             >
               update
             </b-button>
 
-            <b-button size="sm" class="mr-1">hapus</b-button>
+            <b-button size="sm" class="mr-1" @click="hapus(row.item.id)"
+              >hapus</b-button
+            >
           </template>
 
           <template v-slot:row-details="row">
@@ -100,69 +101,58 @@
       </div>
       <!-- Info modal -->
       <b-modal
+     
         centered
+        ref="modal_update"
         size="xl"
         :id="infoModal.id"
         :title="infoModal.title"
         update-only
         @hide="resetInfoModal"
+        hide-footer
       >
-        <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form @submit.stop.prevent="handleSubmit">
           <b-row>
             <b-col>
-              <b-form-group
-                :state="nameState"
-                label="Username :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
+              <b-form-group label="Username :">
                 <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
+                  id="username"
+                  v-model = obj.username
                   required
                 ></b-form-input>
               </b-form-group>
-              <b-form-group
-                :state="nameState"
-                label="Nomor HP :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
+             
+              <b-form-group label="Nomor HP :">
                 <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
+                  id="noHp"
+                  v-model.lazy="obj.noHp"
                   required
                 ></b-form-input>
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group
-                :state="nameState"
-                label="Email :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
+              <b-form-group label="Email :">
                 <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
+                  id="email"
+                  v-model="obj.email"
                   required
                 ></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
         </form>
-        <!-- <pre>{{ infoModal.content }}</pre> -->
+        <b-button variant="outline-danger" @click="hideModal()">Cancle</b-button>
+        <b-button variant="outline-warning" @click="update(obj.username)"
+          >Update</b-button
+        >
       </b-modal>
     </b-container>
-    
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -173,6 +163,7 @@ export default {
         { key: "noHp", label: "noHp", sort: true },
         { key: "actions", label: "Actions" },
       ],
+      obj: [],
       items: [],
       totalRows: 1,
       currentPage: 1,
@@ -201,8 +192,15 @@ export default {
     },
   },
   methods: {
-    makan() {
-      alert("mencoba on click raw");
+    hapus(id) {
+      axios
+        .delete(`http://localhost:8081/admin/${id}`)
+        .then((response) => {
+          alert("data berhasil dihapus" + response);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
     filterData(dataArr, keys) {
       let data = dataArr.map((entry) => {
@@ -216,10 +214,22 @@ export default {
       });
       return data;
     },
-    info(item, index, button) {
-      this.infoModal.title = `Row index: ${index}`;
-      this.infoModal.content = JSON.stringify(item, null, 2);
-      this.$root.$emit("bv::show::modal", this.infoModal.id, button);
+    modal_update(id) {
+      this.infoModal.title = `Row index: ${id}`;
+      // this.infoModal.content = JSON.stringify(item, null, 2);
+      this.obj = this.$store.getters.getUserById(id);
+      // console.log("ini dalam field updaate" + item);
+      this.$refs["modal_update"].show();
+    },
+    hideModal() {
+      this.items = this.$store.getters.getUser;
+      this.$refs["modal_update"].hide();
+    },
+    update(data){
+      console.log("ini adalah update"+data)
+      //memasukkan database
+      alert ("data telah di update")
+      this.$refs["modal_update"].hide();
     },
     resetInfoModal() {
       this.infoModal.title = "";
@@ -240,8 +250,8 @@ export default {
         let keys = ["id", "username", "noHp", "email", "updatedAt", "roles"];
         let entries = this.filterData(response.data, keys);
         entries.map((entry) => this.items.push(entry));
-        // this.items = response.data;
-        this.$store.commit("setpengguna", this.posts);
+        // console.log("ini adalah created " + this.items);
+        this.$store.commit("setUser", this.items);
       })
       .catch((e) => {
         this.errors.push(e);

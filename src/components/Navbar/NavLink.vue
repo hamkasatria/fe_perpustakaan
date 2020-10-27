@@ -3,8 +3,9 @@
     :is="componentType"
     :to="to"
     class="dropdown-item"
-    @click.native.stop="closeNav"
+   
   >
+  
     <slot></slot>
   </component>
 </template>

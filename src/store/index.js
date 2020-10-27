@@ -18,7 +18,7 @@ export default new Vuex.Store({
         setkatalog: function (data) {
             this.state.katalog = data
         },
-        setuser: function (data) {
+        setUser: function (data) {
             this.state.user = data
         }
     },
@@ -35,6 +35,15 @@ export default new Vuex.Store({
         getUser: function (state) {
             return state.user
         },
+        // getUserById: function (state,id) {
+        //     return state.user.filter(user=>user.id==id)
+        // },
+
+        getUserById: (state) => (id) => {
+            // console.log("ini state id"+id)
+        return state.user.find((user) => user.id === id)
+            // return ino 
+          }
         // getKatalogByid:function (id){
         //     return 
         // }

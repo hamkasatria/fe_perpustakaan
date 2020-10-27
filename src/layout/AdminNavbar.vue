@@ -1,5 +1,6 @@
 <template>
-  <navbar position="fixed" type="primary" menu-classes="ml-auto">
+  <navbar position="fixed" type="primary"  menu-classes="ml-auto">
+    
     <template>
       PERPUSTAKAAN PRAXIS
 
@@ -17,8 +18,6 @@
     </template>
 
     <template slot="navbar-menu">
-      <!-- jika dia admin -->
-
       <li class="nav-item">
         <a class="nav-link" target="_blank">
           <i class="now-ui-icons files_paper"></i>
@@ -62,15 +61,13 @@
 </template>
 
 <script>
-import { DropDown, Navbar, NavLink } from "@/components";
+import { DropDown, Navbar , NavLink} from "@/components";
 import { Popover } from "element-ui";
 export default {
   name: "main-navbar",
 
   props: {
-    transparent: Boolean,
-    colorOnScroll: Number,
-    // userstatus: Boolean,
+  
   },
   components: {
     DropDown,

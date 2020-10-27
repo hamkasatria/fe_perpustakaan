@@ -3,7 +3,7 @@
     <!-- Footer -->
     <mdb-footer
       color="stylish-color-dark"
-      class="page-footer font-small pt-4 mt-4 background_color"
+      class="page-footer font-small pt-4 fot background_color"
     >
       <mdb-container class="text-left">
         <mdb-row>
@@ -132,5 +132,8 @@ export default {
   margin: auto 0;
   display: flex;
   justify-content: center;
+}
+.fot{
+  margin-top: 90px;
 }
 </style>
