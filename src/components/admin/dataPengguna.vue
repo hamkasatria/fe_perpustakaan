@@ -101,8 +101,6 @@
         centered
         ref="modal_update"
         size="xl"
-        :id="infoModal.id"
-        :title="infoModal.title"
         update-only
         @hide="resetInfoModal"
         hide-footer
@@ -260,7 +258,7 @@ export default {
         },
       };
       axios
-        .put(`http://localhost:8081/admin/u/${id}`, config)
+        .delete(`http://localhost:8081/admin/u/${id}`, config)
         .then((res) =>
           alert("data telah dihapus ").then(console.log(res))
         )
@@ -320,8 +318,8 @@ export default {
         this.$refs["modal_create"].hide();
     },
     resetInfoModal() {
+      this.obj = "";
       this.infoModal.title = "";
-      this.infoModal.content = "";
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
