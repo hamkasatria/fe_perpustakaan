@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-   
     <b-container fluid>
       <h1>DATA KATALOG</h1>
       <b-row>
@@ -69,7 +68,7 @@
               update
             </b-button>
 
-            <b-button size="sm" class="mr-1">hapus</b-button>
+            <b-button size="sm" class="mr-1" @click="hapus(row.item.id)">hapus</b-button>
           </template>
           <!-- nmenampilkan detail -->
           <template v-slot:row-details="row">
@@ -83,7 +82,7 @@
           </template>
         </b-table>
       </div>
-      
+
       <!-- pagnation -->
       <div lg="6" class="my-1">
         <b-pagination
@@ -100,13 +99,11 @@
         centered
         size="xl"
         ref="modal_update"
-        :id="infoModal.id"
-        :title="infoModal.title"
         update-only
         @hide="resetInfoModal"
         hide-footer
       >
-        <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form>
           <b-row>
             <b-col>
               <b-form-group
@@ -116,7 +113,7 @@
               >
                 <b-form-input
                   id="judul-input"
-                  v-model="modalUpdate.judul"
+                  v-model="modalData.judul"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -127,7 +124,7 @@
               >
                 <b-form-input
                   id="author-input"
-                  v-model="modalUpdate.author"
+                  v-model="modalData.author"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -138,7 +135,7 @@
               >
                 <b-form-input
                   id="tahun-input"
-                  v-model="modalUpdate.tahun"
+                  v-model="modalData.tahun"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -149,7 +146,7 @@
               >
                 <b-form-input
                   id="jumlah-input"
-                  v-model="modalUpdate.jumlah"
+                  v-model="modalData.jumlah"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -164,7 +161,7 @@
                   placeholder="Tall textarea"
                   rows="50"
                   id="sinopsis-input"
-                  v-model="modalUpdate.sinopsis"
+                  v-model="modalData.sinopsis"
                   required
                 ></b-form-textarea>
               </b-form-group>
@@ -174,7 +171,7 @@
         <b-button variant="outline-danger" @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="updateKatalog(modalUpdate)"
+        <b-button variant="outline-warning" @click="updateKatalog()"
           >Update</b-button
         >
       </b-modal>
@@ -200,7 +197,7 @@
               >
                 <b-form-input
                   id="judul-input"
-                  v-model="modalCreate.judul"
+                  v-model="modalData.judul"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -211,7 +208,7 @@
               >
                 <b-form-input
                   id="author-input"
-                  v-model="modalCreate.author"
+                  v-model="modalData.author"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -222,18 +219,18 @@
               >
                 <b-form-input
                   id="tahun-input"
-                  v-model="modalCreate.tahun"
+                  v-model="modalData.tahun"
                   required
                 ></b-form-input>
               </b-form-group>
               <b-form-group
                 label="Jumlah :"
                 label-for="jumlah"
-                invalid-feedback="Name is required"
+                invalid-feedback="Jumlah is required"
               >
                 <b-form-input
                   id="jumlah"
-                  v-model="modalCreate.jumlah"
+                  v-model="modalData.jumlah"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -248,14 +245,14 @@
                   placeholder="Tall textarea"
                   rows="50"
                   id="sinopsis-input"
-                  v-model="modalCreate.sinopsis"
+                  v-model="modalData.sinopsis"
                   required
                 ></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal('modal_update')"
+        <b-button variant="outline-danger" @click="hideModal('modal_create')"
           >Cancle</b-button
         >
         <b-button variant="outline-warning" @click="createKatalog()"
@@ -281,13 +278,13 @@ export default {
         { key: "actions", label: "Actions" },
       ],
       items: [],
-      modalUpdate: [],
-      modalCreate:{
-        judul:"",
-        author:"",
-        tahun:"",
-        jumlah:"",
-        sinopsis:""
+
+      modalData: {
+        judul: "",
+        author: "",
+        tahun: "",
+        jumlah: "",
+        sinopsis: "",
       },
       totalRows: 1,
       currentPage: 1,
@@ -316,7 +313,6 @@ export default {
     },
   },
   methods: {
-  
     filterData(dataArr, keys) {
       let data = dataArr.map((entry) => {
         let filteredEntry = {};
@@ -329,10 +325,11 @@ export default {
       });
       return data;
     },
- 
+
     modal_update(item) {
-      Object.assign(this.modalUpdate, item);
-      console.log(this.modalUpdate);
+      this.infoModal.title = `Row index: ${item.id}`;
+      Object.assign(this.modalData, item);
+      console.log(this.modalData);
       this.$refs["modal_update"].show();
     },
     modal_create() {
@@ -342,7 +339,7 @@ export default {
       this.$refs[modal].hide();
     },
     resetInfoModal() {
-      this.infoModal.title = "";
+      this.updateKatalog = "";
       this.infoModal.content = "";
     },
     onFiltered(filteredItems) {
@@ -350,19 +347,56 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    createKatalog(){
-      console.log(this.modalCreate)
+    updateKatalog() {
+      // belum bisa update
+      const params = this.modalData;
       const config = {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("Bearer"),
-          },
-        };
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
       axios
-        .post("http://localhost:8081/katalog/", this.modalCreate,config)
+        .put(
+          `http://localhost:8081/katalog/${this.modalData.id}`,
+          params,
+          config
+        )
+        .then((res) =>
+          alert("berhasil update data ").then(console.log(res))
+        )
+        .catch((err) => console.log("===", err));
+      // end database
+      alert("data telah di update");
+      this.$refs["modal_update"].hide();
+    },
+    createKatalog() {
+      console.log(this.modalData);
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      axios
+        .post("http://localhost:8081/katalog/", this.modalData, config)
         .then((res) => console.log(res))
         .then(alert("akun bisa dibuat"))
         .catch((err) => console.log(err));
-        this.$refs["modal_create"].hide();
+      this.$refs["modal_create"].hide();
+    },
+    hapus(id) {
+      console.log("hapus id "+id)
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      axios
+        .delete(`http://localhost:8081/katalog/${id}`, config)
+        .then((res) =>
+          // alert("data telah dihapus ")
+          (console.log(res))
+        )
+        .catch((err) => console.log("===", err));
     },
   },
 
@@ -371,7 +405,7 @@ export default {
       .get(`http://localhost:8081/katalog/`)
       .then((response) => {
         // JSON responses are automatically parsed.
-        let keys = ["id", "judul", "author", "tahun", "sinopsis","jumlah"];
+        let keys = ["id", "judul", "author", "tahun", "sinopsis", "jumlah"];
         let entries = this.filterData(response.data, keys);
         entries.map((entry) => this.items.push(entry));
         // this.items = response.data;
