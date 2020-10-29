@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- paralax -->
-<div class="page-header clear-filter" filter-color="orange">
+<div class="page-header clear-filter" filter-color="white">
 <parallax
 class="page-header-image"
 >
@@ -82,7 +82,12 @@ dolorum perferendis et culpa minus quisquam reprehenderit?
 Laudantium aliquam laborum nihil saepe.
 </b-col>
 </b-row>
-<tentang/>
+<b-row>
+  <b-col>
+    <tentang/>
+  </b-col>
+</b-row>
+
 
 </div>
 </div>
@@ -90,7 +95,7 @@ Laudantium aliquam laborum nihil saepe.
 
 <script>
 // import Keterangan from "../components/Keterangan";
-import tentang from "../components/tentang2";
+import tentang from "../components/Tentang2";
 export default {
 components: {
 // Keterangan
@@ -111,6 +116,7 @@ margin-top: 2%;
 margin-right: 20px;
 margin-left: 20px;
 justify-content: center;
+color: black;
 }
 .a{
   height: 500px;

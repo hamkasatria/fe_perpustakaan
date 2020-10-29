@@ -6,7 +6,12 @@
       <router-view />
     </div>
     <!-- <router-view name="footer" /> -->
+    <b-row>
+      <b-col>
       <Footer />
+
+      </b-col>
+    </b-row>
     
   </div>
 </template>
@@ -21,3 +26,8 @@ export default {
    },
 };
 </script>
+<style scoped>
+.page-header{
+  max-height: auto !important;
+}
+</style>
