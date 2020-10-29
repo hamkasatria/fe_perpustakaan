@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- main table daa pengguna -->
     <b-container fluid>
       <h1>DATA KATALOG</h1>
       <b-row>
@@ -42,6 +41,7 @@
         </b-col>
       </b-row>
       <!-- Main table element -->
+      <b-button size="sm" @click="modal_create">Tambah Katalog</b-button>
       <div>
         <b-table
           show-empty
@@ -64,17 +64,13 @@
             <b-button size="sm" @click="row.toggleDetails">
               {{ row.detailsShowing ? "Hide" : "Show" }} Details
             </b-button>
-            <b-button
-              size="sm"
-              @click="info(row.item, row.index, $event.target)"
-              class="mr-1"
-            >
+            <b-button size="sm" @click="modal_update(row.item)" class="mr-1">
               update
             </b-button>
 
-            <b-button size="sm" class="mr-1">hapus</b-button>
+            <b-button size="sm" class="mr-1" @click="hapus(row.item.id)">hapus</b-button>
           </template>
-
+          <!-- nmenampilkan detail -->
           <template v-slot:row-details="row">
             <b-card>
               <ul>
@@ -86,7 +82,7 @@
           </template>
         </b-table>
       </div>
-      <div style="text-align:center"><button>tambah</button></div>
+
       <!-- pagnation -->
       <div lg="6" class="my-1">
         <b-pagination
@@ -98,63 +94,170 @@
           class="my-1"
         ></b-pagination>
       </div>
-      <!-- Info modal -->
+      <!-- modal update -->
       <b-modal
         centered
         size="xl"
+        ref="modal_update"
+        update-only
+        @hide="resetInfoModal"
+        hide-footer
+      >
+        <form>
+          <b-row>
+            <b-col>
+              <b-form-group
+                label="Judul :"
+                label-for="judul-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="judul-input"
+                  v-model="modalData.judul"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                label="Author :"
+                label-for="author-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="author-input"
+                  v-model="modalData.author"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                label="Tahun :"
+                label-for="tahun-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="tahun-input"
+                  v-model="modalData.tahun"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                label="Jumlah :"
+                label-for="jumlah-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="jumlah-input"
+                  v-model="modalData.jumlah"
+                  required
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group
+                label="Sinopsis :"
+                label-for="sinopsis-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-textarea
+                  placeholder="Tall textarea"
+                  rows="50"
+                  id="sinopsis-input"
+                  v-model="modalData.sinopsis"
+                  required
+                ></b-form-textarea>
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </form>
+        <b-button variant="outline-danger" @click="hideModal('modal_update')"
+          >Cancle</b-button
+        >
+        <b-button variant="outline-warning" @click="updateKatalog()"
+          >Update</b-button
+        >
+      </b-modal>
+
+      <!-- modal create -->
+      <b-modal
+        centered
+        size="xl"
+        ref="modal_create"
         :id="infoModal.id"
         :title="infoModal.title"
         update-only
         @hide="resetInfoModal"
+        hide-footer
       >
         <form ref="form" @submit.stop.prevent="handleSubmit">
           <b-row>
             <b-col>
               <b-form-group
-                :state="nameState"
-                label="Username :"
-                label-for="name-input"
+                label="Judul :"
+                label-for="judul-input"
                 invalid-feedback="Name is required"
               >
                 <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
+                  id="judul-input"
+                  v-model="modalData.judul"
                   required
                 ></b-form-input>
               </b-form-group>
               <b-form-group
-                :state="nameState"
-                label="Nomor HP :"
-                label-for="name-input"
+                label="Author :"
+                label-for="author-input"
                 invalid-feedback="Name is required"
               >
                 <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
+                  id="author-input"
+                  v-model="modalData.author"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                label="Tahun :"
+                label-for="tahun-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="tahun-input"
+                  v-model="modalData.tahun"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                label="Jumlah :"
+                label-for="jumlah"
+                invalid-feedback="Jumlah is required"
+              >
+                <b-form-input
+                  id="jumlah"
+                  v-model="modalData.jumlah"
                   required
                 ></b-form-input>
               </b-form-group>
             </b-col>
             <b-col>
               <b-form-group
-                :state="nameState"
-                label="Email :"
-                label-for="name-input"
+                label="Sinopsis :"
+                label-for="sinopsis-input"
                 invalid-feedback="Name is required"
               >
-                <b-form-input
-                  id="name-input"
-                  v-model="name"
-                  :state="nameState"
+                <b-form-textarea
+                  placeholder="Tall textarea"
+                  rows="50"
+                  id="sinopsis-input"
+                  v-model="modalData.sinopsis"
                   required
-                ></b-form-input>
+                ></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-row>
         </form>
-        <!-- <pre>{{ infoModal.content }}</pre> -->
+        <b-button variant="outline-danger" @click="hideModal('modal_create')"
+          >Cancle</b-button
+        >
+        <b-button variant="outline-warning" @click="createKatalog()"
+          >Create</b-button
+        >
       </b-modal>
     </b-container>
     <!-- menambahkan tambah data -->
@@ -171,9 +274,18 @@ export default {
         { key: "judul", label: "Judul", sort: true },
         { key: "author", label: "Author", sort: true },
         { key: "tahun", label: "Tahun", sort: true },
+        { key: "jumlah", label: "Jumlah", sort: true },
         { key: "actions", label: "Actions" },
       ],
       items: [],
+
+      modalData: {
+        judul: "",
+        author: "",
+        tahun: "",
+        jumlah: "",
+        sinopsis: "",
+      },
       totalRows: 1,
       currentPage: 1,
       perPage: 5,
@@ -201,9 +313,6 @@ export default {
     },
   },
   methods: {
-    makan() {
-      alert("mencoba on click raw");
-    },
     filterData(dataArr, keys) {
       let data = dataArr.map((entry) => {
         let filteredEntry = {};
@@ -216,19 +325,78 @@ export default {
       });
       return data;
     },
-    info(item, index, button) {
-      this.infoModal.title = `Row index: ${index}`;
-      this.infoModal.content = JSON.stringify(item, null, 2);
-      this.$root.$emit("bv::show::modal", this.infoModal.id, button);
+
+    modal_update(item) {
+      this.infoModal.title = `Row index: ${item.id}`;
+      Object.assign(this.modalData, item);
+      console.log(this.modalData);
+      this.$refs["modal_update"].show();
+    },
+    modal_create() {
+      this.$refs["modal_create"].show();
+    },
+    hideModal(modal) {
+      this.$refs[modal].hide();
     },
     resetInfoModal() {
-      this.infoModal.title = "";
+      this.updateKatalog = "";
       this.infoModal.content = "";
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
+    },
+    updateKatalog() {
+      // belum bisa update
+      const params = this.modalData;
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      axios
+        .put(
+          `http://localhost:8081/katalog/${this.modalData.id}`,
+          params,
+          config
+        )
+        .then((res) =>
+          alert("berhasil update data ").then(console.log(res))
+        )
+        .catch((err) => console.log("===", err));
+      // end database
+      alert("data telah di update");
+      this.$refs["modal_update"].hide();
+    },
+    createKatalog() {
+      console.log(this.modalData);
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      axios
+        .post("http://localhost:8081/katalog/", this.modalData, config)
+        .then((res) => console.log(res))
+        .then(alert("akun bisa dibuat"))
+        .catch((err) => console.log(err));
+      this.$refs["modal_create"].hide();
+    },
+    hapus(id) {
+      console.log("hapus id "+id)
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      axios
+        .delete(`http://localhost:8081/katalog/${id}`, config)
+        .then((res) =>
+          // alert("data telah dihapus ")
+          (console.log(res))
+        )
+        .catch((err) => console.log("===", err));
     },
   },
 
@@ -237,11 +405,11 @@ export default {
       .get(`http://localhost:8081/katalog/`)
       .then((response) => {
         // JSON responses are automatically parsed.
-        let keys = ["id", "judul", "author", "tahun", "sinopsis"];
+        let keys = ["id", "judul", "author", "tahun", "sinopsis", "jumlah"];
         let entries = this.filterData(response.data, keys);
         entries.map((entry) => this.items.push(entry));
         // this.items = response.data;
-        this.$store.commit("setpengguna", this.posts);
+        // this.$store.commit("setpengguna", this.posts);
       })
       .catch((e) => {
         this.errors.push(e);

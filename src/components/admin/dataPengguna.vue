@@ -42,6 +42,7 @@
         </b-col>
       </b-row>
       <!-- Main table element -->
+      <b-button size="sm" @click="modal_create">Tambah Pengguna</b-button>
       <div>
         <b-table
           show-empty
@@ -63,11 +64,7 @@
             <b-button size="sm" @click="row.toggleDetails">
               {{ row.detailsShowing ? "Hide" : "Show" }} Details
             </b-button>
-            <b-button
-              size="sm"
-              @click="modal_update(row.item.id)"
-              class="mr-1"
-            >
+            <b-button size="sm" @click="modal_update(row.item)" class="mr-1">
               update
             </b-button>
 
@@ -99,14 +96,11 @@
           class="my-1"
         ></b-pagination>
       </div>
-      <!-- Info modal -->
+      <!-- modal update-->
       <b-modal
-     
         centered
         ref="modal_update"
         size="xl"
-        :id="infoModal.id"
-        :title="infoModal.title"
         update-only
         @hide="resetInfoModal"
         hide-footer
@@ -117,11 +111,11 @@
               <b-form-group label="Username :">
                 <b-form-input
                   id="username"
-                  v-model = obj.username
+                  v-model="obj.username"
                   required
                 ></b-form-input>
               </b-form-group>
-             
+
               <b-form-group label="Nomor HP :">
                 <b-form-input
                   id="noHp"
@@ -141,9 +135,67 @@
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal()">Cancle</b-button>
-        <b-button variant="outline-warning" @click="update(obj.username)"
+        <b-button variant="outline-danger" @click="hideModal('modal_update')"
+          >Cancle</b-button
+        >
+        <b-button variant="outline-warning" @click="update(obj)"
           >Update</b-button
+        >
+      </b-modal>
+      <!-- create user -->
+      <b-modal
+        centered
+        ref="modal_create"
+        size="xl"
+        :id="infoModal.id"
+        :title="'Membuat Pengguna Baru'"
+        update-only
+        @hide="resetInfoModal"
+        hide-footer
+      >
+        <form @submit.stop.prevent="handleSubmit">
+          <b-row>
+            <b-col>
+              <b-form-group label="Username :">
+                <b-form-input
+                  id="username"
+                  v-model="newUser.username"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group label="Nomor HP :">
+                <b-form-input
+                  id="noHp"
+                  v-model="newUser.noHp"
+                  required
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label="Email :">
+                <b-form-input
+                  id="email"
+                  v-model="newUser.email"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group label="Password :">
+                <b-form-input
+                  
+                  id="password"
+                  v-model="newUser.password"
+                  required
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </form>
+        <b-button variant="outline-danger" @click="hideModal('modal_create')"
+          >Cancle</b-button
+        >
+        <b-button variant="outline-warning" @click="create_user()"
+          >Create</b-button
         >
       </b-modal>
     </b-container>
@@ -165,6 +217,12 @@ export default {
       ],
       obj: [],
       items: [],
+      newUser:{
+        username:"",
+        email:"",
+        noHp:"",
+        password:""
+      },
       totalRows: 1,
       currentPage: 1,
       perPage: 5,
@@ -193,14 +251,18 @@ export default {
   },
   methods: {
     hapus(id) {
+      console.log("hapus id "+id)
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
       axios
-        .delete(`http://localhost:8081/admin/${id}`)
-        .then((response) => {
-          alert("data berhasil dihapus" + response);
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+        .delete(`http://localhost:8081/admin/u/${id}`, config)
+        .then((res) =>
+          alert("data telah dihapus ").then(console.log(res))
+        )
+        .catch((err) => console.log("===", err));
     },
     filterData(dataArr, keys) {
       let data = dataArr.map((entry) => {
@@ -214,26 +276,50 @@ export default {
       });
       return data;
     },
-    modal_update(id) {
-      this.infoModal.title = `Row index: ${id}`;
-      // this.infoModal.content = JSON.stringify(item, null, 2);
-      this.obj = this.$store.getters.getUserById(id);
-      // console.log("ini dalam field updaate" + item);
+    modal_update(item) {
+      this.infoModal.title = `Row index: ${item.id}`;
+      Object.assign(this.obj, item);
       this.$refs["modal_update"].show();
     },
-    hideModal() {
-      this.items = this.$store.getters.getUser;
+    modal_create() {
+      this.$refs["modal_create"].show();
+    },
+    hideModal(modal) {
+      this.$refs[modal].hide();
+    },
+    update(obj) {
+
+      //memasukkan database
+      console.log("ini adalah objek"+obj.username)
+      const params = obj;
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      console.log("ini adalah config = "+config);
+      console.log("ini adalah params = "+params);
+      axios
+        .put(`http://localhost:8081/admin/u/${obj.id}`, params, config)
+        .then((res) =>
+          alert("anda berhasil meminjam buku ").then(console.log(res))
+        )
+        .catch((err) => console.log("===", err));
+      // end database
+      alert("data telah di update");
       this.$refs["modal_update"].hide();
     },
-    update(data){
-      console.log("ini adalah update"+data)
-      //memasukkan database
-      alert ("data telah di update")
-      this.$refs["modal_update"].hide();
+    create_user(){
+      axios
+        .post("http://localhost:8081/guess/signup", this.newUser)
+        .then((res) => console.log(res))
+        .then(alert("akun bisa dibuat"))
+        .catch((err) => console.log(err));
+        this.$refs["modal_create"].hide();
     },
     resetInfoModal() {
+      this.obj = "";
       this.infoModal.title = "";
-      this.infoModal.content = "";
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
