@@ -12,9 +12,8 @@
               Praxis Academy
             </h5>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, accusantium nihil vero 
-              reiciendis, praesentium eius nemo deserunt, atque provident asperiores non! Ipsum ut 
-              neque amet fugiat. Sint hic impedit numquam.
+              Bima Hackers' Village<br>
+              Jl. Pakem - Kalasan, Area Sawah, Bimomartani, Kec. Ngemplak, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55584
             </p>
           </mdb-col>
           <hr class="clearfix w-100 d-md-none" />

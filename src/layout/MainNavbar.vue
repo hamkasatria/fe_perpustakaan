@@ -7,7 +7,7 @@
     menu-classes="ml-auto"
   >
     <template>
-      PERPUSTAKAAN PRAXIS
+      <p class="z">PERPUSTAKAAN PRAXIS</p>
 
       <el-popover
         ref="popover1"
@@ -27,20 +27,20 @@
       <li class="nav-item">
         <a class="nav-link" target="_blank">
           <i class="now-ui-icons files_paper"></i>
-          <p><router-link to="/">Tentang</router-link></p>
+          <p class="b"><router-link to="/">Tentang</router-link></p>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" target="_blank">
           <i class="now-ui-icons education_agenda-bookmark"></i>
-          <p><router-link to="/katalog">Katalog</router-link></p>
+          <p class= "b"><router-link to="/katalog">Katalog</router-link></p>
         </a>
       </li>
       <div v-if="!userstatus">
         <li class="nav-item">
           <a class="nav-link" target="_blank">
             <i class="now-ui-icons files_single-copy-04"></i>
-            <p><router-link to="/riwayat">Riwayat</router-link></p>
+            <p class="b"><router-link to="/riwayat">Riwayat</router-link></p>
           </a>
         </li>
       </div>
@@ -113,5 +113,8 @@ export default {
 };
 </script>
 
-// console.log('oi')
-<style scoped></style>
+<style>
+.z{
+  color:white;
+}
+</style>

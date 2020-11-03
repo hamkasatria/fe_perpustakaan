@@ -65,10 +65,10 @@ export default {
     },
     type: {
       type: String,
-      default: 'white',
+      default: 'black',
       validator(value) {
         return [
-          'white',
+          'black',
           'default',
           'primary',
           'danger',

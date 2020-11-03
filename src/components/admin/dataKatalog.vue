@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <b-container fluid>
-      <h1>DATA KATALOG</h1>
+      <h1 style="padding-top:20px;">DATA KATALOG</h1>
       <b-row>
         <b-col sm="5" md="6" class="my-1">
           <b-form-group
@@ -424,4 +424,5 @@ export default {
 .container {
   margin: 50px;
 }
+
 </style>

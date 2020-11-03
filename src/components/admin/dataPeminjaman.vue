@@ -2,7 +2,7 @@
   <div class="container">
     <!-- main table daa pengguna -->
     <b-container fluid>
-      <h1>DATA PEMINJAMAN</h1>
+      <h1 style="padding-top:20px;">DATA PEMINJAMAN</h1>
       <b-row>
         <b-col sm="5" md="6" class="my-1">
           <b-form-group

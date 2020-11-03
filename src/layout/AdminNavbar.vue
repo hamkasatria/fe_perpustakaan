@@ -2,7 +2,7 @@
   <navbar position="fixed" type="primary"  menu-classes="ml-auto">
     
     <template>
-      PERPUSTAKAAN PRAXIS
+       <p class="z">PERPUSTAKAAN PRAXIS</p>
 
       <el-popover
         ref="popover1"
@@ -97,4 +97,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.z{
+  color:white;
+}
+</style>
