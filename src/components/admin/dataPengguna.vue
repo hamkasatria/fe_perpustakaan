@@ -105,13 +105,13 @@
         @hide="resetInfoModal"
         hide-footer
       >
-        <form @submit.stop.prevent="handleSubmit">
+        <form>
           <b-row>
             <b-col>
               <b-form-group label="Username :">
                 <b-form-input
                   id="username"
-                  v-model="obj.username"
+                  v-model="modalData.username"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -119,7 +119,7 @@
               <b-form-group label="Nomor HP :">
                 <b-form-input
                   id="noHp"
-                  v-model.lazy="obj.noHp"
+                  v-model="modalData.noHp"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -128,7 +128,7 @@
               <b-form-group label="Email :">
                 <b-form-input
                   id="email"
-                  v-model="obj.email"
+                  v-model="modalData.email"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -138,9 +138,7 @@
         <b-button variant="outline-danger" @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="update(obj)"
-          >Update</b-button
-        >
+        <b-button variant="outline-warning" @click="update()">Update</b-button>
       </b-modal>
       <!-- create user -->
       <b-modal
@@ -153,13 +151,13 @@
         @hide="resetInfoModal"
         hide-footer
       >
-        <form @submit.stop.prevent="handleSubmit">
+        <form>
           <b-row>
             <b-col>
               <b-form-group label="Username :">
                 <b-form-input
                   id="username"
-                  v-model="newUser.username"
+                  v-model="newModalData.username"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -167,7 +165,7 @@
               <b-form-group label="Nomor HP :">
                 <b-form-input
                   id="noHp"
-                  v-model="newUser.noHp"
+                  v-model="newModalData.noHp"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -176,15 +174,14 @@
               <b-form-group label="Email :">
                 <b-form-input
                   id="email"
-                  v-model="newUser.email"
+                  v-model="newModalData.email"
                   required
                 ></b-form-input>
               </b-form-group>
               <b-form-group label="Password :">
                 <b-form-input
-                  
                   id="password"
-                  v-model="newUser.password"
+                  v-model="modalData.password"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -215,13 +212,19 @@ export default {
         { key: "noHp", label: "noHp", sort: true },
         { key: "actions", label: "Actions" },
       ],
-      obj: [],
+
       items: [],
-      newUser:{
-        username:"",
-        email:"",
-        noHp:"",
-        password:""
+      modalData: {
+        username: "",
+        email: "",
+        noHp: "",
+        password: "",
+      },
+      newModalData: {
+        username: "",
+        email: "",
+        noHp: "",
+        password: "",
       },
       totalRows: 1,
       currentPage: 1,
@@ -251,17 +254,15 @@ export default {
   },
   methods: {
     hapus(id) {
-      console.log("hapus id "+id)
+      console.log("hapus id " + id);
       const config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
         },
       };
       axios
-        .delete(`http://localhost:8081/admin/u/${id}`, config)
-        .then((res) =>
-          alert("data telah dihapus ").then(console.log(res))
-        )
+        .delete(`http://localhost:8081/admin/${id}`, config)
+        .then((res) => console.log(res))
         .catch((err) => console.log("===", err));
     },
     filterData(dataArr, keys) {
@@ -278,29 +279,32 @@ export default {
     },
     modal_update(item) {
       this.infoModal.title = `Row index: ${item.id}`;
-      Object.assign(this.obj, item);
+      Object.assign(this.modalData, item);//ngga bisa mengirim ke sini dongg
+      console.log(item.id);
+      
+      setTimeout(console.log(this.modalData),2000)
       this.$refs["modal_update"].show();
     },
     modal_create() {
+      // this.modalData="";
       this.$refs["modal_create"].show();
     },
     hideModal(modal) {
       this.$refs[modal].hide();
     },
-    update(obj) {
-
+    update() {
       //memasukkan database
-      console.log("ini adalah objek"+obj.username)
-      const params = obj;
+      console.log("ini adalah objek" + this.modalData.username);
+      const params = this.modalData;
       const config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
         },
       };
-      console.log("ini adalah config = "+config);
-      console.log("ini adalah params = "+params);
+      console.log("ini adalah config = " + config);
+      console.log("ini adalah params = " + params);
       axios
-        .put(`http://localhost:8081/admin/u/${obj.id}`, params, config)
+        .put(`http://localhost:8081/admin/${this.modalData.id}`, params, config)
         .then((res) =>
           alert("anda berhasil meminjam buku ").then(console.log(res))
         )
@@ -309,16 +313,16 @@ export default {
       alert("data telah di update");
       this.$refs["modal_update"].hide();
     },
-    create_user(){
+    create_user() {
       axios
-        .post("http://localhost:8081/guess/signup", this.newUser)
+        .post("http://localhost:8081/guess/signup", this.modalData)
         .then((res) => console.log(res))
         .then(alert("akun bisa dibuat"))
         .catch((err) => console.log(err));
-        this.$refs["modal_create"].hide();
+      this.$refs["modal_create"].hide();
     },
     resetInfoModal() {
-      this.obj = "";
+      // this.modalData = "";
       this.infoModal.title = "";
     },
     onFiltered(filteredItems) {
