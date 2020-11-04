@@ -411,7 +411,7 @@ export default {
         },
       };
       axios
-        .post("http://localhost:8081/katalog/", this.modalData, config)
+        .post("http://localhost:8081/katalog/", this.newModalData, config)
         .then((res) => console.log(res))
         .then(alert("akun bisa dibuat"))
         .catch((err) => console.log(err));
