@@ -41,7 +41,17 @@
         </b-col>
       </b-row>
       <!-- Main table element -->
-      <b-button size="sm" @click="modal_create">Tambah Katalog</b-button>
+      <!-- <b-button size="sm" @click="modal_create">Tambah Katalog</b-button> -->
+      <b-button-toolbar>
+        <b-button
+          title="Tambah Pengguna"
+          size="sm"
+          @click="modal_create"
+          class="mr-1"
+        >
+          <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+        </b-button>
+      </b-button-toolbar>
       <div>
         <b-table
           show-empty
@@ -57,18 +67,35 @@
           :sort-desc.sync="sortDesc"
           :sort-direction="sortDirection"
           @filtered="onFiltered"
-          @row-clicked="makan()"
         >
           <!-- ini adalah button -->
           <template v-slot:cell(actions)="row">
-            <b-button size="sm" @click="row.toggleDetails">
-              {{ row.detailsShowing ? "Hide" : "Show" }} Details
-            </b-button>
-            <b-button size="sm" @click="modal_update(row.item)" class="mr-1">
-              update
-            </b-button>
-
-            <b-button size="sm" class="mr-1" @click="hapus(row.item.id)">hapus</b-button>
+            <b-button-toolbar>
+              <b-button
+                title="Detail Data"
+                size="sm"
+                @click="row.toggleDetails"
+                class="mr-1"
+              >
+                <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
+              </b-button>
+              <b-button
+                title="Update"
+                size="sm"
+                @click="modal_update(row.item)"
+                class="mr-1"
+              >
+                <b-icon icon="pencil" aria-hidden="true"></b-icon>
+              </b-button>
+              <b-button
+                title="Hapus"
+                size="sm"
+                class="mr-1"
+                @click="hapus(row.item.id)"
+              >
+                <b-icon icon="trash" aria-hidden="true"></b-icon>
+              </b-button>
+            </b-button-toolbar>
           </template>
           <!-- nmenampilkan detail -->
           <template v-slot:row-details="row">
@@ -187,7 +214,7 @@
         @hide="resetInfoModal"
         hide-footer
       >
-        <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form>
           <b-row>
             <b-col>
               <b-form-group
@@ -197,7 +224,7 @@
               >
                 <b-form-input
                   id="judul-input"
-                  v-model="modalData.judul"
+                  v-model="newModalData.judul"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -208,7 +235,7 @@
               >
                 <b-form-input
                   id="author-input"
-                  v-model="modalData.author"
+                  v-model="newModalData.author"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -219,7 +246,7 @@
               >
                 <b-form-input
                   id="tahun-input"
-                  v-model="modalData.tahun"
+                  v-model="newModalData.tahun"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -230,7 +257,7 @@
               >
                 <b-form-input
                   id="jumlah"
-                  v-model="modalData.jumlah"
+                  v-model="newModalData.jumlah"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -242,10 +269,9 @@
                 invalid-feedback="Name is required"
               >
                 <b-form-textarea
-                  placeholder="Tall textarea"
                   rows="50"
                   id="sinopsis-input"
-                  v-model="modalData.sinopsis"
+                  v-model="newModalData.sinopsis"
                   required
                 ></b-form-textarea>
               </b-form-group>
@@ -280,6 +306,13 @@ export default {
       items: [],
 
       modalData: {
+        judul: "",
+        author: "",
+        tahun: "",
+        jumlah: "",
+        sinopsis: "",
+      },
+      newModalData: {
         judul: "",
         author: "",
         tahun: "",
@@ -361,9 +394,7 @@ export default {
           params,
           config
         )
-        .then((res) =>
-          alert("berhasil update data ").then(console.log(res))
-        )
+        .then((res) => console.log(res))
         .catch((err) => console.log("===", err));
       // end database
       alert("data telah di update");
@@ -384,7 +415,7 @@ export default {
       this.$refs["modal_create"].hide();
     },
     hapus(id) {
-      console.log("hapus id "+id)
+      console.log("hapus id " + id);
       const config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
@@ -394,7 +425,7 @@ export default {
         .delete(`http://localhost:8081/katalog/${id}`, config)
         .then((res) =>
           // alert("data telah dihapus ")
-          (console.log(res))
+          console.log(res)
         )
         .catch((err) => console.log("===", err));
     },
