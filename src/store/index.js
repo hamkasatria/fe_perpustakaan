@@ -9,7 +9,8 @@ export default new Vuex.Store({
     state: {
         katalog: [],
         user: [],
-        peminjaman: []
+        peminjaman: [],
+        personalUser:[]
     },
     modules: {
         auth

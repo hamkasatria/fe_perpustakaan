@@ -57,6 +57,9 @@
           show-empty
           small
           stacked="md"
+          striped
+          bordered
+          hover
           :items="items"
           :fields="fields"
           :current-page="currentPage"

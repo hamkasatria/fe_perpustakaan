@@ -88,9 +88,25 @@ export default {
         .then((res) => {
           localStorage.setItem(res.data.tokenType, res.data.accessToken);
           this.$store.state.token = res.data.accessToken;
-          // console.log(this.$store.state.token)
-          alert("anda berhasil masuk");
-          this.$router.go({ path: "/" });
+          const config = {
+            headers: {
+              Authorization: "Bearer " + res.data.accessToken,
+            },
+          };
+          axios.get("http://localhost:8081/user/", config).then((respon) => {
+            this.$store.state.personalUser = respon.data;
+            console.log("ini adalah rolenya = " + respon.data.roles[0].name);
+            if (respon.data.roles[0].name == "ROLE_ADMIN") {
+              console.log("masuk ke admin");
+              this.$router.push({ path: "/datapengguna" });
+            } else {
+              console.log("masuk ke user");
+              //masih error
+              this.$router.go({ path: "/" });
+              // this.$router.push({ path: "katalog" });
+            }
+            alert("anda berhasil masuk");
+          });
         });
       this.$router.push({ path: "/" });
     },
