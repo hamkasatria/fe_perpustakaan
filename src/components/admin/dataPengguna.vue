@@ -1,21 +1,23 @@
 <template>
-  <div class="container">
+  <div>
     <!-- main table daa pengguna -->
-    <b-container fluid>
-      <h1 style="padding-top:20px;">DATA PENGGUNA</h1>
-      <b-row>
-        <b-col sm="5" md="6" class="my-1">
+    <b-container fluid class="container">
+      <br /><br /><br /><br />
+      <center>
+        <h1>DATA PENGGUNA</h1>
+      </center>
+      <b-row class="col-gab">
+        <b-col class="col-md-4">
           <b-form-group
-            label="Per page"
+            label="Per-page"
             label-cols-sm="6"
-            label-cols-md="4"
-            label-cols-lg="2"
-            label-align-sm="center"
+            label-align-sm="left"
             label-size="sm"
             label-for="perPageSelect"
-            class="mb-0"
+            class="mb-0 perpage-input"
           >
             <b-form-select
+              class=""
               v-model="perPage"
               id="perPageSelect"
               size="sm"
@@ -23,9 +25,10 @@
             ></b-form-select>
           </b-form-group>
         </b-col>
-        <b-col sm="5" md="6">
+       
+        <b-col class="col-md-7">
           <b-form-group
-            label="Search"
+            label=""
             label-cols-sm="3"
             label-align-sm="right"
             label-size="sm"
@@ -41,13 +44,34 @@
           </b-form-group>
         </b-col>
       </b-row>
+      <b-raw>
+         <b-col class="col-md-1">
+          <b-button-toolbar
+          position="absolute"
+          style="justify-content: center"
+          >
+            <b-button
+              title="Tambah Pengguna"
+              size="lg"
+              @click="modal_create"
+              class="mb-0 bg-primary"
+            >
+              <b-icon icon= "plus-circle" aria-hidden="true"></b-icon>
+            </b-button>
+          </b-button-toolbar>
+        </b-col>
+
+      </b-raw>
       <!-- Main table element -->
-      <b-button size="sm" @click="modal_create">Tambah Pengguna</b-button>
+      <br />
       <div>
         <b-table
           show-empty
           small
           stacked="md"
+          striped
+          bordered
+          hover
           :items="items"
           :fields="fields"
           :current-page="currentPage"
@@ -61,16 +85,32 @@
         >
           <!-- ini adalah button -->
           <template v-slot:cell(actions)="row">
-            <b-button size="sm" @click="row.toggleDetails">
-              {{ row.detailsShowing ? "Hide" : "Show" }} Details
-            </b-button>
-            <b-button size="sm" @click="modal_update(row.item)" class="mr-1">
-              update
-            </b-button>
-
-            <b-button size="sm" class="mr-1" @click="hapus(row.item.id)"
-              >hapus</b-button
-            >
+            <b-button-toolbar class="">
+              <b-button
+                title="Detail Data"
+                size="sm"
+                @click="row.toggleDetails"
+                class="mr-1 bg-primary"
+              >
+                <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
+              </b-button>
+              <b-button
+                title="Update"
+                size="sm"
+                @click="modal_update(row.item)"
+                class="mr-1 bg-primary"
+              >
+                <b-icon icon="pencil" aria-hidden="true"></b-icon>
+              </b-button>
+              <b-button
+                title="Hapus Data"
+                size="sm"
+                class="mr-1 bg-primary"
+                @click="hapus(row.item.id)"
+              >
+                <b-icon icon="trash" aria-hidden="true"></b-icon>
+              </b-button>
+            </b-button-toolbar>
           </template>
 
           <template v-slot:row-details="row">
@@ -207,8 +247,8 @@ export default {
     return {
       fields: [
         { key: "id", label: "ID", sortable: true, sortDirection: "desc" },
-        { key: "username", label: "Username", sort: true },
-        { key: "email", label: "Email", sort: true },
+        { key: "username", label: "Username", sortable: true },
+        { key: "email", label: "Email", sortable: true },
         { key: "noHp", label: "noHp", sort: true },
         { key: "actions", label: "Actions" },
       ],
@@ -279,10 +319,10 @@ export default {
     },
     modal_update(item) {
       this.infoModal.title = `Row index: ${item.id}`;
-      Object.assign(this.modalData, item);//ngga bisa mengirim ke sini dongg
+      Object.assign(this.modalData, item); //ngga bisa mengirim ke sini dongg
       console.log(item.id);
-      
-      setTimeout(console.log(this.modalData),2000)
+
+      setTimeout(console.log(this.modalData), 2000);
       this.$refs["modal_update"].show();
     },
     modal_create() {
@@ -353,7 +393,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin: 50px;
+/* .kcontainer {
+  margin: 10px;
+  top: 100px;
+  padding: 50 px;
+} */
+.perpage-input {
+  width: 90%;
+}
+.col-gab {
+  column-count: 3;
+  column-gap: 50px;
 }
 </style>

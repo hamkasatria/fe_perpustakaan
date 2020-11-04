@@ -42,7 +42,16 @@
         </b-col>
       </b-row>
       <!-- Main table element -->
-      <b-button size="sm" @click="modal_create">Tambah Katalog</b-button>
+      <b-button-toolbar>
+        <b-button
+          title="Tambah Pengguna"
+          size="sm"
+          @click="modal_create"
+          class="mr-1"
+        >
+          <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+        </b-button>
+      </b-button-toolbar>
       <div>
         <b-table
           show-empty
@@ -62,15 +71,41 @@
         >
           <!-- ini adalah button -->
           <template v-slot:cell(actions)="row">
-            <b-button size="sm" @click="row.toggleDetails">
-              {{ row.detailsShowing ? "Hide" : "Show" }} Details
-            </b-button>
-            <b-button size="sm" @click="modal_update(row.item)" class="mr-1">
-              update
-            </b-button>
-
-            <b-button size="sm" class="mr-1" @click="buku_kembali(row.item.id)">kembali</b-button>
-            <b-button size="sm" class="mr-1" @click="hapus(row.item.id)">hapus</b-button>
+            <b-button-toolbar>
+              <b-button
+                title="Detail Data"
+                size="sm"
+                @click="row.toggleDetails"
+                class="mr-1"
+              >
+                <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
+              </b-button>
+              <b-button
+                size="sm"
+                class="mr-1"
+                @click="buku_kembali(row.item.id)"
+              >
+                <b-icon icon="arrow-left-circle" aria-hidden="true"
+                  >kembali</b-icon
+                >
+              </b-button>
+              <b-button
+                title="Update"
+                size="sm"
+                @click="modal_update(row.item)"
+                class="mr-1"
+              >
+                <b-icon icon="pencil" aria-hidden="true"></b-icon>
+              </b-button>
+              <b-button
+                title="Hapus"
+                size="sm"
+                class="mr-1"
+                @click="hapus(row.item.id)"
+              >
+                <b-icon icon="trash" aria-hidden="true"></b-icon>
+              </b-button>
+            </b-button-toolbar>
           </template>
 
           <template v-slot:row-details="row">
@@ -162,7 +197,7 @@
         @hide="resetInfoModal"
         hide-footer
       >
-         <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form ref="form" @submit.stop.prevent="handleSubmit">
           <b-row>
             <b-col>
               <b-form-group
@@ -173,7 +208,6 @@
                 <b-form-input
                   id="katalog-input"
                   v-model="modalData.idUser"
-                 
                   required
                 ></b-form-input>
               </b-form-group>
@@ -263,7 +297,6 @@ export default {
     },
   },
   methods: {
- 
     filterData(dataArr, keys) {
       let data = dataArr.map((entry) => {
         let filteredEntry = {};
@@ -297,8 +330,8 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    buku_kembali(id){
-      console.log("buku di kembalikan"+id)
+    buku_kembali(id) {
+      console.log("buku di kembalikan" + id);
       const config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
@@ -311,7 +344,7 @@ export default {
         .catch((err) => console.log(err));
     },
     hapus(id) {
-      console.log("hapus id "+id)
+      console.log("hapus id " + id);
       const config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
@@ -321,7 +354,7 @@ export default {
         .delete(`http://localhost:8081/peminjaman/${id}`, config)
         .then((res) =>
           // alert("data telah dihapus ")
-          (console.log(res))
+          console.log(res)
         )
         .catch((err) => console.log("===", err));
     },
