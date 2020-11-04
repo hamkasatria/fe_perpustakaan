@@ -1,28 +1,28 @@
 <template>
   <div>
     <div class="katalog">
-      <ul v-if="posts && posts.length">
-        <li v-for="post of posts" v-bind:key="post.id">
+      <b-row v-if="posts && posts.length">
+        <b-col v-for="post of posts" v-bind:key="post.id" cols="12" sm="6" md="4" lg="3">
           <b-card
             img-src="https://picsum.photos/600/300/?image=25"
             img-alt="Image"
             img-tops
             tag="article"
             style="max-width: 20rem;"
-            class="mb-2 card"
+            class="card"
           >
             <b-card-text>
-              <p class="font-weight-bold">{{ post.judul }}</p>
+              <p class="font-weight-bold">{{ post.b-row }}</p>
               <p></p>
               <p>{{ post.author }} - {{ post.tahun }}</p>
             </b-card-text>
-            <b-button id="show-btn" @click="showModal(post)">Info</b-button>
+            <b-button id="show-btn" @b-colk="showModal(post)">Info</b-button>
             <b-button @click="pinjam(post.id)" variant="primary"
               >Pinjam</b-button
             >
           </b-card>
-        </li>
-      </ul>
+        </b-col>
+      </b-row>
 
       <ul v-if="errors && errors.length">
         <li v-for="error of errors" v-bind:key="error.id">
