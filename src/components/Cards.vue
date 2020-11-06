@@ -12,7 +12,7 @@
             class="card"
           >
             <b-card-text>
-              <p class="font-weight-bold">{{ post.b-row }}</p>
+              <p class="font-weight-bold">{{ post.judul }}</p>
               <p></p>
               <p>{{ post.author }} - {{ post.tahun }}</p>
             </b-card-text>
