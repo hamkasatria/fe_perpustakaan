@@ -138,14 +138,16 @@
       </div>
       <!-- modal update-->
       <b-modal
+        
         centered
+        title="Update Data"
         ref="modal_update"
         size="xl"
         update-only
         @hide="resetInfoModal"
         hide-footer
       >
-        <form>
+        <form class="bg-primary">
           <b-row>
             <b-col>
               <b-form-group label="Username :">
@@ -175,10 +177,10 @@
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal('modal_update')"
+        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="update()">Update</b-button>
+        <b-button class="bg-primary" variant="outline-warning" @click="update()">Update</b-button>
       </b-modal>
       <!-- create user -->
       <b-modal
@@ -355,7 +357,7 @@ export default {
     },
     create_user() {
       axios
-        .post("http://localhost:8081/guess/signup", this.modalData)
+        .post("http://localhost:8081/guess/signup", this.newModalData)
         .then((res) => console.log(res))
         .then(alert("akun bisa dibuat"))
         .catch((err) => console.log(err));
