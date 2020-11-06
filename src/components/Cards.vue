@@ -16,7 +16,7 @@
               <p></p>
               <p>{{ post.author }} - {{ post.tahun }}</p>
             </b-card-text>
-            <b-button id="show-btn" @b-colk="showModal(post)">Info</b-button>
+            <b-button id="show-btn" @click="showModal(post)">Info</b-button>
             <b-button @click="pinjam(post.id)" variant="primary"
               >Pinjam</b-button
             >
