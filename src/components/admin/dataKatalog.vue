@@ -1,18 +1,17 @@
 <template>
-  <div class="container">
+  <div>
     <b-container fluid>
+      <br /><br /><br /><br />
       <h1 style="padding-top:20px;">DATA KATALOG</h1>
       <b-row>
         <b-col sm="5" md="6" class="my-1">
           <b-form-group
             label="Per page"
             label-cols-sm="6"
-            label-cols-md="4"
-            label-cols-lg="2"
-            label-align-sm="center"
+            label-align-sm="left"
             label-size="sm"
             label-for="perPageSelect"
-            class="mb-0"
+            class="mb-0 perpage-input"
           >
             <b-form-select
               v-model="perPage"
@@ -22,7 +21,7 @@
             ></b-form-select>
           </b-form-group>
         </b-col>
-        <b-col sm="5" md="6">
+        <b-col class="col-md-7">
           <b-form-group
             label="Search"
             label-cols-sm="3"
