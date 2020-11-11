@@ -131,7 +131,7 @@
           class="my-1"
         ></b-pagination>
       </div>
-      <!-- Info modal -->
+      <!-- modal update -->
       <b-modal
         centered
         size="xl"
@@ -142,7 +142,7 @@
         @hide="resetInfoModal"
         hide-footer
       >
-        <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form>
           <b-row>
             <b-col>
               <b-form-group
@@ -183,7 +183,12 @@
             </b-col>
           </b-row>
         </form>
-        <!-- <pre>{{ infoModal.content }}</pre> -->
+         <b-button variant="outline-danger" @click="hideModal('modal_create')"
+          >Cancle</b-button
+        >
+        <b-button variant="outline-warning" @click="createKatalog()"
+          >Update</b-button
+        >
       </b-modal>
 
       <!-- modal create -->
@@ -197,7 +202,7 @@
         @hide="resetInfoModal"
         hide-footer
       >
-        <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form ref="form">
           <b-row>
             <b-col>
               <b-form-group
@@ -207,7 +212,7 @@
               >
                 <b-form-input
                   id="katalog-input"
-                  v-model="modalData.idUser"
+                  v-model="newModalData.idUser"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -218,30 +223,19 @@
               >
                 <b-form-input
                   id="katalog-input"
-                  v-model="modalData.idKatalog"
+                  v-model="newModalData.idKatalog"
                   required
                 ></b-form-input>
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group
-                label="Status :"
-                label-for="status-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="status-input"
-                  v-model="modalData.status"
-                  required
-                ></b-form-input>
-              </b-form-group>
             </b-col>
           </b-row>
         </form>
         <b-button variant="outline-danger" @click="hideModal('modal_create')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="createKatalog()"
+        <b-button variant="outline-warning" @click="createPeminjaman()"
           >Create</b-button
         >
       </b-modal>
@@ -284,6 +278,10 @@ export default {
         title: "",
         content: "",
       },
+      newModalData:{
+        idUser:"",
+        idBuku:""
+      }
     };
   },
   computed: {
@@ -343,6 +341,42 @@ export default {
         .then(alert("buku dikembalikan"))
         .catch((err) => console.log(err));
     },
+    updatePeminjaman() {
+      // belum bisa update
+      const params = this.modalData;
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      axios
+        .put(
+          `http://localhost:8081/peminjaman/${this.modalData.id}`,
+          params,
+          config
+        )
+        .then((res) => console.log(res))
+        .catch((err) => console.log("===", err));
+      // end database
+      alert("data telah di update");
+      this.$refs["modal_update"].hide();
+    },
+    createPeminjaman() {
+      console.log(this.modalData);
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
+      axios
+        .post("http://localhost:8081/peminjaman/", this.newModalData, config)
+        .then((res) => console.log(res))
+        .then(alert("akun bisa dibuat"))
+        .catch((err) => console.log(err));
+      this.$refs["modal_create"].hide();
+    },
+
+
     hapus(id) {
       console.log("hapus id " + id);
       const config = {
