@@ -1,10 +1,9 @@
 <template>
   <div>
-    <!-- main table daa pengguna -->
-    <b-container fluid class="container">
-      <br /><br /><br /><br />
+    <b-container fluid>
+
       <center>
-        <h1>DATA PENGGUNA</h1>
+        <h1 style="padding-top:80px;">DATA PENGGUNA</h1>
       </center>
       <b-row class="col-gab">
         <b-col class="col-md-4">
@@ -25,7 +24,6 @@
             ></b-form-select>
           </b-form-group>
         </b-col>
-       
         <b-col class="col-md-7">
           <b-form-group
             label=""
@@ -45,25 +43,21 @@
         </b-col>
       </b-row>
       <b-raw>
-         <b-col class="col-md-1">
-          <b-button-toolbar
-          position="absolute"
-          style="justify-content: center"
-          >
+        <b-col class="col-md-12">
+          <b-button-toolbar position="absolute" style="justify-content: center">
             <b-button
               title="Tambah Pengguna"
               size="lg"
               @click="modal_create"
               class="mb-0 bg-primary"
             >
-              <b-icon icon= "plus-circle" aria-hidden="true"></b-icon>
+              <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
             </b-button>
           </b-button-toolbar>
         </b-col>
-
       </b-raw>
       <!-- Main table element -->
-      <br />
+      <br>
       <div>
         <b-table
           show-empty
@@ -138,7 +132,6 @@
       </div>
       <!-- modal update-->
       <b-modal
-        
         centered
         title="Update Data"
         ref="modal_update"
@@ -177,10 +170,15 @@
             </b-col>
           </b-row>
         </form>
-        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_update')"
+        <b-button
+          class="bg-primary"
+          variant="outline-danger"
+          @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button class="bg-primary" variant="outline-warning" @click="update()">Update</b-button>
+        <b-button class="bg-primary" variant="outline-warning" @click="update()"
+          >Update</b-button
+        >
       </b-modal>
       <!-- create user -->
       <b-modal
@@ -395,11 +393,7 @@ export default {
 </script>
 
 <style scoped>
-/* .kcontainer {
-  margin: 10px;
-  top: 100px;
-  padding: 50 px;
-} */
+
 .perpage-input {
   width: 90%;
 }
