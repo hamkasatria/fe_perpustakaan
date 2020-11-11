@@ -338,7 +338,7 @@ export default {
         },
       };
       axios
-        .put(`localhost:8081/peminjaman/pengembalian/${id}`, config)
+        .put(`http://localhost:8081/peminjaman/pengembalian/${id}`, config)
         .then((res) => console.log(res))
         .then(alert("buku dikembalikan"))
         .catch((err) => console.log(err));
