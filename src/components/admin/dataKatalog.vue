@@ -1,12 +1,14 @@
 <template>
   <div>
     <b-container fluid>
-      <br /><br /><br /><br />
-      <h1 style="padding-top:20px;">DATA KATALOG</h1>
-      <b-row>
-        <b-col sm="5" md="6" class="my-1">
+
+      <center>
+        <h1 style="padding-top:80px;">DATA KATALOG</h1>
+      </center>
+      <b-row class="col-gab">
+        <b-col class="col-md-4">
           <b-form-group
-            label="Per page"
+            label="Per-page"
             label-cols-sm="6"
             label-align-sm="left"
             label-size="sm"
@@ -14,6 +16,7 @@
             class="mb-0 perpage-input"
           >
             <b-form-select
+              class=""
               v-model="perPage"
               id="perPageSelect"
               size="sm"
@@ -23,7 +26,7 @@
         </b-col>
         <b-col class="col-md-7">
           <b-form-group
-            label="Search"
+            label=""
             label-cols-sm="3"
             label-align-sm="right"
             label-size="sm"
@@ -39,18 +42,23 @@
           </b-form-group>
         </b-col>
       </b-row>
+      <b-raw>
+        <b-col class="col-md-12">
+          <b-button-toolbar position="absolute" style="justify-content: center">
+            <b-button
+              title="Tambah Katalog"
+              size="lg"
+              @click="modal_create"
+              class="mb-0 bg-primary"
+            >
+              <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+            </b-button>
+          </b-button-toolbar>
+        </b-col>
+      </b-raw>
       <!-- Main table element -->
-      <!-- <b-button size="sm" @click="modal_create">Tambah Katalog</b-button> -->
-      <b-button-toolbar>
-        <b-button
-          title="Tambah Pengguna"
-          size="sm"
-          @click="modal_create"
-          class="mr-1"
-        >
-          <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-        </b-button>
-      </b-button-toolbar>
+      
+      <br>
       <div>
         <b-table
           show-empty
@@ -77,7 +85,7 @@
                 title="Detail Data"
                 size="sm"
                 @click="row.toggleDetails"
-                class="mr-1"
+                class="mr-1 bg-primary"
               >
                 <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
               </b-button>
@@ -85,14 +93,14 @@
                 title="Update"
                 size="sm"
                 @click="modal_update(row.item)"
-                class="mr-1"
+                class="mr-1 bg-primary"
               >
                 <b-icon icon="pencil" aria-hidden="true"></b-icon>
               </b-button>
               <b-button
                 title="Hapus"
                 size="sm"
-                class="mr-1"
+                class="mr-1 bg-primary"
                 @click="hapus(row.item.id)"
               >
                 <b-icon icon="trash" aria-hidden="true"></b-icon>
@@ -299,10 +307,10 @@ export default {
     return {
       fields: [
         { key: "id", label: "ID", sortable: true, sortDirection: "desc" },
-        { key: "judul", label: "Judul", sort: true },
-        { key: "author", label: "Author", sort: true },
-        { key: "tahun", label: "Tahun", sort: true },
-        { key: "jumlah", label: "Jumlah", sort: true },
+        { key: "judul", label: "Judul", sortable: true },
+        { key: "author", label: "Author", sortable: true },
+        { key: "tahun", label: "Tahun", sortable: true },
+        { key: "jumlah", label: "Jumlah", sortable: true },
         { key: "actions", label: "Actions" },
       ],
       items: [],
