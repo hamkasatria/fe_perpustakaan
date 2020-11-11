@@ -1,21 +1,22 @@
 <template>
-  <div class="container">
+  <div>
     <!-- main table daa pengguna -->
     <b-container fluid>
-      <h1 style="padding-top:20px;">DATA PEMINJAMAN</h1>
-      <b-row>
-        <b-col sm="5" md="6" class="my-1">
+      <center>
+        <h1 style="padding-top:80px;">DATA PEMINJAMAN</h1>
+      </center>
+      <b-row class="col-gab">
+        <b-col class="col-md-4">
           <b-form-group
-            label="Per page"
+            label="Per-page"
             label-cols-sm="6"
-            label-cols-md="4"
-            label-cols-lg="2"
-            label-align-sm="center"
+            label-align-sm="left"
             label-size="sm"
             label-for="perPageSelect"
-            class="mb-0"
+            class="mb-0 perpage-input"
           >
             <b-form-select
+              class=""
               v-model="perPage"
               id="perPageSelect"
               size="sm"
@@ -23,9 +24,9 @@
             ></b-form-select>
           </b-form-group>
         </b-col>
-        <b-col sm="5" md="6">
+        <b-col class="col-md-7">
           <b-form-group
-            label="Search"
+            label=""
             label-cols-sm="3"
             label-align-sm="right"
             label-size="sm"
@@ -41,22 +42,30 @@
           </b-form-group>
         </b-col>
       </b-row>
+      <b-raw>
+        <b-col class="col-md-12">
+          <b-button-toolbar position="absolute" style="justify-content: center">
+            <b-button
+              title="Tambah Katalog"
+              size="lg"
+              @click="modal_create"
+              class="mb-0 bg-primary"
+            >
+              <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+            </b-button>
+          </b-button-toolbar>
+        </b-col>
+      </b-raw>
       <!-- Main table element -->
-      <b-button-toolbar>
-        <b-button
-          title="Tambah Pengguna"
-          size="sm"
-          @click="modal_create"
-          class="mr-1"
-        >
-          <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-        </b-button>
-      </b-button-toolbar>
+      <br />
       <div>
         <b-table
           show-empty
           small
           stacked="md"
+          striped
+          bordered
+          hover
           :items="items"
           :fields="fields"
           :current-page="currentPage"
@@ -67,7 +76,6 @@
           :sort-desc.sync="sortDesc"
           :sort-direction="sortDirection"
           @filtered="onFiltered"
-          @row-clicked="makan()"
         >
           <!-- ini adalah button -->
           <template v-slot:cell(actions)="row">
@@ -76,13 +84,13 @@
                 title="Detail Data"
                 size="sm"
                 @click="row.toggleDetails"
-                class="mr-1"
+                class="mr-1 bg-primary"
               >
                 <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
               </b-button>
               <b-button
                 size="sm"
-                class="mr-1"
+                class="mr-1 bg-primary"
                 @click="buku_kembali(row.item.id)"
               >
                 <b-icon icon="arrow-left-circle" aria-hidden="true"
@@ -93,14 +101,14 @@
                 title="Update"
                 size="sm"
                 @click="modal_update(row.item)"
-                class="mr-1"
+                class="mr-1 bg-primary"
               >
                 <b-icon icon="pencil" aria-hidden="true"></b-icon>
               </b-button>
               <b-button
                 title="Hapus"
                 size="sm"
-                class="mr-1"
+                class="mr-1 bg-primary"
                 @click="hapus(row.item.id)"
               >
                 <b-icon icon="trash" aria-hidden="true"></b-icon>
@@ -183,7 +191,7 @@
             </b-col>
           </b-row>
         </form>
-         <b-button variant="outline-danger" @click="hideModal('modal_create')"
+        <b-button variant="outline-danger" @click="hideModal('modal_create')"
           >Cancle</b-button
         >
         <b-button variant="outline-warning" @click="createKatalog()"
@@ -226,13 +234,16 @@
                   v-model="newModalData.idKatalog"
                   required
                 ></b-form-input>
+               
               </b-form-group>
             </b-col>
-            <b-col>
-            </b-col>
+            <b-col> </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal('modal_create')"
+        <b-button
+          variant="outline-danger"
+          class="bg-primary"
+          @click="hideModal('modal_create')"
           >Cancle</b-button
         >
         <b-button variant="outline-warning" @click="createPeminjaman()"
@@ -278,10 +289,10 @@ export default {
         title: "",
         content: "",
       },
-      newModalData:{
-        idUser:"",
-        idBuku:""
-      }
+      newModalData: {
+        idUser: "",
+        idBuku: "",
+      },
     };
   },
   computed: {
@@ -375,7 +386,6 @@ export default {
         .catch((err) => console.log(err));
       this.$refs["modal_create"].hide();
     },
-
 
     hapus(id) {
       console.log("hapus id " + id);
