@@ -140,7 +140,7 @@
         @hide="resetInfoModal"
         hide-footer
       >
-        <form class="bg-primary">
+        <form>
           <b-row>
             <b-col>
               <b-form-group label="Username :">
@@ -228,10 +228,10 @@
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal('modal_create')"
+        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_create')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="create_user()"
+        <b-button class="bg-primary" variant="outline-warning" @click="create_user()"
           >Create</b-button
         >
       </b-modal>
@@ -302,7 +302,9 @@ export default {
       };
       axios
         .delete(`http://localhost:8081/admin/${id}`, config)
-        .then((res) => console.log(res))
+        .then((res) => 
+        console.log(res),
+        alert("data telah dihapus "))
         .catch((err) => console.log("===", err));
     },
     filterData(dataArr, keys) {

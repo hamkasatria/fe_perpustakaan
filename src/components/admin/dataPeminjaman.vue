@@ -262,12 +262,15 @@ export default {
   data() {
     return {
       fields: [
-        { key: "id", label: "Id", sortable: true, sortDirection: "desc" },
-        { key: "idUser", label: "Id User", sort: true },
-        { key: "user.username", label: "Usernames", sort: true },
-        { key: "idKatalog", label: "Id Buku", sort: true },
-        { key: "katalog.judul", label: "Buku", sort: true },
-        { key: "status", label: "Status", sort: true },
+        { key: "id", label: "Id", sortable: true, sortDirection: "asc" },
+        { key: "idUser", label: "Id User", sortable: true },
+        { key: "user.username", label: "Usernames", sortable: true },
+        { key: "idKatalog", label: "Id Buku", sortable: true },
+        { key: "katalog.judul", label: "Buku", sortable: true },
+        { key: "tglPinjam", label: "Tanggal Peminjaman", sortable: true },
+        { key: "tglKembali", label: "Tanggal Kembali", sortable: true },
+        { key: "status", label: "Status", sortable: true },
+        { key: "tagihan", label: "Tagihan", sortable: true },
         { key: "actions", label: "Actions" },
       ],
       items: [],
@@ -426,7 +429,7 @@ export default {
       .get(`http://localhost:8081/peminjaman/`)
       .then((response) => {
         // JSON responses are automatically parsed.
-        let keys = ["id", "status", "idUser", "idKatalog", "user", "katalog"];
+        let keys = ["id","tglPinjam","tglKembali", "status", "idUser", "idKatalog", "user", "katalog","tagihan"];
         let entries = this.filterData(response.data, keys);
         entries.map((entry) => this.items.push(entry));
         // this.items = response.data;

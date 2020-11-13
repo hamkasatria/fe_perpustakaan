@@ -205,10 +205,10 @@
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal('modal_update')"
+        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="updateKatalog()"
+        <b-button class="bg-primary" variant="outline-warning" @click="updateKatalog()"
           >Update</b-button
         >
       </b-modal>
@@ -288,10 +288,10 @@
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal('modal_create')"
+        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_create')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="createKatalog()"
+        <b-button class="bg-primary" variant="outline-warning" @click="createKatalog()"
           >Create</b-button
         >
       </b-modal>
