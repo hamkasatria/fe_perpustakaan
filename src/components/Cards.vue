@@ -130,7 +130,6 @@ export default {
     },
     showModal: function(post) {
       this.modals = post;
-      console.log("ini adalah modal" + post);
       this.$refs["my-modal"].show();
     },
 

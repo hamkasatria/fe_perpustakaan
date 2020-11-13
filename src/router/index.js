@@ -12,6 +12,7 @@ import Admin from '../views/Admin.vue';
 import dataKatalog from '../views/admin/Katalog.vue';
 import dataPengguna from '../views/admin/Pengguna.vue';
 import dataPeminjaman from '../views/admin/Peminjaman.vue';
+import profile from '../views/Profile.vue';
 
 
 
@@ -62,6 +63,16 @@ const routes = [
     name: 'admin',
     // component: Home
     components: { default: Admin },
+    props: {
+      header: { colorOnScroll: 400 },
+      footer: { backgroundColor: 'black' }
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    // component: Home
+    components: { default: profile, header: MainNavbar, footer: MainFooter },
     props: {
       header: { colorOnScroll: 400 },
       footer: { backgroundColor: 'black' }

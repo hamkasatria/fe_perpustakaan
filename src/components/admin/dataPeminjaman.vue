@@ -42,7 +42,7 @@
           </b-form-group>
         </b-col>
       </b-row>
-      <b-raw>
+      <b-row>
         <b-col class="col-md-12">
           <b-button-toolbar position="absolute" style="justify-content: center">
             <b-button
@@ -55,7 +55,7 @@
             </b-button>
           </b-button-toolbar>
         </b-col>
-      </b-raw>
+      </b-row>
       <!-- Main table element -->
       <br />
       <div>
@@ -191,10 +191,10 @@
             </b-col>
           </b-row>
         </form>
-        <b-button variant="outline-danger" @click="hideModal('modal_create')"
+        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="createKatalog()"
+        <b-button class="bg-primary" variant="outline-warning" @click="updatePeminjaman()"
           >Update</b-button
         >
       </b-modal>
@@ -234,7 +234,9 @@
                   v-model="newModalData.idKatalog"
                   required
                 ></b-form-input>
-               
+                <!-- form select -->
+                <b-form-select v-model="newModalData.idUser" :options="optionsUser"></b-form-select>
+                <!-- form select -->
               </b-form-group>
             </b-col>
             <b-col> </b-col>
@@ -246,7 +248,7 @@
           @click="hideModal('modal_create')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" @click="createPeminjaman()"
+        <b-button variant="outline-warning" class="bg-primary" @click="createPeminjaman()"
           >Create</b-button
         >
       </b-modal>
@@ -275,6 +277,7 @@ export default {
         // user:{},
         // katalog:{}
       },
+
       totalRows: 1,
       currentPage: 1,
       perPage: 5,
@@ -293,6 +296,9 @@ export default {
         idUser: "",
         idBuku: "",
       },
+      optionsUser: [
+          
+        ]
     };
   },
   computed: {
@@ -325,6 +331,17 @@ export default {
       this.$refs["modal_update"].show();
     },
     modal_create() {
+      console.log(this.$store.getKatalog)
+      this.optionsUser=
+      //mengambil data dari vuex
+          [
+            
+            { value: null, text: 'Please select an option' },
+            { value: 'a', text: 'This is First option' },
+            { value: 'b', text: 'Selected Option' },
+            { value: { C: '3PO' }, text: 'This is an option with object value' },
+            { value: 'd', text: 'This one is disabled', disabled: true }
+          ]
       this.$refs["modal_create"].show();
     },
     hideModal(modal) {

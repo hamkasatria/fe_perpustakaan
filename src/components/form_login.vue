@@ -94,8 +94,12 @@ export default {
             },
           };
           axios.get("http://localhost:8081/user/", config).then((respon) => {
-            this.$store.state.personalUser = respon.data;
-            console.log("ini adalah rolenya = " + respon.data.roles[0].name);
+            // this.$store.state.personalUser = respon.data;
+            
+            this.$store.commit('setPersonalUser',respon.data);
+            //jika di reload akan hilang
+            console.log("username nya "+this.$store.getters.getPersonalUser.username)
+            //console.log(respon.data.username);
             if (respon.data.roles[0].name == "ROLE_ADMIN") {
               console.log("masuk ke admin");
               this.$router.push({ path: "/datapengguna" });

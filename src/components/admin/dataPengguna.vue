@@ -42,7 +42,7 @@
           </b-form-group>
         </b-col>
       </b-row>
-      <b-raw>
+      <b-row>
         <b-col class="col-md-12">
           <b-button-toolbar position="absolute" style="justify-content: center">
             <b-button
@@ -55,7 +55,7 @@
             </b-button>
           </b-button-toolbar>
         </b-col>
-      </b-raw>
+      </b-row>
       <!-- Main table element -->
       <br>
       <div>

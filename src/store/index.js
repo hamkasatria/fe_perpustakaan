@@ -16,11 +16,15 @@ export default new Vuex.Store({
         auth
     },
     mutations: {
+        //sepertinya setkatalog dan setuser masih error
         setkatalog: function (data) {
             this.state.katalog = data
         },
         setUser: function (data) {
             this.state.user = data
+        },
+        setPersonalUser( state, data){
+            state.personalUser = data
         }
     },
     actions: {
@@ -35,6 +39,9 @@ export default new Vuex.Store({
         },
         getUser: function (state) {
             return state.user
+        },
+        getPersonalUser(state){
+            return state.personalUser;
         },
         // getUserById: function (state,id) {
         //     return state.user.filter(user=>user.id==id)
