@@ -1,14 +1,14 @@
 <template>
   <div>
-    <profile /> 
+    <riwayat /> 
   </div>
 </template>
 
 <script>
-import profile from "@/components/Profile";
+import riwayat from "@/components/Riwayat";
 export default {
   components: {
-    profile
+    riwayat
   },
 };
 </script>
