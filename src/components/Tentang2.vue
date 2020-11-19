@@ -1,6 +1,5 @@
 <template>
-  <div>
-    ]
+  <div class="container">
     <div class="high-80 clear-all" style="height: auto"></div>
     <div class="wrap-content"></div>
     <div class="txtcenter ff-cabin-r head_ajak">
@@ -11,58 +10,72 @@
     <div class="mar-t-5 fs16 txtcenter mar-b-25 c_untung">
       Keuntungan Menjadi Anggota Perpustakaan
     </div>
-    <div class="row list-lr">
-      <div class="col-md-3 mar-tb-5 padlr-listhori">
-        <div class="txtcenter">
-          <img
-            alt="Akses ke berbagai koleksi menarik yang bisa dipinjam"
-            src="img/header12.jpg"
-            class="img-fluid center center-max mar-b-15"
-          />
-          <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
-            Akses ke berbagai koleksi menarik yang bisa dipinjam
-          </div>
+    <b-row>
+      <b-col cols="12" sm="6" md="4" lg="3">
+        <div>
+          <b-card>
+            <div class="txtcenter">
+              <img
+                alt=""
+                src="img/header12.jpg"
+                class="img-fluid center center-max mar-b-15"
+              />
+              <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
+                Akses ke berbagai koleksi menarik yang bisa dipinjam
+              </div>
+            </div>
+          </b-card>
         </div>
-      </div>
-      <div class="col-md-3 mar-tb-5 padlr-listhori">
-        <div class="txtcenter">
-          <img
-            alt="Bergabung dengan ribuan komunita pengguna aktif"
-            src="img/header14.jpg"
-            class="img-fluid center center-max mar-b-15"
-          />
-          <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
-            Bergabung dengan ribuan komunitas pengguna aktif
-          </div>
+      </b-col>
+      <b-col cols="12" sm="6" md="4" lg="3">
+        <div>
+          <b-card>
+            <div class="txtcenter">
+              <img
+                alt="Bergabung dengan ribuan komunita pengguna aktif"
+                src="img/header14.jpg"
+                class="img-fluid center center-max mar-b-15"
+              />
+              <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
+                Bergabung dengan ribuan komunitas pengguna aktif
+              </div>
+            </div>
+          </b-card>
         </div>
-      </div>
-      <div class="col-md-3 mar-tb-5 padlr-listhori">
-        <div class="txtcenter">
-          <img
-            alt="Dapatkan berbagai informasi menarik "
-            src="img/header13.jpg"
-            class="img-fluid center center-max mar-b-15"
-          />
-          <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
-            Dapatkan berbagai informasi menarik
-          </div>
+      </b-col>
+      <b-col cols="12" sm="6" md="4" lg="3">
+        <div>
+          <b-card>
+            <div class="txtcenter">
+              <img
+                alt="Dapatkan berbagai informasi menarik "
+                src="img/header13.jpg"
+                class="img-fluid center center-max mar-b-15"
+              />
+              <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
+                Dapatkan berbagai informasi menarik
+              </div>
+            </div>
+          </b-card>
         </div>
-      </div>
-      <div class="col-md-3 mar-tb-5 padlr-listhori">
-        <div class="txtcenter">
-          <img
-            alt="Ikuti berbagai kegiatan dan acara menarik bersama anggota lain"
-            src="img/header11.jpg"
-            class="img-fluid center center-max mar-b-15"
-          />
-          <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
-            Ikuti berbagai kegiatan dan acara menarik bersama anggota lain
-          </div>
-          <div class="high-50"></div>
-          <div class="high-80 clear-all"></div>
+      </b-col>
+      <b-col cols="12" sm="6" md="4" lg="3">
+        <div>
+          <b-card>
+            <div class="txtcenter">
+              <img
+                alt="Ikuti berbagai kegiatan dan acara menarik bersama anggota lain"
+                src="img/header11.jpg"
+                class="img-fluid center center-max mar-b-15"
+              />
+              <div class="fs18 ff-cabin-r mar-lr10 f-bold c_untung">
+                Ikuti berbagai kegiatan dan acara menarik bersama
+              </div>
+            </div>
+          </b-card>
         </div>
-      </div>
-    </div>
+      </b-col>
+    </b-row>
     <!-- <div class="section-bg style-1" style="background-color: white"></div> -->
     <div class="container" style="margin-bottom:50px;">
       <div class="row mb-3 justify-content-center text-center">
@@ -74,40 +87,50 @@
           </h2>
         </div>
       </div>
-      <div class="row">
-        <div class="col-4">
-          ">
-          <div class="owl-item cloned" style="width: 194px; margin-right: 30px">
-            <div class="course-1-item" style="box-shadow: none !important">
-              <a href="https://search.proquest.com/index" target="_blank">
-                <img src="img/1.png"
-              /></a>
+      <b-row>
+        <b-col cols="12" sm="6" md="4" lg="4">
+          <b-card>
+            <div
+              class="owl-item cloned"
+              style="width: 194px; margin-right: 30px"
+            >
+              <div class="course-1-item" style="box-shadow: none !important">
+                <a href="https://search.proquest.com/index" target="_blank">
+                  <img src="img/1.png"
+                /></a>
+              </div>
             </div>
-          </div>
-
-        </div>
-        <div class="col-4">
-          <div class="owl-item cloned" style="width: 194px; margin-right: 30px">
-            <div class="course-1-item" style="box-shadow: none !important">
-              >
-              <a href="https://www.ebsco.com/" target="_blank">
-                <img src="img/2.png"
-              /></a>
+          </b-card>
+        </b-col>
+        <b-col cols="12" sm="6" md="4" lg="4">
+          <b-card>
+            <div
+              class="owl-item cloned"
+              style="width: 194px; margin-right: 30px"
+            >
+              <div class="course-1-item" style="box-shadow: none !important">
+                <a href="https://www.ebsco.com/" target="_blank">
+                  <img src="img/2.png"
+                /></a>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="owl-item cloned" style="width: 194px; margin-right: 30px">
-            <div class="course-1-item" style="box-shadow: none !important">
-              >
-              <a href="http://e-resources.perpusnas.go.id/" target="_blank">
-                <img src="img/3.jpeg"
-              /></a>
+          </b-card>
+        </b-col>
+        <b-col cols="12" sm="6" md="4" lg="4">
+          <b-card>
+            <div
+              class="owl-item cloned"
+              style="width: 194px; margin-right: 30px"
+            >
+              <div class="course-1-item" style="box-shadow: none !important">
+                <a href="http://e-resources.perpusnas.go.id/" target="_blank">
+                  <img src="img/3.jpeg"
+                /></a>
+              </div>
             </div>
-          </div>
-
-        </div>
-      </div>
+          </b-card>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>

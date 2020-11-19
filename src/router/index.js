@@ -28,7 +28,7 @@ const routes = [
     components: { default: Tentang, header: MainNavbar, footer: MainFooter },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
@@ -37,7 +37,7 @@ const routes = [
     components: { default: Katalog, header: MainNavbar, footer: MainFooter },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
@@ -46,7 +46,7 @@ const routes = [
     components: { default: Login, header: MainNavbar, footer: MainFooter },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
@@ -55,7 +55,7 @@ const routes = [
     components: { default: Register, header: MainNavbar, footer: MainFooter },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
@@ -65,7 +65,7 @@ const routes = [
     components: { default: Admin },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
@@ -75,37 +75,37 @@ const routes = [
     components: { default: riwayat, header: MainNavbar, footer: MainFooter },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
     path: '/dataKatalog',
     name: 'dataKatalog',
     // component: Home
-    components: { default: dataKatalog, header: AdminNavbar },
+    components: { default: dataKatalog, header: AdminNavbar,footer: MainFooter  },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
     path: '/dataPengguna',
     name: 'dataPengguna',
     // component: Home
-    components: { default: dataPengguna, header: AdminNavbar },
+    components: { default: dataPengguna, header: AdminNavbar,footer: MainFooter  },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
   {
     path: '/dataPeminjaman',
     name: 'dataPeminjaman',
     // component: Home
-    components: { default: dataPeminjaman, header: AdminNavbar },
+    components: { default: dataPeminjaman, header: AdminNavbar, footer: MainFooter  },
     props: {
       header: { colorOnScroll: 400 },
-      footer: { backgroundColor: 'black' }
+      footer: { backgroundColor: 'orange' }
     }
   },
 

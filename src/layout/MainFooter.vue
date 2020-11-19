@@ -6,37 +6,67 @@
   >
     <div class="container">
       <nav>
-        <ul>
-          <li>
-            <a href="https://www.creative-tim.com">
-              Creative Tim
-            </a>
-          </li>
-          <li>
-            <a href="https:///presentation.creative-tim.com">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="https:///blog.creative-tim.com">
-              Blog
-            </a>
-          </li>
-        </ul>
+        <div class="d-flex">
+          <a
+            class="nav-link"
+            style="color:white;"
+            rel="tooltip"
+            title="Ikuti kami di Github"
+            data-placement="bottom"
+            href="https://github.com/praxis-academy"
+            target="_blank"
+          >
+            <i class="fab fa-github"></i>
+            <p class="d-lg-none d-xl-none">Github</p>
+          </a>
+          <a
+            class="nav-link"
+            style="color: white"
+            rel="tooltip"
+            title="Ikuti kami di Facebook"
+            data-placement="bottom"
+            href="https://www.facebook.com/praxisacademy.id/"
+            target="_blank"
+          >
+            <i class="fab fa-facebook-square"></i>
+            <p class="d-lg-none d-xl-none">Facebook</p>
+          </a>
+          <a
+            class="nav-link"
+            style="color: white"
+            rel="tooltip"
+            title="Ikuti kami di Instagram"
+            data-placement="bottom"
+            href="https://www.instagram.com/praxisacademy/"
+            target="_blank"
+          >
+            <i class="fab fa-instagram"></i>
+            <p class="d-lg-none d-xl-none">Instagram</p>
+          </a>
+          <a
+            class="nav-link"
+            style="color: white"
+            rel="tooltip"
+            title="Ikuti kami di Twitter"
+            data-placement="bottom"
+            href="https://twitter.com/PraxisAcademyId"
+            target="_blank"
+          >
+            <i class="fab fa-twitter"></i>
+            <p class="d-lg-none d-xl-none">Twitter</p>
+          </a>
+        </div>
       </nav>
-      <div class="copyright">
-        &copy; {{ year }}, Designed by
-        <a href="https:///www.invisionapp.com" target="_blank" rel="noopener"
-          >Invision</a
-        >. Coded by
-        <a href="https://binarcode.com" target="_blank" rel="noopener"
-          >BinarCode</a
+      <div style="padding-top: 10px;" class="copyright">
+        
+        &copy; {{ year }}, Designed and Coded by
+        <a href="https://github.com/hamkasatria" target="_blank" rel="noopener"
+          >Hamka Satria</a
+        > and
+        <a href="https://github.com/inaii" target="_blank" rel="noopener"
+          >Ina</a
         >
-        and
-        <a href="https://www.creative-tim.com" target="_blank" rel="noopener"
-          >Creative Tim</a
-        >.
-            
+  
       </div>
     </div>
   </footer>
@@ -45,22 +75,13 @@
 export default {
   props: {
     backgroundColor: String,
-    type: String
+    type: String,
   },
   data() {
     return {
-      year: new Date().getFullYear()
+      year: new Date().getFullYear(),
     };
-  }
+  },
 };
 </script>
 <style></style>
-
-
-
-
-
-
-
-
-
