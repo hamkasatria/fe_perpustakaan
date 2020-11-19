@@ -370,8 +370,13 @@ export default {
       this.$refs["modal_update"].hide();
     },
     create_user() {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
       axios
-        .post("http://localhost:8081/guess/signup", this.newModalData)
+        .post("http://localhost:8081/guess/signup", this.newModalData,config)
         .then((res) => console.log(res))
         .then(alert("akun bisa dibuat"))
         .catch((err) => console.log(err));
@@ -389,8 +394,13 @@ export default {
   },
 
   async created() {
+    const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
     await axios
-      .get(`http://localhost:8081/admin/`)
+      .get(`http://localhost:8081/admin/`,config)
       .then((response) => {
         // JSON responses are automatically parsed.
         let keys = ["id", "username", "noHp", "email", "updatedAt", "roles"];

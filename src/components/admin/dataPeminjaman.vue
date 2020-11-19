@@ -441,8 +441,13 @@ export default {
   },
 
   async created() {
+    const config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+        },
+      };
     await axios
-      .get(`http://localhost:8081/peminjaman/`)
+      .get(`http://localhost:8081/peminjaman/`,config)
       .then((response) => {
         // JSON responses are automatically parsed.
         let keys = [
