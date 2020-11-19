@@ -46,6 +46,7 @@
         <b-col class="col-md-12">
           <b-button-toolbar position="absolute" style="justify-content: center">
             <b-button
+              pill
               title="Tambah Katalog"
               size="lg"
               @click="modal_create"
@@ -81,6 +82,7 @@
           <template v-slot:cell(actions)="row">
             <b-button-toolbar>
               <b-button
+                pill
                 title="Detail Data"
                 size="sm"
                 @click="row.toggleDetails"
@@ -89,6 +91,7 @@
                 <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
               </b-button>
               <b-button
+                pill
                 size="sm"
                 class="mr-1 bg-primary"
                 @click="buku_kembali(row.item.id)"
@@ -98,6 +101,7 @@
                 >
               </b-button>
               <b-button
+                pill
                 title="Update"
                 size="sm"
                 @click="modal_update(row.item)"
@@ -105,14 +109,17 @@
               >
                 <b-icon icon="pencil" aria-hidden="true"></b-icon>
               </b-button>
-              <b-button
-                title="Hapus"
-                size="sm"
-                class="mr-1 bg-primary"
-                @click="hapus(row.item.id)"
-              >
-                <b-icon icon="trash" aria-hidden="true"></b-icon>
-              </b-button>
+              <div v-if="!row.item.status">
+                <b-button
+                  pill
+                  title="Hapus"
+                  size="sm"
+                  class="mr-1 bg-primary"
+                  @click="hapus(row.item.id)"
+                >
+                  <b-icon icon="trash" aria-hidden="true"></b-icon>
+                </b-button>
+              </div>
             </b-button-toolbar>
           </template>
 
@@ -191,10 +198,16 @@
             </b-col>
           </b-row>
         </form>
-        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_update')"
+        <b-button pill
+          class="bg-primary"
+          variant="outline-danger"
+          @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button class="bg-primary" variant="outline-warning" @click="updatePeminjaman()"
+        <b-button pill
+          class="bg-primary"
+          variant="outline-warning"
+          @click="updatePeminjaman()"
           >Update</b-button
         >
       </b-modal>
@@ -235,20 +248,26 @@
                   required
                 ></b-form-input>
                 <!-- form select -->
-                <b-form-select v-model="newModalData.idUser" :options="optionsUser"></b-form-select>
+                <!-- <b-form-select
+                  v-model="newModalData.idUser"
+                  :options="optionsUser"
+                ></b-form-select> -->
                 <!-- form select -->
               </b-form-group>
             </b-col>
             <b-col> </b-col>
           </b-row>
         </form>
-        <b-button
+        <b-button pill
           variant="outline-danger"
           class="bg-primary"
           @click="hideModal('modal_create')"
           >Cancle</b-button
         >
-        <b-button variant="outline-warning" class="bg-primary" @click="createPeminjaman()"
+        <b-button pill
+          variant="outline-warning"
+          class="bg-primary"
+          @click="createPeminjaman()"
           >Create</b-button
         >
       </b-modal>
@@ -299,9 +318,7 @@ export default {
         idUser: "",
         idBuku: "",
       },
-      optionsUser: [
-          
-        ]
+      optionsUser: [],
     };
   },
   computed: {
@@ -334,17 +351,16 @@ export default {
       this.$refs["modal_update"].show();
     },
     modal_create() {
-      console.log(this.$store.getKatalog)
-      this.optionsUser=
-      //mengambil data dari vuex
-          [
-            
-            { value: null, text: 'Please select an option' },
-            { value: 'a', text: 'This is First option' },
-            { value: 'b', text: 'Selected Option' },
-            { value: { C: '3PO' }, text: 'This is an option with object value' },
-            { value: 'd', text: 'This one is disabled', disabled: true }
-          ]
+      console.log(this.$store.getKatalog);
+      this.optionsUser =
+        //mengambil data dari vuex
+        [
+          { value: null, text: "Please select an option" },
+          { value: "a", text: "This is First option" },
+          { value: "b", text: "Selected Option" },
+          { value: { C: "3PO" }, text: "This is an option with object value" },
+          { value: "d", text: "This one is disabled", disabled: true },
+        ];
       this.$refs["modal_create"].show();
     },
     hideModal(modal) {
@@ -429,7 +445,17 @@ export default {
       .get(`http://localhost:8081/peminjaman/`)
       .then((response) => {
         // JSON responses are automatically parsed.
-        let keys = ["id","tglPinjam","tglKembali", "status", "idUser", "idKatalog", "user", "katalog","tagihan"];
+        let keys = [
+          "id",
+          "tglPinjam",
+          "tglKembali",
+          "status",
+          "idUser",
+          "idKatalog",
+          "user",
+          "katalog",
+          "tagihan",
+        ];
         let entries = this.filterData(response.data, keys);
         entries.map((entry) => this.items.push(entry));
         // this.items = response.data;

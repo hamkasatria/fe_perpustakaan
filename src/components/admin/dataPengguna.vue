@@ -1,7 +1,6 @@
 <template>
   <div>
     <b-container fluid>
-
       <center>
         <h1 style="padding-top:80px;">DATA PENGGUNA</h1>
       </center>
@@ -46,6 +45,7 @@
         <b-col class="col-md-12">
           <b-button-toolbar position="absolute" style="justify-content: center">
             <b-button
+              pill
               title="Tambah Pengguna"
               size="lg"
               @click="modal_create"
@@ -57,7 +57,7 @@
         </b-col>
       </b-row>
       <!-- Main table element -->
-      <br>
+      <br />
       <div>
         <b-table
           show-empty
@@ -81,6 +81,7 @@
           <template v-slot:cell(actions)="row">
             <b-button-toolbar class="">
               <b-button
+                pill
                 title="Detail Data"
                 size="sm"
                 @click="row.toggleDetails"
@@ -89,6 +90,7 @@
                 <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
               </b-button>
               <b-button
+                pill
                 title="Update"
                 size="sm"
                 @click="modal_update(row.item)"
@@ -97,6 +99,7 @@
                 <b-icon icon="pencil" aria-hidden="true"></b-icon>
               </b-button>
               <b-button
+                pill
                 title="Hapus Data"
                 size="sm"
                 class="mr-1 bg-primary"
@@ -171,12 +174,17 @@
           </b-row>
         </form>
         <b-button
+          pill
           class="bg-primary"
           variant="outline-danger"
           @click="hideModal('modal_update')"
           >Cancle</b-button
         >
-        <b-button class="bg-primary" variant="outline-warning" @click="update()"
+        <b-button
+          pill
+          class="bg-primary"
+          variant="outline-warning"
+          @click="update()"
           >Update</b-button
         >
       </b-modal>
@@ -228,10 +236,18 @@
             </b-col>
           </b-row>
         </form>
-        <b-button class="bg-primary" variant="outline-danger" @click="hideModal('modal_create')"
+        <b-button
+          pill
+          class="bg-primary"
+          variant="outline-danger"
+          @click="hideModal('modal_create')"
           >Cancle</b-button
         >
-        <b-button class="bg-primary" variant="outline-warning" @click="create_user()"
+        <b-button
+          pill
+          class="bg-primary"
+          variant="outline-warning"
+          @click="create_user()"
           >Create</b-button
         >
       </b-modal>
@@ -302,9 +318,7 @@ export default {
       };
       axios
         .delete(`http://localhost:8081/admin/${id}`, config)
-        .then((res) => 
-        console.log(res),
-        alert("data telah dihapus "))
+        .then((res) => console.log(res), alert("data telah dihapus "))
         .catch((err) => console.log("===", err));
     },
     filterData(dataArr, keys) {
@@ -395,7 +409,6 @@ export default {
 </script>
 
 <style scoped>
-
 .perpage-input {
   width: 90%;
 }

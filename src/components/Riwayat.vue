@@ -2,61 +2,55 @@
   <div>
     <b-container fluid>
       <div>
-          <center>
-        <h1 style="padding-top:80px;">DATA PEMINJAMAN</h1>
-      </center>
-      <b-row class="col-gab">
-        <b-col class="col-md-4">
-          <b-form-group
-            label="Per-page"
-            label-cols-sm="6"
-            label-align-sm="left"
-            label-size="sm"
-            label-for="perPageSelect"
-            class="mb-0 perpage-input"
-          >
-            <b-form-select
-              class=""
-              v-model="perPage"
-              id="perPageSelect"
-              size="sm"
-              :options="pageOptions"
-            ></b-form-select>
-          </b-form-group>
-        </b-col>
-        <b-col class="col-md-7">
-          <b-form-group
-            label=""
-            label-cols-sm="3"
-            label-align-sm="right"
-            label-size="sm"
-            label-for="filterInput"
-            class="mb-0"
-          >
-            <b-form-input
-              v-model="filter"
-              type="search"
-              id="filterInput"
-              placeholder="Type to Search"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col class="col-md-12">
-          <b-button-toolbar position="absolute" style="justify-content: center">
-            <b-button
-              title="Tambah Katalog"
-              size="lg"
-              
-              class="mb-0 bg-primary"
+        <center>
+          <h1 style="padding-top:80px;">DATA PEMINJAMAN</h1>
+        </center>
+        <b-row class="col-gab">
+          <b-col class="col-md-4">
+            <b-form-group
+              label="Per-page"
+              label-cols-sm="6"
+              label-align-sm="left"
+              label-size="sm"
+              label-for="perPageSelect"
+              class="mb-0 perpage-input"
             >
-              <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-            </b-button>
-          </b-button-toolbar>
-        </b-col>
-      </b-row>
-          <!-- main table -->
+              <b-form-select
+                class=""
+                v-model="perPage"
+                id="perPageSelect"
+                size="sm"
+                :options="pageOptions"
+              ></b-form-select>
+            </b-form-group>
+          </b-col>
+          <b-col class="col-md-7">
+            <b-form-group
+              label=""
+              label-cols-sm="3"
+              label-align-sm="right"
+              label-size="sm"
+              label-for="filterInput"
+              class="mb-0"
+            >
+              <b-form-input
+                v-model="filter"
+                type="search"
+                id="filterInput"
+                placeholder="Type to Search"
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col class="col-md-12">
+            
+          </b-col>
+        </b-row>
+        <!-- main table -->
+
+        <!-- buku yang masih di pinjam -->
+        Buku yang masih di Pinjam
         <b-table
           show-empty
           small
@@ -85,31 +79,6 @@
                 class="mr-1 bg-primary"
               >
                 <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
-              </b-button>
-              <b-button
-                size="sm"
-                class="mr-1 bg-primary"
-                @click="buku_kembali(row.item.id)"
-              >
-                <b-icon icon="arrow-left-circle" aria-hidden="true"
-                  >kembali</b-icon
-                >
-              </b-button>
-              <b-button
-                title="Update"
-                size="sm"
-                
-                class="mr-1 bg-primary"
-              >
-                <b-icon icon="pencil" aria-hidden="true"></b-icon>
-              </b-button>
-              <b-button
-                title="Hapus"
-                size="sm"
-                class="mr-1 bg-primary"
-                @click="hapus(row.item.id)"
-              >
-                <b-icon icon="trash" aria-hidden="true"></b-icon>
               </b-button>
             </b-button-toolbar>
           </template>
@@ -217,39 +186,7 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    buku_kembali(id) {
-      console.log("buku di kembalikan" + id);
-      const config = {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("Bearer"),
-        },
-      };
-      axios
-        .put(`http://localhost:8081/peminjaman/pengembalian/${id}`, config)
-        .then((res) => console.log(res))
-        .then(alert("buku dikembalikan"))
-        .catch((err) => console.log(err));
-    },
-    updatePeminjaman() {
-      // belum bisa update
-      const params = this.modalData;
-      const config = {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("Bearer"),
-        },
-      };
-      axios
-        .put(
-          `http://localhost:8081/peminjaman/${this.modalData.id}`,
-          params,
-          config
-        )
-        .then((res) => console.log(res))
-        .catch((err) => console.log("===", err));
-      // end database
-      alert("data telah di update");
-      this.$refs["modal_update"].hide();
-    },
+    
   },
 
   async created() {

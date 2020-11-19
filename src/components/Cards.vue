@@ -2,7 +2,14 @@
   <div>
     <div class="katalog">
       <b-row v-if="posts && posts.length">
-        <b-col v-for="post of posts" v-bind:key="post.id" cols="12" sm="6" md="4" lg="3">
+        <b-col
+          v-for="post of posts"
+          v-bind:key="post.id"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+        >
           <b-card
             img-src="https://picsum.photos/600/300/?image=25"
             img-alt="Image"
@@ -16,8 +23,18 @@
               <p></p>
               <p>{{ post.author }} - {{ post.tahun }}</p>
             </b-card-text>
-            <b-button id="show-btn" @click="showModal(post)">Info</b-button>
-            <b-button @click="pinjam(post.id)" variant="primary"
+            <b-button
+              pill
+              class="bg-primary"
+              id="show-btn"
+              @click="showModal(post)"
+              >Info</b-button
+            >
+            <b-button
+              pill
+              class="bg-primary"
+              @click="pinjam(post.id)"
+              variant="primary"
               >Pinjam</b-button
             >
           </b-card>
@@ -53,14 +70,16 @@
               <p class="my-4">jumlah : {{ modals.jumlah }}</p>
             </div>
             <b-button
-              class="mt-3"
+              pill
+              class="mt-3 bg-primary"
               variant="outline-danger"
               block
               @click="hideModal"
               >Close</b-button
             >
             <b-button
-              class="mt-2"
+              pill
+              class="mt-2 bg-primary"
               variant="outline-warning"
               block
               @click="pinjam(modals.id)"
@@ -97,9 +116,7 @@ export default {
       },
       posts: [],
       errors: [],
-      modals: {
-      
-      },
+      modals: {},
       pickers: {
         datePicker: "",
       },
@@ -144,7 +161,7 @@ export default {
       .then((response) => {
         // JSON responses are automatically parsed.
         this.posts = response.data;
-        console.log("ini adalah post cards"+this.posts)
+        console.log("ini adalah post cards" + this.posts);
         this.$store.commit("setkatalog", this.posts);
       })
       .catch((e) => {
