@@ -79,9 +79,15 @@
     <b-sidebar v-model="openSidebarProfil" backdrop shadow right>
       <center>
         <h3>Profil Anda</h3>
-        <b-img v-bind="mainProps" rounded="circle" class="m1" alt="Circle image" src="https://picsum.photos/250/250/?image=54"></b-img>
+        <b-img
+          v-bind="mainProps"
+          rounded="circle"
+          class="m1"
+          alt="Circle image"
+          src="https://picsum.photos/250/250/?image=54"
+        ></b-img>
       </center>
-      <br>
+      <br />
       <div class="container">
         <div class="form-group">
           <center>
@@ -136,12 +142,13 @@
 import { DropDown, Navbar, NavLink } from "@/components";
 import { Popover } from "element-ui";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
       openSidebarProfil: false,
       profilData: {},
-      mainProps: { width: 75, height: 75, class: 'm1' }
+      mainProps: { width: 75, height: 75, class: "m1" },
     };
   },
   name: "main-navbar",
@@ -159,8 +166,9 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("Bearer");
-      alert("anda berhasil logout");
-      this.$router.go();
+      Swal.fire("Mantabss!", "Anda berhasil Login!", "success");
+
+      this.$router.go({ name: "Home" });
       // this.$router.push({ name: "Login" });
     },
     updateProfil() {
@@ -177,8 +185,8 @@ export default {
           this.profilData = respon.data;
           console.log(this.profilData);
           this.openSidebarProfil = true;
-          alert("data anda telah di update");
-          this.openSidebarProfil=false;
+          Swal.fire("Mantabss!", "Anda berhasil Update Profil!", "success");
+          this.openSidebarProfil = false;
         });
     },
     sidebar_profil() {
@@ -189,7 +197,6 @@ export default {
       };
       console.log(config);
       axios.get("http://localhost:8081/user/", config).then((respon) => {
-        console.log("ini adallah");
         this.profilData = respon.data;
         console.log(this.profilData);
 

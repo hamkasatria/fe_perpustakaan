@@ -5,286 +5,297 @@
       <center>
         <h1 style="padding-top:80px;">DATA PEMINJAMAN</h1>
       </center>
-      <b-row class="col-gab">
-        <b-col class="col-md-4">
-          <b-form-group
-            label="Per-page"
-            label-cols-sm="6"
-            label-align-sm="left"
-            label-size="sm"
-            label-for="perPageSelect"
-            class="mb-0 perpage-input"
-          >
-            <b-form-select
-              class=""
-              v-model="perPage"
-              id="perPageSelect"
-              size="sm"
-              :options="pageOptions"
-            ></b-form-select>
-          </b-form-group>
-        </b-col>
-        <b-col class="col-md-7">
-          <b-form-group
-            label=""
-            label-cols-sm="3"
-            label-align-sm="right"
-            label-size="sm"
-            label-for="filterInput"
-            class="mb-0"
-          >
-            <b-form-input
-              v-model="filter"
-              type="search"
-              id="filterInput"
-              placeholder="Type to Search"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col class="col-md-12">
-          <b-button-toolbar position="absolute" style="justify-content: center">
-            <b-button
-              pill
-              title="Tambah Katalog"
-              size="lg"
-              @click="modal_create"
-              class="mb-0 bg-primary"
+      <b-card>
+        <b-row class="col-gab">
+          <b-col class="col-md-4">
+            <b-form-group
+              label="Per-page"
+              label-cols-sm="6"
+              label-align-sm="left"
+              label-size="sm"
+              label-for="perPageSelect"
+              class="mb-0 perpage-input"
             >
-              <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-            </b-button>
-          </b-button-toolbar>
-        </b-col>
-      </b-row>
-      <!-- Main table element -->
-      <br />
-      <div>
-        <b-table
-          show-empty
-          small
-          stacked="md"
-          striped
-          bordered
-          hover
-          :items="items"
-          :fields="fields"
-          :current-page="currentPage"
-          :per-page="perPage"
-          :filter="filter"
-          :filter-included-fields="filterOn"
-          :sort-by.sync="sortBy"
-          :sort-desc.sync="sortDesc"
-          :sort-direction="sortDirection"
-          @filtered="onFiltered"
-        >
-          <!-- ini adalah button -->
-          <template v-slot:cell(actions)="row">
-            <b-button-toolbar>
+              <b-form-select
+                class=""
+                v-model="perPage"
+                id="perPageSelect"
+                size="sm"
+                :options="pageOptions"
+              ></b-form-select>
+            </b-form-group>
+          </b-col>
+          <b-col class="col-md-7">
+            <b-form-group
+              label=""
+              label-cols-sm="3"
+              label-align-sm="right"
+              label-size="sm"
+              label-for="filterInput"
+              class="mb-0"
+            >
+              <b-form-input
+                v-model="filter"
+                type="search"
+                id="filterInput"
+                placeholder="Type to Search"
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col class="col-md-12">
+            <b-button-toolbar
+              position="absolute"
+              style="justify-content: center"
+            >
               <b-button
                 pill
-                title="Detail Data"
-                size="sm"
-                @click="row.toggleDetails"
-                class="mr-1 bg-primary"
+                title="Tambah Katalog"
+                size="lg"
+                @click="modal_create"
+                class="mb-0 bg-primary"
               >
-                <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
+                <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
               </b-button>
-              <b-button
-                pill
-                size="sm"
-                class="mr-1 bg-primary"
-                @click="buku_kembali(row.item.id)"
-              >
-                <b-icon icon="arrow-left-circle" aria-hidden="true"
-                  >kembali</b-icon
-                >
-              </b-button>
-              <b-button
-                pill
-                title="Update"
-                size="sm"
-                @click="modal_update(row.item)"
-                class="mr-1 bg-primary"
-              >
-                <b-icon icon="pencil" aria-hidden="true"></b-icon>
-              </b-button>
-              <div v-if="!row.item.status">
+            </b-button-toolbar>
+          </b-col>
+        </b-row>
+        <!-- Main table element -->
+        <br />
+        <div>
+          <b-table
+            show-empty
+            small
+            stacked="md"
+            striped
+            bordered
+            hover
+            :items="items"
+            :fields="fields"
+            :current-page="currentPage"
+            :per-page="perPage"
+            :filter="filter"
+            :filter-included-fields="filterOn"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            :sort-direction="sortDirection"
+            @filtered="onFiltered"
+          >
+            <!-- ini adalah button -->
+            <template v-slot:cell(actions)="row">
+              <b-button-toolbar>
                 <b-button
                   pill
-                  title="Hapus"
+                  title="Detail Data"
+                  size="sm"
+                  @click="row.toggleDetails"
+                  class="mr-1 bg-primary"
+                >
+                  <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
+                </b-button>
+                <b-button
+                  pill
                   size="sm"
                   class="mr-1 bg-primary"
-                  @click="hapus(row.item.id)"
+                  @click="buku_kembali(row.item.id)"
                 >
-                  <b-icon icon="trash" aria-hidden="true"></b-icon>
+                  <b-icon icon="arrow-left-circle" aria-hidden="true"
+                    >kembali</b-icon
+                  >
                 </b-button>
-              </div>
-            </b-button-toolbar>
-          </template>
+                <b-button
+                  pill
+                  title="Update"
+                  size="sm"
+                  @click="modal_update(row.item)"
+                  class="mr-1 bg-primary"
+                >
+                  <b-icon icon="pencil" aria-hidden="true"></b-icon>
+                </b-button>
+                <div v-if="!row.item.status">
+                  <b-button
+                    pill
+                    title="Hapus"
+                    size="sm"
+                    class="mr-1 bg-primary"
+                    @click="hapus(row.item.id)"
+                  >
+                    <b-icon icon="trash" aria-hidden="true"></b-icon>
+                  </b-button>
+                </div>
+              </b-button-toolbar>
+            </template>
 
-          <template v-slot:row-details="row">
-            <b-card>
-              <ul>
-                <li v-for="(value, key) in row.item" :key="key">
-                  {{ key }}: {{ value }}
-                </li>
-              </ul>
-            </b-card>
-          </template>
-        </b-table>
-      </div>
+            <template v-slot:row-details="row">
+              <b-card>
+                <ul>
+                  <li v-for="(value, key) in row.item" :key="key">
+                    {{ key }}: {{ value }}
+                  </li>
+                </ul>
+              </b-card>
+            </template>
+          </b-table>
+        </div>
 
-      <!-- pagnation -->
-      <div lg="6" class="my-1">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="totalRows"
-          :per-page="perPage"
-          align="fill"
-          size="sm"
-          class="my-1"
-        ></b-pagination>
-      </div>
-      <!-- modal update -->
-      <b-modal
-        centered
-        size="xl"
-        ref="modal_update"
-        :id="infoModal.id"
-        :title="infoModal.title"
-        update-only
-        @hide="resetInfoModal"
-        hide-footer
-      >
-        <form>
-          <b-row>
-            <b-col>
-              <b-form-group
-                label="Peminjam :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="katalog-input"
-                  v-model="modalData.idUser"
-                  required
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group
-                label="Buku yang di pinjam :"
-                label-for="katalog-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="katalog-input"
-                  v-model="modalData.idKatalog"
-                  required
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group
-                label="Status :"
-                label-for="status-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="status-input"
-                  v-model="modalData.status"
-                  required
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-row>
-        </form>
-        <b-button pill
-          class="bg-primary"
-          variant="outline-danger"
-          @click="hideModal('modal_update')"
-          >Cancle</b-button
+        <!-- pagnation -->
+        <div lg="6" class="my-1">
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="totalRows"
+            :per-page="perPage"
+            align="fill"
+            size="sm"
+            class="my-1"
+          ></b-pagination>
+        </div>
+        <!-- modal update -->
+        <b-modal
+          centered
+          size="xl"
+          ref="modal_update"
+          :id="infoModal.id"
+          :title="infoModal.title"
+          update-only
+          @hide="resetInfoModal"
+          hide-footer
         >
-        <b-button pill
-          class="bg-primary"
-          variant="outline-warning"
-          @click="updatePeminjaman()"
-          >Update</b-button
-        >
-      </b-modal>
+          <form>
+            <b-row>
+              <b-col>
+                <b-form-group
+                  label="Peminjam :"
+                  label-for="name-input"
+                  invalid-feedback="Name is required"
+                >
+                  <b-form-input
+                    id="katalog-input"
+                    v-model="modalData.idUser"
+                    required
+                  ></b-form-input>
+                </b-form-group>
+                <b-form-group
+                  label="Buku yang di pinjam :"
+                  label-for="katalog-input"
+                  invalid-feedback="Name is required"
+                >
+                  <b-form-input
+                    id="katalog-input"
+                    v-model="modalData.idKatalog"
+                    required
+                  ></b-form-input>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group
+                  label="Status :"
+                  label-for="status-input"
+                  invalid-feedback="Name is required"
+                >
+                  <b-form-input
+                    id="status-input"
+                    v-model="modalData.status"
+                    required
+                  ></b-form-input>
+                </b-form-group>
+              </b-col>
+            </b-row>
+          </form>
+          <b-button
+            pill
+            class="bg-primary"
+            variant="outline-danger"
+            @click="hideModal('modal_update')"
+            >Cancle</b-button
+          >
+          <b-button
+            pill
+            class="bg-primary"
+            variant="outline-warning"
+            @click="updatePeminjaman()"
+            >Update</b-button
+          >
+        </b-modal>
 
-      <!-- modal create -->
-      <b-modal
-        centered
-        size="xl"
-        ref="modal_create"
-        :id="infoModal.id"
-        :title="infoModal.title"
-        update-only
-        @hide="resetInfoModal"
-        hide-footer
-      >
-        <form ref="form">
-          <b-row>
-            <b-col>
-              <b-form-group
-                label="Peminjam :"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="katalog-input"
-                  v-model="newModalData.idUser"
-                  required
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group
-                label="Buku yang di pinjam :"
-                label-for="katalog-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="katalog-input"
-                  v-model="newModalData.idKatalog"
-                  required
-                ></b-form-input>
-                <!-- form select -->
-                <!-- <b-form-select
+        <!-- modal create -->
+        <b-modal
+          centered
+          size="xl"
+          ref="modal_create"
+          :id="infoModal.id"
+          :title="infoModal.title"
+          update-only
+          @hide="resetInfoModal"
+          hide-footer
+        >
+          <form ref="form">
+            <b-row>
+              <b-col>
+                <b-form-group
+                  label="Peminjam :"
+                  label-for="name-input"
+                  invalid-feedback="Name is required"
+                >
+                  <b-form-input
+                    id="katalog-input"
+                    v-model="newModalData.idUser"
+                    required
+                  ></b-form-input>
+                </b-form-group>
+                <b-form-group
+                  label="Buku yang di pinjam :"
+                  label-for="katalog-input"
+                  invalid-feedback="Name is required"
+                >
+                  <b-form-input
+                    id="katalog-input"
+                    v-model="newModalData.idKatalog"
+                    required
+                  ></b-form-input>
+                  <!-- form select -->
+                  <!-- <b-form-select
                   v-model="newModalData.idUser"
                   :options="optionsUser"
                 ></b-form-select> -->
-                <!-- form select -->
-              </b-form-group>
-            </b-col>
-            <b-col> </b-col>
-          </b-row>
-        </form>
-        <b-button pill
-          variant="outline-danger"
-          class="bg-primary"
-          @click="hideModal('modal_create')"
-          >Cancle</b-button
-        >
-        <b-button pill
-          variant="outline-warning"
-          class="bg-primary"
-          @click="createPeminjaman()"
-          >Create</b-button
-        >
-      </b-modal>
+                  <!-- form select -->
+                </b-form-group>
+              </b-col>
+              <b-col> </b-col>
+            </b-row>
+          </form>
+          <b-button
+            pill
+            variant="outline-danger"
+            class="bg-primary"
+            @click="hideModal('modal_create')"
+            >Cancle</b-button
+          >
+          <b-button
+            pill
+            variant="outline-warning"
+            class="bg-primary"
+            @click="createPeminjaman()"
+            >Create</b-button
+          >
+        </b-modal>
+      </b-card>
     </b-container>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
       fields: [
         { key: "id", label: "Id", sortable: true, sortDirection: "asc" },
-        { key: "idUser", label: "Id User", sortable: true },
+        // { key: "idUser", label: "Id User", sortable: true },
         { key: "user.username", label: "Usernames", sortable: true },
-        { key: "idKatalog", label: "Id Buku", sortable: true },
+        // { key: "idKatalog", label: "Id Buku", sortable: true },
         { key: "katalog.judul", label: "Buku", sortable: true },
         { key: "tglPinjam", label: "Tanggal Peminjaman", sortable: true },
         { key: "tglKembali", label: "Tanggal Kembali", sortable: true },
@@ -430,47 +441,93 @@ export default {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
         },
       };
-      axios
+      // menghapus
+      Swal.fire({
+        title: "Apakah anda akan menghapus data ini?",
+       
+        showCancelButton: true,
+        confirmButtonText: `Hapus`,
+        
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          axios
         .delete(`http://localhost:8081/peminjaman/${id}`, config)
-        .then((res) =>
-          // alert("data telah dihapus ")
+        .then((res) => {
+          Swal.fire("Data Dihapus!", "", "success");
           console.log(res)
+          }
         )
         .catch((err) => console.log("===", err));
+        } else if (result.isDenied) {
+          Swal.fire("Data Tidak dihapus", "", "info");
+        }
+      });
+      // menghapus
+
+      
     },
   },
 
   async created() {
-    const config = {
+    // permision
+    if (localStorage.getItem("Bearer") === null) {
+      this.$router.push({ path: "/" });
+    } else {
+      const config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
         },
       };
-    await axios
-      .get(`http://localhost:8081/peminjaman/`,config)
-      .then((response) => {
-        // JSON responses are automatically parsed.
-        let keys = [
-          "id",
-          "tglPinjam",
-          "tglKembali",
-          "status",
-          "idUser",
-          "idKatalog",
-          "user",
-          "katalog",
-          "tagihan",
-        ];
-        let entries = this.filterData(response.data, keys);
-        entries.map((entry) => this.items.push(entry));
-        // this.items = response.data;
-        // this.$store.commit("setpengguna", this.posts);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      axios.get("http://localhost:8081/user/", config).then((respon) => {
+        this.$store.commit("setPersonalUser", respon.data);
+        console.log(
+          "username nya " + this.$store.getters.getPersonalUser.username
+        );
+        if (respon.data.roles[0].name == "ROLE_ADMIN") {
+          const config = {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("Bearer"),
+            },
+          };
+          axios
+            .get(`http://localhost:8081/peminjaman/`, config)
+            .then((response) => {
+              // JSON responses are automatically parsed.
+              let keys = [
+                "id",
+                "tglPinjam",
+                "tglKembali",
+                "status",
+                "idUser",
+                "idKatalog",
+                "user",
+                "katalog",
+                "tagihan",
+              ];
+              let entries = this.filterData(response.data, keys);
+              entries.map((entry) => this.items.push(entry));
+              this.totalRows = this.items.length;
+              // console.log(this.items.length);
+              // this.items = response.data;
+              // this.$store.commit("setpengguna", this.posts);
+            })
+            .catch((e) => {
+              this.errors.push(e);
+            });
 
-    this.totalRows = this.items.length;
+          // eslint-disable-next-line no-constant-condition
+        } else if (respon.data.roles[0].name == "ROLE_USER") {
+          //bisa menggunakan clear
+
+          this.$router.push({ path: "/" });
+        } else {
+          localStorage.removeItem("Bearer");
+          this.$router.push({ path: "/tentang" });
+        }
+      });
+    }
+    // permision
   },
 };
 </script>

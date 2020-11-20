@@ -63,6 +63,7 @@
 <script>
 import { Card, Button } from "@/components";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   name: "login-page",
@@ -82,23 +83,26 @@ export default {
   },
 
   methods: {
-    submit: function() {
+    submit() {
       axios
         .post("http://localhost:8081/guess/signin", this.data)
         .then((res) => {
+          Swal.fire("Mantabss!", "Anda berhasil Login!", "success");
           localStorage.setItem(res.data.tokenType, res.data.accessToken);
           this.$store.state.token = res.data.accessToken;
           const config = {
             headers: {
               Authorization: "Bearer " + res.data.accessToken,
+              // Authorization: "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjA1ODQyMzIwLCJleHAiOjE2MDY0NDcxMjB9.6HNGL66EntPxs3Z1nwtbGBD5IHfWi5VJsm27X3NQ3vaaOZdEABR3fIOZsme4wRijP9x3okyI9Fa2Y3F7YwfvgQ"
             },
           };
           axios.get("http://localhost:8081/user/", config).then((respon) => {
             // this.$store.state.personalUser = respon.data;
-            
-            this.$store.commit('setPersonalUser',respon.data);
+            this.$store.commit("setPersonalUser", respon.data);
             //jika di reload akan hilang
-            console.log("username nya "+this.$store.getters.getPersonalUser.username)
+            console.log(
+              "username nya " + this.$store.getters.getPersonalUser.username
+            );
             //console.log(respon.data.username);
             if (respon.data.roles[0].name == "ROLE_ADMIN") {
               console.log("masuk ke admin");
@@ -109,7 +113,6 @@ export default {
               this.$router.go({ path: "/" });
               // this.$router.push({ path: "katalog" });
             }
-            alert("anda berhasil masuk");
           });
         });
       this.$router.push({ path: "/" });

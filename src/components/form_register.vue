@@ -78,6 +78,7 @@
 import { Card, Button } from "@/components";
 import axios from "axios";
 import { mapGetters } from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   name: "signup-page",
@@ -99,13 +100,17 @@ export default {
   },
   methods: {
     submit: async function() {
-      console.log(this.data);
-      console.log(this.data);
       axios
         .post("http://localhost:8081/guess/signup", this.data)
-        .then((res) => console.log(res))
-        .then(alert("akun bisa dibuat"))
+        .then((res) => {
+          console.log(res);
+          Swal.fire("Mantabss!", "Anda berhasil Membuat Akun!, silahkan login", "success");
+        })
         .catch((err) => console.log(err));
+
+        //menghapus data
+        this.data={};
+        this.$router.push({ path: "/login" });
     },
   },
   computed: {

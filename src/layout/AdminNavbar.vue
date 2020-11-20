@@ -64,9 +64,15 @@
     <b-sidebar v-model="openSidebarProfil" backdrop shadow right>
       <center>
         <h3>Profil Anda</h3>
-        <b-img v-bind="mainProps" rounded="circle" class="m1" alt="Circle image" src="https://picsum.photos/250/250/?image=54"></b-img>
+        <b-img
+          v-bind="mainProps"
+          rounded="circle"
+          class="m1"
+          alt="Circle image"
+          src="https://picsum.photos/250/250/?image=54"
+        ></b-img>
       </center>
-      <br>
+      <br />
       <div class="container">
         <div class="form-group">
           <center>
@@ -121,13 +127,15 @@
 import { DropDown, Navbar, NavLink } from "@/components";
 import { Popover } from "element-ui";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 export default {
   name: "main-navbar",
   data() {
     return {
       openSidebarProfil: false,
       profilData: {},
-      mainProps: { width: 75, height: 75, class: 'm1' }
+      mainProps: { width: 75, height: 75, class: "m1" },
     };
   },
   props: {},
@@ -140,10 +148,10 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("Bearer");
-      alert("anda berhasil logout");
-
+      Swal.fire("Mantabss!", "Anda berhasil Logout!", "success");
       //this.$router.go();
-      this.$router.push({ name: "Home" });
+
+      setTimeout(this.$router.push({ name: "Home" }),2000);
     },
     updateProfil() {
       const config = {
@@ -155,11 +163,10 @@ export default {
       axios
         .put("http://localhost:8081/user/", this.profilData, config)
         .then((respon) => {
-          console.log("ini adallah");
           this.profilData = respon.data;
           console.log(this.profilData);
           this.openSidebarProfil = true;
-          alert("data anda telah di update");
+          Swal.fire("Mantabss!", "Anda berhasil Update Profil!", "success");
           this.openSidebarProfil = false;
         });
     },
@@ -171,9 +178,7 @@ export default {
       };
       console.log(config);
       axios.get("http://localhost:8081/user/", config).then((respon) => {
-        console.log("ini adallah");
         this.profilData = respon.data;
-        console.log(this.profilData);
 
         this.openSidebarProfil = true;
       });

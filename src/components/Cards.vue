@@ -33,7 +33,7 @@
             <b-button
               pill
               class="bg-primary"
-              @click="pinjam(post.id)"
+              @click="pinjam(post)"
               variant="primary"
               >Pinjam</b-button
             >
@@ -105,7 +105,7 @@
 
 <script>
 import axios from "axios";
-
+import Swal from "sweetalert2";
 export default {
   name: "CardPage",
   components: {},
@@ -123,11 +123,15 @@ export default {
     };
   },
   methods: {
-    pinjam: function(id) {
+    pinjam: function(post) {
       if (localStorage.getItem("Bearer") == null) {
-        alert("silahkan login dahulu");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Anda Perlu login terlebih dahulu!",
+        });
       } else {
-        const params = { idKatalog: `${id}` };
+        const params = { idKatalog: `${post.id}` };
         const config = {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("Bearer"),
@@ -137,9 +141,10 @@ export default {
 
         axios
           .post(`http://localhost:8081/user/`, params, config)
-          .then((res) =>
-            alert("anda berhasil meminjam buku ").then(console.log(res))
-          )
+          .then((res) => {
+            console.log(res);
+            Swal.fire( `${post.judul}`,"Berhasil Diminjam", "success");
+          })
           .catch((err) => console.log("===", err));
       }
 
@@ -161,7 +166,6 @@ export default {
       .then((response) => {
         // JSON responses are automatically parsed.
         this.posts = response.data;
-        console.log("ini adalah post cards" + this.posts);
         this.$store.commit("setkatalog", this.posts);
       })
       .catch((e) => {
