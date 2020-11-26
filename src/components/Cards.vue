@@ -11,16 +11,14 @@
           lg="3"
         >
           <b-card
-            img-src="https://picsum.photos/600/300/?image=25"
-            img-alt="Image"
-            img-tops
+            
             tag="article"
             style="max-width: 20rem;"
-            class="card"
+            class="card "
           >
+          <b-card-img :src= post.foto alt="Image" top class="card"></b-card-img>
             <b-card-text>
               <p class="font-weight-bold">{{ post.judul }}</p>
-              <p></p>
               <p>{{ post.author }} - {{ post.tahun }}</p>
             </b-card-text>
             <b-button
@@ -57,7 +55,7 @@
             ><img
               class="img-responsive"
               style="margin:0 auto;"
-              src="https://picsum.photos/600/300/?image=25"
+              :src= modals.foto
               alt=""
             />
           </b-col>
@@ -143,7 +141,7 @@ export default {
           .post(`http://localhost:8081/user/`, params, config)
           .then((res) => {
             console.log(res);
-            Swal.fire( `${post.judul}`,"Berhasil Diminjam", "success");
+            Swal.fire(`${post.judul}`, "Berhasil Diminjam", "success");
           })
           .catch((err) => console.log("===", err));
       }
@@ -162,7 +160,7 @@ export default {
   // Fetches posts when the component is created.
   created() {
     axios
-      .get(`http://localhost:8081/guess/k/`)
+      .get(`http://localhost:8081/guess/k`)
       .then((response) => {
         // JSON responses are automatically parsed.
         this.posts = response.data;
@@ -179,7 +177,7 @@ export default {
 .card {
   max-width: 275px;
   border-radius: 15px;
-  border-top-right-radius: 15px;
+  /* border-top-right-radius: 15px; */
 }
 .container {
   display: grid;
