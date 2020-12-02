@@ -54,6 +54,13 @@
               <small id="emailHelp" class="form-text text-muted"
                 >kami berkomitmen menjaga privasi akun anda</small
               >
+              <b-form-file
+                v-model="data.foto"
+                :state="Boolean(data.foto)"
+                placeholder="Choose a file or drop it here..."
+                drop-placeholder="Drop file here..."
+              ></b-form-file>
+              
               <button
                 type="submit"
                 @click="submit"
@@ -95,6 +102,7 @@ export default {
         email: "",
         noHp: "",
         password: "",
+        foto:""
       },
     };
   },
@@ -104,13 +112,17 @@ export default {
         .post("http://localhost:8081/guess/signup", this.data)
         .then((res) => {
           console.log(res);
-          Swal.fire("Mantabss!", "Anda berhasil Membuat Akun!, silahkan login", "success");
+          Swal.fire(
+            "Mantabss!",
+            "Anda berhasil Membuat Akun!, silahkan login",
+            "success"
+          );
         })
         .catch((err) => console.log(err));
 
-        //menghapus data
-        this.data={};
-        this.$router.push({ path: "/login" });
+      //menghapus data
+      this.data = {};
+      this.$router.push({ path: "/login" });
     },
   },
   computed: {

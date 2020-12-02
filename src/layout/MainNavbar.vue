@@ -84,7 +84,7 @@
           rounded="circle"
           class="m1"
           alt="Circle image"
-          src="https://picsum.photos/250/250/?image=54"
+          :src= profilData.foto
         ></b-img>
       </center>
       <br />

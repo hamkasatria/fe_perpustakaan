@@ -459,6 +459,7 @@ export default {
                 "email",
                 "updatedAt",
                 "roles",
+                "foto"
               ];
               let entries = this.filterData(response.data, keys);
               entries.map((entry) => this.items.push(entry));

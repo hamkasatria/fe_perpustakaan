@@ -300,6 +300,22 @@
                     required
                   ></b-form-textarea>
                 </b-form-group>
+                <b-form-file
+                  v-model="file"
+                  placeholder="Choose a file or drop it here..."
+                  drop-placeholder="Drop file here..."
+                  ref="file"
+                  id="file"
+                  type="file"
+                ></b-form-file>
+              </b-col>
+              <b-col>
+                <img
+                  class="img_modal"
+                  rounded
+                  src="https://blog.sribu.com/wp-content/uploads/2018/07/Cover-Buku-Minimalis.jpg"
+                  alt=""
+                />
               </b-col>
             </b-row>
           </form>
@@ -327,6 +343,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+// import _ from 'lodash';
 export default {
   data() {
     return {
@@ -339,7 +356,7 @@ export default {
         { key: "actions", label: "Actions" },
       ],
       items: [],
-
+      file: null,
       modalData: {
         judul: "",
         author: "",
@@ -353,6 +370,10 @@ export default {
         tahun: "",
         jumlah: "",
         sinopsis: "",
+      },
+      formData: {
+        title: null,
+        content: null,
       },
       totalRows: 1,
       currentPage: 1,
@@ -435,19 +456,76 @@ export default {
       alert("data telah di update");
       this.$refs["modal_update"].hide();
     },
-    createKatalog() {
-      console.log(this.modalData);
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+      console.log("ini adaialh filenya === " + this.file);
+    },
+    uploadFile() {
       const config = {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+          // Authorization: "Bearer " + localStorage.getItem("Bearer"),
+          "Content-Type": "multipart/form-data",
         },
       };
+      //menambahkan file
+      let data = JSON.stringify(this.newModalData);
+      console.log(data);
+      let formData = new FormData();
+
+      formData.append("file", this.$refs.file.files[0]);
+      // formData.append("katalog", data);
+      formData.append(
+        "katalog",
+        '{"judul":"New Book Photos","author":"hamka saja","tahun":"2020","sinopsis":"awefawefawefawefawefawef","jumlah":"2"}'
+      );
+      // formData.append('katalog','{"author":"Ksaja",	"judul": "Some Key",	"tahun": 2020,	"sinopsis": "a",	"jumlah": 5}');
+
+      // _.each(this.newModalData, (value, key) => {
+      //   formData.append(key, value)
+      // })
+
+      // this.newModalData.append('file', this.file);
+      console.log(formData.getAll("file"));
+
+      console.log(formData);
+      // let sendData = `[formData]`;
       axios
-        .post("http://localhost:8081/katalog/", this.newModalData, config)
+        .post("http://localhost:8081/files/", formData, config)
         .then((res) => console.log(res))
         .then(alert("akun bisa dibuat"))
         .catch((err) => console.log(err));
       this.$refs["modal_create"].hide();
+    },
+    createKatalog() {
+      const config = {
+        headers: {
+          // Authorization: "Bearer " + localStorage.getItem("Bearer"),
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      //menambahkan file
+      let json = JSON.stringify(this.newModalData);
+      let formData = new FormData();
+      const blob = new Blob([json], {
+        type: "application/json",
+      });
+      console.log(blob);
+
+      formData.append("file", this.$refs.file.files[0]);
+      formData.append("katalog", blob);
+      console.log(formData.getAll("file"));
+      console.log(formData.getAll("katalog"));
+      console.log(formData);
+      // let sendData = `[formData]`;
+      axios
+        .post("http://localhost:8081/katalog/", formData, config)
+        .then((res) => console.log(res))
+        .then(alert("akun bisa dibuat"))
+        .catch((err) => console.log(err));
+      this.$refs["modal_create"].hide();
+    },
+    onFileUpload(event) {
+      this.file = event.target.files[0];
     },
     hapus(id) {
       console.log("hapus id " + id);
@@ -459,10 +537,9 @@ export default {
       // menghapus
       Swal.fire({
         title: "Apakah anda akan menghapus data ini?",
-        
+
         showCancelButton: true,
         confirmButtonText: `Hapus`,
-        
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
@@ -545,5 +622,10 @@ export default {
 <style scoped>
 .container {
   margin: 50px;
+}
+.img_modal {
+  max-width: 75%;
+  height: auto;
+  border-radius: 15px;
 }
 </style>
