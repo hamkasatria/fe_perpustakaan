@@ -209,6 +209,23 @@
                     required
                   ></b-form-textarea>
                 </b-form-group>
+                <b-form-file
+                  placeholder="Choose a file or drop it here..."
+                  drop-placeholder="Drop file here..."
+                  ref="file"
+                  id="file"
+                  type="file"
+                  v-on:change="handleFileUpload"
+                ></b-form-file>
+              </b-col>
+              <b-col>
+                <img
+                  v-if="url"
+                  :src="url"
+                  class="img_modal"
+                  id="imagePreview"
+                  alt=""
+                />
               </b-col>
             </b-row>
           </form>
@@ -223,7 +240,7 @@
             pill
             class="bg-primary"
             variant="outline-warning"
-            @click="updateKatalog()"
+            @click="updateKatalog"
             >Update</b-button
           >
         </b-modal>
@@ -301,19 +318,20 @@
                   ></b-form-textarea>
                 </b-form-group>
                 <b-form-file
-                  v-model="file"
                   placeholder="Choose a file or drop it here..."
                   drop-placeholder="Drop file here..."
                   ref="file"
                   id="file"
                   type="file"
+                  v-on:change="handleFileUpload"
                 ></b-form-file>
               </b-col>
               <b-col>
                 <img
+                  v-if="url"
+                  :src="url"
                   class="img_modal"
-                  rounded
-                  src="https://blog.sribu.com/wp-content/uploads/2018/07/Cover-Buku-Minimalis.jpg"
+                  id="imagePreview"
                   alt=""
                 />
               </b-col>
@@ -356,6 +374,7 @@ export default {
         { key: "actions", label: "Actions" },
       ],
       items: [],
+      url: "https://i.imgur.com/J5LVHEL.jpg",
       file: null,
       modalData: {
         judul: "",
@@ -363,6 +382,7 @@ export default {
         tahun: "",
         jumlah: "",
         sinopsis: "",
+        foto:""
       },
       newModalData: {
         judul: "",
@@ -420,9 +440,17 @@ export default {
       Object.assign(this.modalData, item);
       console.log(this.modalData);
       this.$refs["modal_update"].show();
+      this.url=this.modalData.foto
     },
     modal_create() {
       this.$refs["modal_create"].show();
+      if (this.modalData.foto == null) {
+        console.log("ini adalah foto"+this.modalData.foto);
+        this.url= "https://i.imgur.com/J5LVHEL.jpg"
+      } else {
+        console.log("ini adalah foto"+this.modalData.foto);
+        this.url=this.modalData.foto
+      }
     },
     hideModal(modal) {
       this.$refs[modal].hide();
@@ -438,16 +466,30 @@ export default {
     },
     updateKatalog() {
       // belum bisa update
-      const params = this.modalData;
+      // const params = this.modalData;
       const config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("Bearer"),
+          "Content-Type": "multipart/form-data",
         },
       };
+
+      //menambahkan file
+      let json = JSON.stringify(this.modalData);
+      let formData = new FormData();
+      const blob = new Blob([json], {
+        type: "application/json",
+      });
+      
+      formData.append("file", this.$refs.file.files[0]);
+      formData.append("katalog", blob);
+      console.log(formData.getAll("file"));
+      console.log(formData.getAll("katalog"));
+      console.log(formData);
       axios
         .put(
           `http://localhost:8081/katalog/${this.modalData.id}`,
-          params,
+          formData,
           config
         )
         .then((res) => console.log(res))
@@ -456,50 +498,16 @@ export default {
       alert("data telah di update");
       this.$refs["modal_update"].hide();
     },
-    handleFileUpload() {
+    handleFileUpload(e) {
       this.file = this.$refs.file.files[0];
+      const file = e.target.files[0];
       console.log("ini adaialh filenya === " + this.file);
-    },
-    uploadFile() {
-      const config = {
-        headers: {
-          // Authorization: "Bearer " + localStorage.getItem("Bearer"),
-          "Content-Type": "multipart/form-data",
-        },
-      };
-      //menambahkan file
-      let data = JSON.stringify(this.newModalData);
-      console.log(data);
-      let formData = new FormData();
-
-      formData.append("file", this.$refs.file.files[0]);
-      // formData.append("katalog", data);
-      formData.append(
-        "katalog",
-        '{"judul":"New Book Photos","author":"hamka saja","tahun":"2020","sinopsis":"awefawefawefawefawefawef","jumlah":"2"}'
-      );
-      // formData.append('katalog','{"author":"Ksaja",	"judul": "Some Key",	"tahun": 2020,	"sinopsis": "a",	"jumlah": 5}');
-
-      // _.each(this.newModalData, (value, key) => {
-      //   formData.append(key, value)
-      // })
-
-      // this.newModalData.append('file', this.file);
-      console.log(formData.getAll("file"));
-
-      console.log(formData);
-      // let sendData = `[formData]`;
-      axios
-        .post("http://localhost:8081/files/", formData, config)
-        .then((res) => console.log(res))
-        .then(alert("akun bisa dibuat"))
-        .catch((err) => console.log(err));
-      this.$refs["modal_create"].hide();
+      this.url = URL.createObjectURL(file);
     },
     createKatalog() {
       const config = {
         headers: {
-          // Authorization: "Bearer " + localStorage.getItem("Bearer"),
+          Authorization: "Bearer " + localStorage.getItem("Bearer"),
           "Content-Type": "multipart/form-data",
         },
       };
@@ -590,6 +598,7 @@ export default {
                 "tahun",
                 "sinopsis",
                 "jumlah",
+                "foto"
               ];
               let entries = this.filterData(response.data, keys);
               entries.map((entry) => this.items.push(entry));
@@ -627,5 +636,9 @@ export default {
   max-width: 75%;
   height: auto;
   border-radius: 15px;
+  /* width: 30%;
+  margin: auto;
+  display: block;
+  margin-bottom: 10px; */
 }
 </style>
