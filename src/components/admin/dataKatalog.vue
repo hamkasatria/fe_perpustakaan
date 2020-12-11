@@ -374,7 +374,7 @@ export default {
         { key: "actions", label: "Actions" },
       ],
       items: [],
-      url: "https://i.imgur.com/J5LVHEL.jpg",
+      url: "http://localhost:8081/files/ImageKatalog.jpg",
       file: null,
       modalData: {
         judul: "",
@@ -382,7 +382,7 @@ export default {
         tahun: "",
         jumlah: "",
         sinopsis: "",
-        foto:""
+        foto: "",
       },
       newModalData: {
         judul: "",
@@ -440,17 +440,11 @@ export default {
       Object.assign(this.modalData, item);
       console.log(this.modalData);
       this.$refs["modal_update"].show();
-      this.url=this.modalData.foto
+      this.url = this.modalData.foto;
     },
     modal_create() {
       this.$refs["modal_create"].show();
-      if (this.modalData.foto == null) {
-        console.log("ini adalah foto"+this.modalData.foto);
-        this.url= "https://i.imgur.com/J5LVHEL.jpg"
-      } else {
-        console.log("ini adalah foto"+this.modalData.foto);
-        this.url=this.modalData.foto
-      }
+      this.url = "http://localhost:8081/files/ImageKatalog.jpg";
     },
     hideModal(modal) {
       this.$refs[modal].hide();
@@ -480,8 +474,9 @@ export default {
       const blob = new Blob([json], {
         type: "application/json",
       });
-      
+
       formData.append("file", this.$refs.file.files[0]);
+      // formData.append("file",http://localhost:8081/files/ImageUser.png);
       formData.append("katalog", blob);
       console.log(formData.getAll("file"));
       console.log(formData.getAll("katalog"));
@@ -492,10 +487,12 @@ export default {
           formData,
           config
         )
-        .then((res) => console.log(res))
+        .then((res) => {
+          alert("data telah di update");
+          console.log(res);
+        })
         .catch((err) => console.log("===", err));
       // end database
-      alert("data telah di update");
       this.$refs["modal_update"].hide();
     },
     handleFileUpload(e) {
@@ -507,7 +504,7 @@ export default {
     createKatalog() {
       const config = {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("Bearer"),
+          // Authorization: "Bearer " + localStorage.getItem("Bearer"),
           "Content-Type": "multipart/form-data",
         },
       };
@@ -527,8 +524,10 @@ export default {
       // let sendData = `[formData]`;
       axios
         .post("http://localhost:8081/katalog/", formData, config)
-        .then((res) => console.log(res))
-        .then(alert("akun bisa dibuat"))
+        .then((res) => {
+          console.log(res);
+          alert("katalog bisa dibuat");
+        })
         .catch((err) => console.log(err));
       this.$refs["modal_create"].hide();
     },
@@ -598,7 +597,7 @@ export default {
                 "tahun",
                 "sinopsis",
                 "jumlah",
-                "foto"
+                "foto",
               ];
               let entries = this.filterData(response.data, keys);
               entries.map((entry) => this.items.push(entry));

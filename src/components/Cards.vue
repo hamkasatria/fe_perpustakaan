@@ -14,9 +14,9 @@
             
             tag="article"
             style="max-width: 20rem;"
-            class="card "
+            class="card"
           >
-          <b-card-img :src= post.foto alt="Image" top class="card"></b-card-img>
+          <b-card-img :src= post.foto alt="Image" top class="img_card"></b-card-img>
             <b-card-text>
               <p class="font-weight-bold">{{ post.judul }}</p>
               <p>{{ post.author }} - {{ post.tahun }}</p>
@@ -174,11 +174,19 @@ export default {
 </script>
 
 <style scoped>
-.card {
+.img_card {
   max-width: 275px;
+  height: 275px;
+
   border-radius: 15px;
   /* border-top-right-radius: 15px; */
 }
+
+.card{
+  border-radius: 15px;
+  min-height: 400px;
+}
+
 .container {
   display: grid;
   grid-template-columns: 66% auto;
